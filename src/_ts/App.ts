@@ -1,4 +1,6 @@
 import {Controller} from './Controller.js';
+import inputPreview2 from './inputPreview2';
+
 
 const _QLNT = class extends Controller {
 	constructor() {
@@ -13,7 +15,7 @@ const _QLNT = class extends Controller {
 		let compoName = element.getAttribute('component');
 
 		const lookName = Array.from(nameTHs)
-		.map((val)=>val.getAttribute('for'));
+		.map((val: any)=>val.getAttribute('for'));
 
 		const updateTable = function(err, data) {
 			if (err) return;

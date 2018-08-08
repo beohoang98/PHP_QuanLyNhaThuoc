@@ -14,7 +14,7 @@ const _HoaDonForm = class {
 	private _CTHDTable		: HTMLTableElement | undefined;
 
 	public constructor() {
-		this._database = "/api/addHoaDon.php";
+		this._database = "/public/api/addHoaDon.php";
 		const match = document.cookie.match(/username=(\w+)/);
 
 		this._username = match ? match[1] : "";

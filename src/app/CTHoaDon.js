@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const _CTHoaDon = class {
     constructor(ma = -1, ten = "", donvi = -1, sl = 0, thanhtien = 0) {
         this.ma = ma;
@@ -103,4 +105,4 @@ const _CTHoaDon = class {
         this._childElement[name].textContent = value;
     }
 };
-export { _CTHoaDon as CTHoaDon };
+exports.CTHoaDon = _CTHoaDon;

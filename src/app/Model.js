@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const _Model = class {
     constructor() {
         this._database = "";
@@ -38,4 +40,4 @@ const _Model = class {
         });
     }
 };
-export { _Model as Model };
+exports.Model = _Model;

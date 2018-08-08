@@ -7,13 +7,13 @@ class inputPreview2 {
 	_currentPreviewData : Array<any>;
 
 	constructor(target = document) {
-		this._list = Object({});
+		this._list = {};
 		this._data = [];
-		this._lookup = Object({});
+		this._lookup = {};
 		this._target = target;
 		this._preview_div = null;
 		this._currentPreviewData = Array();
-		//constructor    
+		// constructor    
 		document.addEventListener("click", (e)=>{
 			const target = e.target as HTMLElement;
 			if (!target.classList.hasOwnProperty("preview-row"))
@@ -57,7 +57,7 @@ class inputPreview2 {
 
 	listen(id, callback) {
 		let element = document.getElementById(id);
-		element.addEventListener("keydown", (e)=>{
+		element.addEventListener("keydown", (e : KeyboardEvent)=>{
 			let code = e.keyCode;
 			if (code == 27) //esc
 			{
@@ -113,17 +113,18 @@ class inputPreview2 {
 
 			let input_preview = this._createFlyWrap(input);
 			this._preview_div = input_preview;
-			document.body.appendChild(input_preview);
 
 			let value = input.value;
 
-			for (let row of this._data) {
+			for (const row of this._data) {
 				if (!this._isLike(row[this._lookup[id]], value)) continue;
 				this._currentPreviewData.push(row);
 
 				let arr = [];
-				for (let name in this._lookup) {
-					arr.push(row[name]);
+				for (const name in this._lookup) {
+					if (!this._lookup[name]) continue;
+					const field = this._lookup[name];
+					arr.push(row[field]);
 				}
 				
 				
@@ -133,6 +134,8 @@ class inputPreview2 {
 					this._deletePreview();
 				});
 				input_preview.appendChild(newRow);
+
+				document.body.appendChild(input_preview);
 			}
 		}
 		else {
@@ -144,7 +147,7 @@ class inputPreview2 {
 	 * @param {HTMLDivElement} element 
 	 * @param {string} value 
 	 */
-	_createFlyWrap(element) {
+	private _createFlyWrap(element) {
 		if (!element) return null;
 		let rect = element.getBoundingClientRect();
 
@@ -163,7 +166,7 @@ class inputPreview2 {
 	 * @param {String} str1 
 	 * @param {String} str2 
 	 */
-	_isLike(str1, str2)
+	private _isLike(str1, str2)
 	{
 		str1 = str1.trim();
 		str2 = str2.trim();
@@ -205,3 +208,5 @@ class inputPreview2 {
 		});
 	}
 }
+
+export default inputPreview2;

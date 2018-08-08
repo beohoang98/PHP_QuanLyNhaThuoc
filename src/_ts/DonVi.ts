@@ -1,10 +1,12 @@
-import {Model} from "./Model.js";
+import {Model} from "./Model";
 
-const _DonVi = class extends Model {
+class _DonVi extends Model {
+	private _fetchData: any;
+
 	constructor()
 	{
 		super();
-		this._database = "/api/getDonvi.php";
+		this._database = "/public/api/getDonvi.php";
 		this._fetchData = null;
 	}
 

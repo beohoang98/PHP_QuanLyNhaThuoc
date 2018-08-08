@@ -1,5 +1,5 @@
-import {HoaDonForm} from '/static/app/HoaDonForm.js';
-import {QLNT} from '/static/app/App.js';
+const {HoaDonForm} = require('../app/HoaDonForm');
+const {QLNT} = require('../app/App');
 
 const hoaDonForm = new HoaDonForm();
 const App = new QLNT();

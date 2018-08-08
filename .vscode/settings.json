@@ -11,6 +11,11 @@
 
 	"git.autofetch": false,
 	
+	"phpcs.standard": "PSR1",
+	"phpcs.ignorePatterns": [
+		
+	],
+
 	// "pgsql.connection": "postgresql://postgres:486251793@127.0.0.1:5432/qlnt",
 	
 	//for heroku database

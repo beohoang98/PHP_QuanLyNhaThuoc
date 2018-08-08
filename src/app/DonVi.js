@@ -1,8 +1,10 @@
-import { Model } from "./Model.js";
-const _DonVi = class extends Model {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Model_1 = require("./Model");
+class _DonVi extends Model_1.Model {
     constructor() {
         super();
-        this._database = "/api/getDonvi.php";
+        this._database = "/public/api/getDonvi.php";
         this._fetchData = null;
     }
     update(callback) {
@@ -42,5 +44,5 @@ const _DonVi = class extends Model {
         }
         return newData;
     }
-};
-export { _DonVi as DonVi };
+}
+exports.DonVi = _DonVi;
