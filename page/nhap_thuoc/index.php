@@ -1,60 +1,51 @@
-<?php
-    require $_SERVER['DOCUMENT_ROOT']."\\public\\api\\_checkSessionCode.php";
-?>
-<head>
-<?php require $_SERVER['DOCUMENT_ROOT'].'\\page\\_layouts\\meta.php' ?>
-    <style media="screen">
-        body {
-            background-color: #f8f8f8;
-        }
-        #tag {
-            border: 1px solid #ccccff;
-        }
-        .tag {
-            margin: 0.5em;
-        }
-    </style>
-</head>
-<body>
-    <div class="bg-dark text-center text-light">
-        <h2>NHẬP MỚI THUỐC</h2>
-    </div>
-    <div class="container">
-        <form id="form" class="form-horizontal" role='form' action="#" method="post">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <label for="ma_thuoc">Mã Thuốc</label>
-                    <input class="form-control" type="number" id="ma_thuoc" name="ma_thuoc" required>
-                </div>
-                <div class="col-md-8">
-                    <label for="ten_thuoc">Tên Thuốc</label>
-                    <input class="form-control" type="text" id="ten_thuoc" name="ten_thuoc" autocomplete='off' required>
-                </div>
+<style media="screen">
+    body {
+        background-color: #f8f8f8;
+    }
+    #tag {
+        border: 1px solid #ccccff;
+    }
+    .tag {
+        margin: 0.5em;
+    }
+</style>
+<div class="bg-dark text-center text-light">
+    <h2>NHẬP MỚI THUỐC</h2>
+</div>
+<div class="container">
+    <form id="form" class="form-horizontal" role='form' action="#" method="post">
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label for="ma_thuoc">Mã Thuốc</label>
+                <input class="form-control" type="number" id="ma_thuoc" name="ma_thuoc" required>
             </div>
-            <div class="form-group row">
-                <div class="col-md-8">
-                    <label for="ten_nsx">Nhà sản xuất</label>
-                    <input class="form-control" type="text" id="ten_nsx" name="nsx" required>
-                </div>
-                <div class="col-md-4">
-                    <label for="tag">Viết tắt</label>
-                    <input class="form-control" type="text" id="tag" name="viet_tat">
-                </div>
+            <div class="col-md-8">
+                <label for="ten_thuoc">Tên Thuốc</label>
+                <input class="form-control" type="text" id="ten_thuoc" name="ten_thuoc" autocomplete='off' required>
             </div>
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <label for="don_vi">Đơn vị</label>
-                    <select class="form-control" id="don_vi" name="don_vi" required></select>
-                </div>
-                <div class="col-md-8">
-                    <label for="don_gia">Đơn giá</label>
-                    <input class="form-control" type="text" id="don_gia" name="don_gia" required>
-                </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-8">
+                <label for="ten_nsx">Nhà sản xuất</label>
+                <input class="form-control" type="text" id="ten_nsx" name="nsx" required>
             </div>
-            <div class="form-group">
-                <button class="form-control btn btn-dark btn-outline-dark" type="submit" name="button">THÊM</button>
+            <div class="col-md-4">
+                <label for="tag">Viết tắt</label>
+                <input class="form-control" type="text" id="tag" name="viet_tat">
             </div>
-        </form>
-    </div>
-    <script src="/public/static/js/nhap-thuoc.js"></script>
-</body>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-4">
+                <label for="don_vi">Đơn vị</label>
+                <select class="form-control" id="don_vi" name="don_vi" required></select>
+            </div>
+            <div class="col-md-8">
+                <label for="don_gia">Đơn giá</label>
+                <input class="form-control" type="text" id="don_gia" name="don_gia" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="form-control btn btn-dark btn-outline-dark" type="submit" name="button">THÊM</button>
+        </div>
+    </form>
+</div>

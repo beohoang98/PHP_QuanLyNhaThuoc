@@ -1,7 +1,7 @@
 const BangDonVi = require('../app/BangDonVi').default;
 
 function fetchToTable(data) {
-    $("#table-body").children().remove();
+    $("#nhap_don_vi--table-body").children().remove();
     $('.will-be-update').remove();
 
     for (let id of Object.keys(data)) {
@@ -14,8 +14,8 @@ function fetchToTable(data) {
             .append($('<td/>').text(quydoiText));
 
         let opt = $('<option/>').val(id).text(ten).addClass('will-be-update');
-        $("#id_quy_doi").append(opt);
-        $('#table-body').append(row);
+        $("#nhap_don_vi--id_quy_doi").append(opt);
+        $('#nhap_don_vi--table-body').append(row);
     }
 }
 
@@ -28,12 +28,12 @@ $(document).ready(async ()=>{
     const popup = new StatusPopup();
     popup.create();
 
-    $("#form").on('submit', (e)=>{
+    $("#nhap_don_vi--form").on('submit', (e)=>{
         e.preventDefault();
 
-        const tenDonVi = $('#ten_don_vi').val();
-        const idQuyDoi = $('#id_quy_doi').val();
-        const heSoQuyDoi = idQuyDoi == "null" ? 0 : $("#he_so_quydoi").val();
+        const tenDonVi = $('#nhap_don_vi--ten_don_vi').val();
+        const idQuyDoi = $('#nhap_don_vi--id_quy_doi').val();
+        const heSoQuyDoi = idQuyDoi == "null" ? 0 : $("#nhap_don_vi--he_so_quydoi").val();
 
         $.ajax('/api/addDonvi.php', {
             method: 'post',
@@ -58,8 +58,8 @@ $(document).ready(async ()=>{
                     popup.hide();
                 }, 1000);
 
-                $("input").val("");
-                $("#id_quy_doi").val("null");
+                $("#nhap_don_vi--form input").val("");
+                $("#nhap_don_vi--id_quy_doi").val("null");
             },
             error: function(err) {
                 popup.setStatus(false, err.responseText);
@@ -72,9 +72,9 @@ $(document).ready(async ()=>{
 
 
     // on input quy doi don vi
-    $('#id_quy_doi').on('change', function ChangeOnInputDonVi(e) {
+    $('#nhap_don_vi--id_quy_doi').on('change', function ChangeOnInputDonVi(e) {
         let val = $(this).val();
-        $('#he_so_quydoi').prop('disabled', val == 'null');
+        $('#nhap_don_vi--he_so_quydoi').prop('disabled', val == 'null');
     });
 
     // update data request

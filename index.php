@@ -1,5 +1,5 @@
 <?php
-    require $_SERVER['DOCUMENT_ROOT']."\\public\\api\\_checkSessionCode.php";
+    require realpath($_SERVER['DOCUMENT_ROOT']."\\public\\api\\_checkSessionCode.php");
     $username = $_SESSION['username'];
 ?>
 
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8"/>
     <title>Quan Ly Nha Thuoc</title>
-    <?php require $_SERVER['DOCUMENT_ROOT'].'\\page\\_layouts\\meta.php' ?>
+    <?php require realpath($_SERVER['DOCUMENT_ROOT'].'\\page\\_layouts\\meta.php') ?>
 </head>
 <body class='home'>
     <nav class="bg-dark sidebar" role="navigation">
@@ -59,20 +59,21 @@
     </nav>
     <div class='frame-container'>
         <div class="frame-slide">
-            <div>
-                <iframe id="frameNhapHoaDon" src="/page/nhap_hoa_don/" scrolling="auto" onload="resizeiframe(this);"></iframe>
+            <div class='page' id='page-nhap-hoa-don'>
+                <?php require realpath($ROOT."/page/nhap_hoa_don/index.php") ?>
             </div>
-            <div>
-                <iframe id="frameNhapThuoc" src="/page/nhap_thuoc/" scrolling="auto" onload="resizeiframe(this);"></iframe>
+            <div class='page' id='page-nhap-thuoc'>
+                <?php require realpath($ROOT."/page/nhap_thuoc/index.php") ?>
             </div>
-            <div>
-                <iframe id="frameNhapNSX" src="/page/nhap_nsx/" scrolling="auto" onload="resizeiframe(this);"></iframe>
+            <div class='page' id='page-nhap-nsx'>
+                <?php require realpath($ROOT."/page/nhap_nsx/index.php") ?>    
             </div>
-            <div>
-                <iframe id="frameNhapDonVi" src="/page/nhap_don_vi/" scrolling="auto" onload="resizeiframe(this);"></iframe>
+            <div class='page' id='page-nhap-don-vi'>
+                <?php require realpath($ROOT."/page/nhap_don_vi/index.php") ?>
             </div>
         </div>
     </div>
     <script src="script.js"></script>
+    <script src="/public/static/js/bundle.js"></script>
 </body>
 </html>

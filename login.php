@@ -10,7 +10,7 @@
     $ROOT = $_SERVER['DOCUMENT_ROOT'];
     // IF NOT LOGIN YET
     if (isset($_POST['submit']) && isset($_POST['username']) && isset($_POST['password'])) {
-        require $ROOT."\\src\\connect-database\\connectPG\\index.php";
+        require realpath($ROOT."\\src\\connect-database\\connectPG\\index.php");
 
         $sql = new mSQL();
 
@@ -42,7 +42,7 @@
     <head>
         <meta charset="utf-8">
         <title>LOGIN</title>
-        <?php require $ROOT."\\page\\_layouts\\meta.php";?>
+        <?php require realpath($ROOT."\\page\\_layouts\\meta.php");?>
     </head>
     <body>
         <?php

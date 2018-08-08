@@ -35,9 +35,9 @@
 	flex-flow: row;
 	position: relative;
 
-	iframe {
-		border: none;
-		width: 100%;
+	.page {
+		height: 100vh;
+		position: relative;
 	}
 
 	.title {
