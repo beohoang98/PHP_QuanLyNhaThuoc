@@ -5,7 +5,7 @@ const _Nsx = class extends Model {
 	constructor()
 	{
 		super();
-		this._database = "/api/getNsx.php";
+		this._database = "/public/api/getNsx.php";
 	}
 
 	update(callback)

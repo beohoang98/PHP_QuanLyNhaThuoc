@@ -1,7 +1,14 @@
 class BangDonVi {
+	private _map: any;
+	private _list: any;
+	private _isConnect: boolean;
+	private _connectStatus: string;
+	private _isFetched: boolean;
+	private _dbURL: string;
+
 	constructor() {
-		this._map = Object();
-		this._list = Array();
+		this._map = {};
+		this._list = [];
 		this._isConnect = false;
 		this._connectStatus = "";
 		this._isFetched = false;
@@ -13,14 +20,14 @@ class BangDonVi {
 	}
 
 	async update(url) {
-		let res = await fetch('/api/getDonvi.php', {credentials: 'include'});
-		
+		let res = await fetch('/public/api/getDonvi.php', {credentials: 'include'});
+
 		if (!res.ok) {
 			this._isConnect = false;
-			this._connectStatus = res.responseText;
+			this._connectStatus = res.statusText;
 			return;
 		}
-			
+	
 		this._isConnect = true;
 		this._connectStatus = "";
 		
@@ -44,29 +51,28 @@ class BangDonVi {
 				ten: row['ten'],
 				donvi_quydoi: null,
 				heso: null,
-				quydoiText: "đơn vị cơ bản"
+				quydoiText: "đơn vị cơ bản",
 			};
 		}
 
-		for (let id of Object.keys(this._map))
-		{
-			let id_coban = this._map[id].data['id_quy_doi'];
+		for (let id of Object.keys(this._map)) {
+			let idCoban = this._map[id].data['id_quy_doi'];
 			let heso = +this._map[id].data['he_so_quydoi'];
 
-			if (id_coban == null) {
+			if (idCoban == null) {
 				continue;
 			}
 
-			while (this._map[id_coban].data['id_quy_doi'] != null)
+			while (this._map[idCoban].data['id_quy_doi'] != null)
 			{
-				heso *= +this._map[id_coban].data['he_so_quydoi'];
-				id_coban = this._map[id_coban].data['id_quy_doi'];
+				heso *= +this._map[idCoban].data['he_so_quydoi'];
+				idCoban = this._map[idCoban].data['id_quy_doi'];
 			}
 
-			this._map[id]['donvi_quydoi'] = this._map[id_coban];
+			this._map[id]['donvi_quydoi'] = this._map[idCoban];
 			this._map[id]['heso'] = heso;
-			this._map[id]['quydoiText'] = "= " + heso + "x [" 
-										+ this._map[id_coban].ten + "]";
+			this._map[id]['quydoiText'] = "= " + heso + "x ["
+										+ this._map[idCoban].ten + "]";
 		}
 	}
 
@@ -78,3 +84,5 @@ class BangDonVi {
 		return this._list;
 	}
 }
+
+export default BangDonVi;

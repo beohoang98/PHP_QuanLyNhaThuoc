@@ -1,8 +1,10 @@
-import { Model } from "./Model.js";
-const _Nsx = class extends Model {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Model_js_1 = require("./Model.js");
+const _Nsx = class extends Model_js_1.Model {
     constructor() {
         super();
-        this._database = "/api/getNsx.php";
+        this._database = "/public/api/getNsx.php";
     }
     update(callback) {
         let $this = this;
@@ -15,4 +17,4 @@ const _Nsx = class extends Model {
         });
     }
 };
-export { _Nsx as Nsx };
+exports.Nsx = _Nsx;

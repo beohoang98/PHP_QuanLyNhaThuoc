@@ -1,15 +1,10 @@
 <?php
-	require "../../api/_checkSessionCode.php";
+	require $_SERVER['DOCUMENT_ROOT']."\\public\\api\\_checkSessionCode.php";
 ?>
 <html>
 <head>
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="/static/fontawesome/fontawesome-all.min.css">
-	<link rel="stylesheet" href="/static/lib/lib.css">
-	
-	<script src="/static/jquery/jquery-3.3.1.min.js"></script>
-	<script src="/static/lib/lib.js"></script>
-	<script src="Donvi.js"></script>
+	<?php require $_SERVER['DOCUMENT_ROOT'].'\\page\\_layouts\\meta.php' ?>
+	<script src="/public/static/js/Donvi.js"></script>
 </head>
 <body>
 	<div class="text-center bg-dark text-light">
@@ -66,95 +61,6 @@
 			</table>
 		</div>
 	</div>
-	<script defer>
-		function fetchToTable(data) {
-			$("#table-body").children().remove();
-			$('.will-be-update').remove();
-
-			for (let id of Object.keys(data))
-			{
-				let ten = data[id]['ten'];
-				let quydoiText = data[id]['quydoiText'];
-
-				let row = $("<tr/>");
-				row.append($('<td/>').text(id))
-					.append($('<td/>').text(ten))
-					.append($('<td/>').text(quydoiText));
-
-				let opt = $('<option/>').val(id).text(ten).addClass('will-be-update');
-				$("#id_quy_doi").append(opt);
-				
-				$('#table-body').append(row);
-			}
-		}
-
-		$(document).ready(async ()=>{
-			const bangDonvi = new BangDonVi();
-			bangDonvi.addDatabaseURL('/api/getDonvi.php');
-			await bangDonvi.update();
-			fetchToTable(bangDonvi.table);
-			
-			const popup = new StatusPopup();
-			popup.create();
-
-			$("#form").on('submit', (e)=>{
-				e.preventDefault();
-
-				const ten_don_vi = $('#ten_don_vi').val();
-				const id_quy_doi = $('#id_quy_doi').val();
-				const he_so_quydoi = id_quy_doi == "null" ? 0 : $("#he_so_quydoi").val(); 
-
-				$.ajax('/api/addDonvi.php', {
-					method: 'post',
-					xhrFields: {
-						withCredentials: 'include'
-					},
-					data: `ten_don_vi=${ten_don_vi}&id_quy_doi=${id_quy_doi}&he_so_quydoi=${he_so_quydoi}`,
-					success: function(json) {
-						if (!!json.err) {
-							popup.setStatus(false, json.msg);
-							popup.show();
-							return;
-						}
-
-						parent.postMessage({
-							msg: 'update'
-						}, "*");
-
-						popup.setStatus(true, json.msg);
-						popup.show();
-						setTimeout(()=>{
-							popup.hide()
-						}, 1000);
-
-						$("input").val("");
-						$("#id_quy_doi").val("null");
-					},
-					error: function(err) {
-						popup.setStatus(false, err.responseText);
-						popup.show();
-
-						return;
-					}
-				})
-			});
-
-
-			//on input quy doi don vi
-			$('#id_quy_doi').on('change', function(e){
-				let val = $(this).val();
-				$('#he_so_quydoi').prop('disabled', val == 'null');
-			});
-
-			//update data request
-            window.addEventListener('message', async function(e) {
-                let data = e.data;
-                if (data.msg == 'update') {
-					await bangDonvi.update();
-					fetchToTable(bangDonvi.table);
-                }
-            });
-		});
-	</script>
+	<script src="/public/static/js/nhap-don-vi.js"></script>
 </body>
 </html>

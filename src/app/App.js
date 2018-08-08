@@ -1,5 +1,8 @@
-import { Controller } from './Controller.js';
-const _QLNT = class extends Controller {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Controller_js_1 = require("./Controller.js");
+const inputPreview2_1 = require("./inputPreview2");
+const _QLNT = class extends Controller_js_1.Controller {
     constructor() {
         super();
         this.addModel('DonVi', 'DonVi');
@@ -35,7 +38,7 @@ const _QLNT = class extends Controller {
         this.addUpdateFunc(compoName, updateTable);
     }
     addNameInputThuoc(idElement, optListen, optChange) {
-        const preview = new inputPreview2();
+        const preview = new inputPreview2_1.default();
         preview.addLookup(optListen);
         preview.listen(idElement, (data) => {
             for (let idEl in optChange) {
@@ -79,4 +82,4 @@ const _QLNT = class extends Controller {
         this.addUpdateFunc(compoName, onUpdate);
     }
 };
-export { _QLNT as QLNT };
+exports.QLNT = _QLNT;

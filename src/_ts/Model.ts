@@ -1,53 +1,53 @@
 const _Model = class {
 
-	private _database 	: string;
-	private _data		: Array<any>;
+    protected _database : string;
+    protected _data		: Array<any>;
 
-	public constructor() {
-		this._database = "";
-		this._data = [];
-	}
+    public constructor() {
+        this._database = "";
+        this._data = [];
+    }
 
-	get rawData() {
-		return Object.assign({}, this._data);
-	}
+    get rawData() {
+        return Object.assign({}, this._data);
+    }
 
-	/**
-	 * fetch data from database and do thing
-	 * @param { Function (err, rawData) } callback callback function
-	 * 
-	 */
-	protected _update(callback: Function)
-	{
-		this._data = [];
-		const that = this;
+    /**
+     * fetch data from database and do thing
+     * @param { Function (err, rawData) } callback callback function
+     * 
+     */
+    protected _update(callback: Function)
+    {
+        this._data = [];
+        const that = this;
 
-		fetch(this._database, {
-			credentials: 'include',
-			headers: {
-				"Accept": "application/json",
-				"Content-Type": "application/json"
-			}
-		}).then(res=>{
-			if (!res.ok) {
-				callback(res, null);
-				return null;
-			}
-			return res.json();
-		}).then(json=>{
-			if (!json || !!json.err) {
-				callback(json, null);
-				return;
-			}
-			
-			that._data = json.data;
+        fetch(this._database, {
+            credentials: 'include',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        }).then(res=>{
+            if (!res.ok) {
+                callback(res, null);
+                return null;
+            }
+            return res.json();
+        }).then(json=>{
+            if (!json || !!json.err) {
+                callback(json, null);
+                return;
+            }
+            
+            that._data = json.data;
 
-			callback(null, json.data);
+            callback(null, json.data);
 
-		}).catch(err=>{
-			callback(err, null);
-		});
-	}
+        }).catch(err=>{
+            callback(err, null);
+        });
+    }
 
 
 };

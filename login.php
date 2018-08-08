@@ -1,16 +1,16 @@
 <?php
     //CHECK IF LOGGED OR NOT
     session_start();
-
     if (isset($_SESSION['username'])) {
         header("Location: index.php");
     }
 ?>
 
 <?php
+    $ROOT = $_SERVER['DOCUMENT_ROOT'];
     // IF NOT LOGIN YET
     if (isset($_POST['submit']) && isset($_POST['username']) && isset($_POST['password'])) {
-        require "./Connect/connectPG.php";
+        require $ROOT."\\src\\connect-database\\connectPG\\index.php";
 
         $sql = new mSQL();
 
@@ -42,7 +42,7 @@
     <head>
         <meta charset="utf-8">
         <title>LOGIN</title>
-        <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <?php require $ROOT."\\page\\_layouts\\meta.php";?>
     </head>
     <body>
         <?php

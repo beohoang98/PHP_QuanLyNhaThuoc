@@ -5,7 +5,7 @@ const _Thuoc = class extends Model {
 	constructor()
 	{
 		super();
-		this._database = "/api/getAllInfoThuoc.php";
+		this._database = "/public/api/getAllInfoThuoc.php";
 	}
 
 	update(callback)

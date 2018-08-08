@@ -1,6 +1,8 @@
-import { DonVi } from './DonVi.js';
-import { Thuoc } from './Thuoc.js';
-import { Nsx } from './Nsx.js';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const DonVi_js_1 = require("./DonVi.js");
+const Thuoc_js_1 = require("./Thuoc.js");
+const Nsx_js_1 = require("./Nsx.js");
 const _Controller = class {
     constructor() {
         this._componentList = {};
@@ -17,13 +19,13 @@ const _Controller = class {
         let newObj = null;
         switch (typename) {
             case "DonVi":
-                newObj = new DonVi();
+                newObj = new DonVi_js_1.DonVi();
                 break;
             case "Thuoc":
-                newObj = new Thuoc();
+                newObj = new Thuoc_js_1.Thuoc();
                 break;
             case "Nsx":
-                newObj = new Nsx();
+                newObj = new Nsx_js_1.Nsx();
                 break;
             default: {
                 throw Error("unknown typename: " + typename);
@@ -35,9 +37,9 @@ const _Controller = class {
     /**
      * @param {string} compoName component name
      * @param {Function} func callback function
-     * @return {void}
+     * @return {(err, data)=>{}}
      */
-    addUpdateFunc(compoName, func = (err, data) => any) {
+    addUpdateFunc(compoName, func = (err, data) => { }) {
         if (!this._event.hasOwnProperty(compoName)) {
             console.log("Not found " + compoName);
         }
@@ -57,4 +59,4 @@ const _Controller = class {
         }
     }
 };
-export { _Controller as Controller };
+exports.Controller = _Controller;

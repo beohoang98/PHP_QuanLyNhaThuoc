@@ -1,14 +1,9 @@
 <?php
-	require "../../api/_checkSessionCode.php";
+	require $_SERVER['DOCUMENT_ROOT']."\\public\\api\\_checkSessionCode.php";
 ?>
 <html>
 <head>
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="/static/fontawesome/fontawesome-all.min.css">
-	<link rel="stylesheet" href="/static/lib/lib.css">
-	
-	<script src="/static/jquery/jquery-3.3.1.min.js"></script>
-	<script src="/static/lib/lib.js"></script>
+	<?php require $_SERVER['DOCUMENT_ROOT'].'\\page\\_layouts\\meta.php' ?>
 </head>
 <body>
 	<div class="text-center bg-dark text-light">
@@ -74,7 +69,7 @@
 
 			function updateNSX() {
 				$('#table-body').children().remove();
-				$.getJSON('/api/getNsx.php', (json)=>{
+				$.getJSON('/public/api/getNsx.php', (json)=>{
 					if (!!json.err) {
 						popup.setStatus(false, json.msg);
 						popup.show();
@@ -95,7 +90,7 @@
 			$("#form").on('submit', (e)=>{
 				e.preventDefault();
 
-				$.ajax('/api/addNsx.php', {
+				$.ajax('/public/api/addNsx.php', {
 					method: 'post',
 					xhrFields: {
 						withCredentials: 'include'

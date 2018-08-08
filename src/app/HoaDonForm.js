@@ -1,11 +1,13 @@
-import { CTHoaDon } from './CTHoaDon.js';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const CTHoaDon_js_1 = require("./CTHoaDon.js");
 // import $ from 'jquery';
 /**
  * Hóa Đơn Form
  */
 const _HoaDonForm = class {
     constructor() {
-        this._database = "/api/addHoaDon.php";
+        this._database = "/public/api/addHoaDon.php";
         const match = document.cookie.match(/username=(\w+)/);
         this._username = match ? match[1] : "";
         this._listCTHD = {}; //Object because data has key 'ma_thuoc'
@@ -62,7 +64,7 @@ const _HoaDonForm = class {
             this._listCTHD.ma_thuoc.updateValue('so_luong', newSl);
         }
         else {
-            const newCTHD = new CTHoaDon(ma_thuoc, ten_thuoc, donvi, soluong, totalCash * soluong);
+            const newCTHD = new CTHoaDon_js_1.CTHoaDon(ma_thuoc, ten_thuoc, donvi, soluong, totalCash * soluong);
             this._listCTHD[ma_thuoc] = newCTHD;
             const rowElement = newCTHD.getRowElement();
             if (!this._CTHDTable || !rowElement)
@@ -103,4 +105,4 @@ const _HoaDonForm = class {
         });
     }
 };
-export { _HoaDonForm as HoaDonForm };
+exports.HoaDonForm = _HoaDonForm;

@@ -3,6 +3,9 @@ import {Thuoc} 	from './Thuoc.js';
 import {Nsx} 	from './Nsx.js';
 
 const _Controller = class {
+	private _componentList: any;
+	private _event: {};
+
 	constructor() {
 		this._componentList = {};
 		this._event = {};
@@ -34,9 +37,9 @@ const _Controller = class {
 	/**
 	 * @param {string} compoName component name
 	 * @param {Function} func callback function
-	 * @return {void}
+	 * @return {(err, data)=>{}}
 	 */
-	addUpdateFunc(compoName, func = (err, data)=>any) {
+	addUpdateFunc(compoName, func = (err, data)=>{}) {
 		if (!this._event.hasOwnProperty(compoName))
 		{
 			console.log("Not found "+compoName);

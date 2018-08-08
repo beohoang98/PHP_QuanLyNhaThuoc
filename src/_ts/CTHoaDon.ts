@@ -4,7 +4,7 @@ const _CTHoaDon = class {
 	private donvi : number;
 	private sl : number;
 	private thanhtien : number;
-	private _element : HTMLElement | null;
+	private _element : HTMLElement;
 	private _childElement : any;
 
 
