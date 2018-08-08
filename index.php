@@ -1,5 +1,6 @@
 <?php
-    require realpath($_SERVER['DOCUMENT_ROOT']."\\public\\api\\_checkSessionCode.php");
+    $ROOT = $_SERVER["DOCUMENT_ROOT"];
+    require realpath($ROOT."/public/api/_checkSessionCode.php");
     $username = $_SESSION['username'];
 ?>
 
@@ -9,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8"/>
     <title>Quan Ly Nha Thuoc</title>
-    <?php require realpath($_SERVER['DOCUMENT_ROOT'].'\\page\\_layouts\\meta.php') ?>
+    <?php require realpath($ROOT.'/page/_layouts/meta.php') ?>
 </head>
 <body class='home'>
     <nav class="bg-dark sidebar" role="navigation">
