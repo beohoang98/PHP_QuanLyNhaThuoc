@@ -1,5 +1,5 @@
 <?php
-	require "../api/_checkSessionCode.php";
+	require "../../api/_checkSessionCode.php";
 ?>
 <head>
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="/static/lib/lib.css">
 	
     <script src="/static/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../static/lib/lib.js"></script>
+    <script src="/static/lib/lib.js"></script>
     
     <style media="screen">
         body {

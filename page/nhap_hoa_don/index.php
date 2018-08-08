@@ -1,5 +1,5 @@
 <?php
-	require "../api/_checkSessionCode.php";
+	require "../../api/_checkSessionCode.php";
 ?>
 <html>
 <head>
@@ -9,7 +9,7 @@
 	
 	<script src="/static/jquery/jquery-3.3.1.min.js"></script>
 	<script src="/static/lib/lib.js"></script>
-	<link rel="stylesheet" href="/css/style.min.css">
+	<link rel="stylesheet" href="/static/css/style.min.css">
     
     <style media="screen">
         body {

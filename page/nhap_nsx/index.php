@@ -1,5 +1,5 @@
 <?php
-	require "../api/_checkSessionCode.php";
+	require "../../api/_checkSessionCode.php";
 ?>
 <html>
 <head>

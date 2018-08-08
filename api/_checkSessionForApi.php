@@ -11,5 +11,5 @@
 		exit();
 	}
 
-	require_once("");
+	require_once "../Connect/ConnectPG/index.php";
 ?>

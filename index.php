@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="/static/jquery/jquery-ui.min.css">
 	<script src="/static/jquery/jquery-3.3.1.min.js"></script>
 	<script src="/static/jquery/jquery-ui.min.js"></script>
-	<link rel="stylesheet" href="/css/style.min.css">
+	<link rel="stylesheet" href="/static/css/style.min.css">
 </head>
 <body class='home'>
 	<nav class="bg-dark sidebar" role="navigation">
@@ -49,7 +49,7 @@
 			</div>
 		</a>
 		<div class="sidebar-last">
-			<a href='./user/' class="btn text-light" title="Xem thông tin tài khoản">
+			<a href='./page/user/' class="btn text-light" title="Xem thông tin tài khoản">
 				<span id="username"><?php echo $username?></span>
 				<div class="menu-icon">
 					<span class='fa fa-user'></span>
@@ -66,16 +66,16 @@
 	<div class='frame-container'>
 		<div class="frame-slide">
 			<div>
-				<iframe id="frameNhapHoaDon" src="/nhap_hoa_don/" scrolling="auto" onload="resizeiframe(this);"></iframe>
+				<iframe id="frameNhapHoaDon" src="/page/nhap_hoa_don/" scrolling="auto" onload="resizeiframe(this);"></iframe>
 			</div>
 			<div>
-				<iframe id="frameNhapThuoc" src="/nhap_thuoc/" scrolling="auto" onload="resizeiframe(this);"></iframe>
+				<iframe id="frameNhapThuoc" src="/page/nhap_thuoc/" scrolling="auto" onload="resizeiframe(this);"></iframe>
 			</div>
 			<div>
-				<iframe id="frameNhapNSX" src="/nhap_nsx/" scrolling="auto" onload="resizeiframe(this);"></iframe>
+				<iframe id="frameNhapNSX" src="/page/nhap_nsx/" scrolling="auto" onload="resizeiframe(this);"></iframe>
 			</div>
 			<div>
-				<iframe id="frameNhapDonVi" src="/nhap_don_vi/" scrolling="auto" onload="resizeiframe(this);"></iframe>
+				<iframe id="frameNhapDonVi" src="/page/nhap_don_vi/" scrolling="auto" onload="resizeiframe(this);"></iframe>
 			</div>
 		</div>
 	</div>
