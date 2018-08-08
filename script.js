@@ -5,39 +5,31 @@ let chooseLength = $(".sidebar > a").length;
 function nhapHoaDon() {
     let container = $('.frame-container');
     container.animate({
-        scrollTop: $("#frameNhapHoaDon").offset().top - container.offset().top + container.scrollTop() 
+        scrollTop: $("#page-nhap-hoa-don").offset().top - container.offset().top + container.scrollTop() 
     });
     
 }
 function nhapThuoc() {
     let container = $('.frame-container');
     container.animate({
-        scrollTop: $("#frameNhapThuoc").offset().top - container.offset().top + container.scrollTop() 
+        scrollTop: $("#page-nhap-thuoc").offset().top - container.offset().top + container.scrollTop() 
     });
 }
 function nhapNSX() {
     let container = $('.frame-container');
     container.animate({
-        scrollTop: $("#frameNhapNSX").offset().top - container.offset().top + container.scrollTop() 
+        scrollTop: $("#page-nhap-nsx").offset().top - container.offset().top + container.scrollTop() 
     });
 }
 function nhapDonVi() {
     let container = $('.frame-container');
     container.animate({
-        scrollTop: $("#frameNhapDonVi").offset().top - container.offset().top + container.scrollTop() 
+        scrollTop: $("#page-nhap-don-vi").offset().top - container.offset().top + container.scrollTop() 
     });
 }
-function xemUser() {
-    
-}
 
-function resizeiframe(frame) {
-    frame.style.height = document.body.scrollHeight + 'px';
-}
-
-function logOut() {
-    document.cookie = "session=;expires=1/1/2011;domain=/";
-    window.open("./login.php", "_self");
+function resizepage() {
+    $('.page').css('height', document.body.scrollHeight + 'px');
 }
 
 function togglemenu() {
@@ -74,14 +66,12 @@ $(document).ready(()=>{
     });
 
     $(window).resize(function() {
-        let list = document.querySelectorAll("iframe");
-        for (let frame of list)
-        {
-            resizeiframe(frame);
-        }
+        resizepage();
     });
 
-    $("iframe").on("load", nhapHoaDon);
+    // $("iframe").on("load", nhapHoaDon);
+    resizepage();
+    nhapHoaDon();
 
     window.onmessage = function(e) {
         let data = e.data;

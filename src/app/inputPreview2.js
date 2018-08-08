@@ -7,7 +7,7 @@ class inputPreview2 {
         this._lookup = {};
         this._target = target;
         this._preview_div = null;
-        this._currentPreviewData = Array();
+        this._currentPreviewData = [];
         // constructor    
         document.addEventListener("click", (e) => {
             const target = e.target;
@@ -17,7 +17,7 @@ class inputPreview2 {
     }
     /**
      * add lookup to json name
-     * @param {JSON} arr object to lookup data name to element input name
+     * @param {{idEl: String}} arr { id_element : name_of_field}
      */
     addLookup(arr) {
         if (typeof arr != "object") {
@@ -27,8 +27,8 @@ class inputPreview2 {
         }
         for (let key of Object.keys(arr)) {
             this._lookup[key] = arr[key];
-            let el = this._target.getElementById(key);
-            if (!!el === false) {
+            let el = document.getElementById(key);
+            if (!el) {
                 console.log(Error(`Cannot find #${key} element`));
             }
             else {

@@ -1,6 +1,6 @@
 {
 	"easysass.excludeRegex": "_.*.scss",
-	"easysass.targetDir": "css/",
+	"easysass.targetDir": "./public/static/css/",
 	"easysass.compileAfterSave": true,
 	"easysass.formats": [
 		{
