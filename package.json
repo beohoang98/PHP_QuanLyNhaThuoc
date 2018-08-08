@@ -1,0 +1,25 @@
+{
+  "name": "QuanLyNhaThuoc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "dependencies": {
+    "tsc": "^1.20150623.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.3.5",
+    "eslint": "^5.3.0",
+    "eslint-config-google": "^0.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://beohoang98@bitbucket.org/beohoang98/quanlynhathuoc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/beohoang98/quanlynhathuoc#readme"
+}

@@ -1,0 +1,18 @@
+{
+	"easysass.excludeRegex": "_.*.scss",
+	"easysass.targetDir": "css/",
+	"easysass.compileAfterSave": true,
+	"easysass.formats": [
+		{
+			"format": "compressed",
+			"extension": ".min.css"
+		}
+	],
+
+	"git.autofetch": false,
+	
+	// "pgsql.connection": "postgresql://postgres:486251793@127.0.0.1:5432/qlnt",
+	
+	//for heroku database
+	"pgsql.connection": "postgres://voyufevcgwluni:dc0c08c15b26f1bae8259d3480c2d2158e5dfdff54cbd601287cb9dbfa998730@ec2-54-247-117-145.eu-west-1.compute.amazonaws.com:5432/d6hjv6er0i6tih"
+}

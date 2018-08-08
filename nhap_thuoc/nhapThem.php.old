@@ -1,0 +1,85 @@
+<?php
+	require "../api/_checkSessionCode.php";
+?>
+<head>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/static/fontawesome/fontawesome-all.min.css">
+	<link rel="stylesheet" href="/static/lib/lib.css">
+	
+    <script src="/static/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../static/lib/lib.js"></script>
+</head>
+<body>
+    <div class="bg-dark text-center text-light">
+        <h2>NHẬP THÊM THUỐC</h2>
+    </div>
+    <div class="container">
+        <form id="form" class="form-horizontal" role='form' action="#" method="post">
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label for="ma_thuoc">Mã Thuốc</label>
+                    <input class="form-control" type="number" id="ma_thuoc" name="ma_thuoc" required>
+                </div>
+                <div class="col-md-8">
+                    <label for="ten_thuoc">Tên Thuốc</label>
+                    <input class="form-control" type="text" id="ten_thuoc" name="ten_thuoc" autocomplete='off' required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label for="sl">Số lượng</label>
+                    <input class="form-control" type="number" id="sl" name="sl" required min=0>
+                </div>
+                <div class="col-md-4">
+                    <label for="dongia">Đơn giá</label>
+                    <input class="form-control" type="text" id="dongia" name="dongia" required min=0>
+				</div>
+				<div class="col-md-4">
+					<label for="donvi">Đơn vị</label>
+					<select class="form-control" name="donvi" id="donvi" required>
+					</select>
+				</div>
+            </div>
+            <div class="form-group">
+                <button class="form-control btn btn-dark btn-outline-dark" type="submit" name="button">THÊM</button>
+            </div>
+        </form>
+    </div>
+    <script defer>
+        $(document).ready(function(){
+            fetch("../api/getDonvi.php", {credentials: "include"})
+            .then((res)=>{
+                return res.json();
+            })
+            .then((json)=>{
+                if (!!json.err) console.log(json.msg);
+                else {
+                    for (let row of json.data) {
+                        let name = row['ten'];
+                        let id = row['ID'];
+                        let newOpt = $("<option/>").val(id).text(name);
+
+                        $("#donvi").append(newOpt);
+                    }
+                    $("#donvi").find("option:first-child").attr("selected", "");
+                }
+            });
+
+            $("#dongia").moneyInput();
+            
+            const preview = new inputPreview();
+            preview.addHost("../api/getInfoThuoc.php?name=");
+            preview.addLookup({
+                "ma_thuoc": "ma_thuoc",
+                "ten_thuoc": "ten_thuoc",
+                "ten_nsx": "ten_nsx"
+            });
+            
+            preview.listen("ten_thuoc", (data)=>{
+                $("#ma_thuoc").val(data["ma_thuoc"]);
+                $("#ten_thuoc").val(data["ten_thuoc"]);
+                // $("#id_nsx").val(data["ten_nsx"]);
+            });
+        });
+    </script>
+</body>
