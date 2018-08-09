@@ -12,12 +12,5 @@
 	"git.autofetch": false,
 	
 	"phpcs.standard": "PSR1",
-	"phpcs.ignorePatterns": [
-		
-	],
 
-	// "pgsql.connection": "postgresql://postgres:486251793@127.0.0.1:5432/qlnt",
-	
-	//for heroku database
-	"pgsql.connection": "postgres://voyufevcgwluni:dc0c08c15b26f1bae8259d3480c2d2158e5dfdff54cbd601287cb9dbfa998730@ec2-54-247-117-145.eu-west-1.compute.amazonaws.com:5432/d6hjv6er0i6tih"
 }
