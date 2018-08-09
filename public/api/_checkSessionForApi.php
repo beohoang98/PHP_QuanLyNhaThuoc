@@ -16,5 +16,5 @@ if (!isset($_SESSION) || !$_SESSION["username"]) {
     exit();
 }
 
-require_once $ROOT."/src/connect-database/ConnectPG/index.php";
+require_once realpath($ROOT."/src/connect-database/ConnectPG/index.php");
 ?>
