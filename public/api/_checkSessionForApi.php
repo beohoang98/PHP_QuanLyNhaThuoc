@@ -16,5 +16,5 @@ if (!isset($_SESSION) || !$_SESSION["username"]) {
     exit();
 }
 
-require_once ($ROOT."/src/connect-database/ConnectPG/index.php");
+require_once (join(DIRECTORY_SEPARATOR, preg_split("/[\/\\\\]+/", $ROOT."/src/connect_database/ConnectPG/index.php")));
 ?>
