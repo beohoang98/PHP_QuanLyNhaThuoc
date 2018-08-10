@@ -1,4 +1,4 @@
-const BangDonVi = require('../app/BangDonVi').default;
+const BangDonVi = require('../app/DonVi/BangDonVi').default;
 
 function fetchToTable(data) {
     $("#nhap_don_vi--table-body").children().remove();
@@ -21,7 +21,6 @@ function fetchToTable(data) {
 
 $(document).ready(async ()=>{
     const bangDonvi = new BangDonVi();
-    bangDonvi.addDatabaseURL('/public/api/getDonvi.php');
     await bangDonvi.update();
     fetchToTable(bangDonvi.table);
 

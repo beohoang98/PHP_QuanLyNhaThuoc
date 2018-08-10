@@ -1,10 +1,13 @@
-const InputPreview2 = require('../app/inputPreview2.js').default;
+const InputPreview2 = require('../app/inputPreview2').default;
+const {DonVi} = require('../app/DonVi');
 
 $(document).ready(function() {
     let popup = new StatusPopup();
     popup.create();
 
     const preview = new InputPreview2();
+    const donVi = new DonVi();
+
     preview.addLookup({
         "ten_nsx": "ten",
     });
@@ -13,24 +16,15 @@ $(document).ready(function() {
     });
 
     function updateNSX() {
-        fetch("/public/api/getNsx.php", {credentials: "include"})
-        .then((res)=>{
-            return res.json();
-        }).then((json)=>{
-            preview.addData(json.data);
-        });
+        // asd
     }
 
     function updateDonvi() {
         $("#don_vi").children().remove();
-        fetch("/public/api/getDonvi.php", {credentials: "include"})
-        .then((res)=>{
-            return res.json();
-        })
-        .then((json)=>{
-            if (!!json.err) console.log(json.msg);
+        donVi.update((err, data)=>{
+            if (err) console.log(json.msg);
             else {
-                for (let row of json.data) {
+                for (let row of data) {
                     let name = row['ten'];
                     let id = row['id'];
                     let newOpt = $("<option/>").val(id).text(name);
@@ -52,7 +46,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "/public/api/addThuoc.php",
+            url: "/public/api/thuoc/",
             data: $("#form").serialize(),
             dataType: "json",
             xhrFields: {

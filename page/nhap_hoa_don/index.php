@@ -33,7 +33,7 @@
     <div class="row">
         <div class="col-md-3">
             <div><strong>USER:</strong></div>
-            <div id='username'></div>
+            <div id='nhap_hoa_don--username'></div>
         </div>
         <div class="col-md-3">
             <div><strong>TIME:</strong></div>

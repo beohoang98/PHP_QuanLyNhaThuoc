@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const CTHoaDon_js_1 = require("./CTHoaDon.js");
+const CTHoaDon_1 = require("./CTHoaDon");
 // import $ from 'jquery';
 /**
  * Hóa Đơn Form
  */
 const _HoaDonForm = class {
     constructor() {
-        this._database = "/public/api/addHoaDon.php";
+        this._database = "/public/api/hoa_don/";
         const match = document.cookie.match(/username=(\w+)/);
-        this._username = match ? match[1] : "";
+        this._username = match ? match[1] : "Not Found";
         this._listCTHD = {}; //Object because data has key 'ma_thuoc'
         this._headerForm = undefined;
         this._CTHDTable = undefined;
@@ -33,6 +33,7 @@ const _HoaDonForm = class {
         this._CTHDTable = element;
     }
     getUsername() {
+        console.log(this._username);
         return this._username;
     }
     newHoaDon() {
@@ -64,7 +65,7 @@ const _HoaDonForm = class {
             this._listCTHD.ma_thuoc.updateValue('so_luong', newSl);
         }
         else {
-            const newCTHD = new CTHoaDon_js_1.CTHoaDon(ma_thuoc, ten_thuoc, donvi, soluong, totalCash * soluong);
+            const newCTHD = new CTHoaDon_1.CTHoaDon(ma_thuoc, ten_thuoc, donvi, soluong, totalCash * soluong);
             this._listCTHD[ma_thuoc] = newCTHD;
             const rowElement = newCTHD.getRowElement();
             if (!this._CTHDTable || !rowElement)
@@ -106,3 +107,4 @@ const _HoaDonForm = class {
     }
 };
 exports.HoaDonForm = _HoaDonForm;
+//# sourceMappingURL=HoaDonForm.js.map
