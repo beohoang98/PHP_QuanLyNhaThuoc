@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const DonVi_js_1 = require("./DonVi.js");
-const Thuoc_js_1 = require("./Thuoc.js");
-const Nsx_js_1 = require("./Nsx.js");
+const DonVi_1 = require("./DonVi");
+const Thuoc_1 = require("./Thuoc");
+const Nsx_1 = require("./Nsx");
 const _Controller = class {
     constructor() {
         this._componentList = {};
@@ -19,13 +19,13 @@ const _Controller = class {
         let newObj = null;
         switch (typename) {
             case "DonVi":
-                newObj = new DonVi_js_1.DonVi();
+                newObj = new DonVi_1.DonVi();
                 break;
             case "Thuoc":
-                newObj = new Thuoc_js_1.Thuoc();
+                newObj = new Thuoc_1.Thuoc();
                 break;
             case "Nsx":
-                newObj = new Nsx_js_1.Nsx();
+                newObj = new Nsx_1.Nsx();
                 break;
             default: {
                 throw Error("unknown typename: " + typename);
@@ -60,3 +60,4 @@ const _Controller = class {
     }
 };
 exports.Controller = _Controller;
+//# sourceMappingURL=Controller.js.map

@@ -1,6 +1,6 @@
 <?php
     $ROOT = $_SERVER["DOCUMENT_ROOT"];
-    require_once $ROOT."/Connect/connectPG.php";
+    require_once $ROOT."/src/connect_database/connect_pg.php";
 
     class checkSession {
         private $valid;

@@ -10,7 +10,7 @@
     $ROOT = $_SERVER['DOCUMENT_ROOT'];
     // IF NOT LOGIN YET
     if (isset($_POST['submit']) && isset($_POST['username']) && isset($_POST['password'])) {
-        require ($ROOT."/src/connect_database/connectPG/index.php");
+        require ($ROOT."/src/connect_database/connect_pg/index.php");
 
         $sql = new mSQL();
 

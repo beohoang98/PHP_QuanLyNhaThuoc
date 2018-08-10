@@ -1,6 +1,6 @@
-import {DonVi} 	from './DonVi.js';
-import {Thuoc} 	from './Thuoc.js';
-import {Nsx} 	from './Nsx.js';
+import {DonVi} 	from './DonVi';
+import {Thuoc} 	from './Thuoc';
+import {Nsx} 	from './Nsx';
 
 const _Controller = class {
 	private _componentList: any;

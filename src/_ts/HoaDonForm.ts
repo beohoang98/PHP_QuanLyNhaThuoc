@@ -1,4 +1,4 @@
-import {CTHoaDon} from './CTHoaDon.js';
+import {CTHoaDon} from './CTHoaDon';
 // import $ from 'jquery';
 
 /**
@@ -14,10 +14,10 @@ const _HoaDonForm = class {
 	private _CTHDTable		: HTMLTableElement | undefined;
 
 	public constructor() {
-		this._database = "/public/api/addHoaDon.php";
+		this._database = "/public/api/hoa_don/";
 		const match = document.cookie.match(/username=(\w+)/);
 
-		this._username = match ? match[1] : "";
+		this._username = match ? match[1] : "Not Found";
 		this._listCTHD = {}; //Object because data has key 'ma_thuoc'
 
 		this._headerForm = undefined;
@@ -55,6 +55,7 @@ const _HoaDonForm = class {
 
 	public getUsername()
 	{
+		console.log(this._username);
 		return this._username;
 	}
 

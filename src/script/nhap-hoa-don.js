@@ -11,7 +11,7 @@ function displayTime() {
 }
 
 function loopShowTime() {
-    let id = setInterval(()=>{
+    setInterval(()=>{
         displayTime();
     }, 1000);
 }
@@ -25,8 +25,7 @@ function focusTenThuocFirst() {
     $("#nhap_hoa_don--ten-thuoc").focus();
 }
 
-function updateTongGia()
-{
+function updateTongGia() {
     let tong = 0;
     let list = document.querySelectorAll('.cthd-gia');
     for (let val of list) {
@@ -106,7 +105,7 @@ $(document).ready(function() {
     });
 
     $("#kieu-lieu").click(() => {
-        $('#nhap_hoa_don--sum').val(8000)
+        $('#nhap_hoa_don--sum').val(8000);
     });
     $('#kieu-banle').click(() => {
         const sum = $('#sum');

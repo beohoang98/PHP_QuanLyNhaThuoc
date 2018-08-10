@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Controller_js_1 = require("./Controller.js");
+const Controller_1 = require("./Controller");
 const inputPreview2_1 = require("./inputPreview2");
-const _QLNT = class extends Controller_js_1.Controller {
+const _QLNT = class extends Controller_1.Controller {
     constructor() {
         super();
         this.addModel('DonVi', 'DonVi');
@@ -83,3 +83,4 @@ const _QLNT = class extends Controller_js_1.Controller {
     }
 };
 exports.QLNT = _QLNT;
+//# sourceMappingURL=App.js.map
