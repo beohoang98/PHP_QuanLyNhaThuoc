@@ -43,23 +43,34 @@
         <meta charset="utf-8">
         <title>LOGIN</title>
         <?php require ($ROOT."/page/_layouts/meta.php");?>
+        <style>
+            .container {
+                height: 100vh;
+            }
+        </style>
     </head>
     <body>
-        <?php
-            if (isset($_GET['msg'])) {
-                echo "<div class='text-center text-danger'>".$_GET['msg']."</div>";
-            }
-        ?>
-        <div class="container">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h2 class='panel-title'>LOGIN</h2>
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h2 class='card-title'>LOGIN</h2>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
+                <?php
+                    if (isset($_GET['msg'])) {
+                        echo "<small class='text-center text-danger'><i class='fa fa-exclamation-triangle'></i> ".$_GET['msg']."</small>";
+                    }
+                ?>
                     <form class="form" action="" method="post" enctype="multipart/form-data">
-                        <input class="form-control" type="text" name="username" placeholder="Username...">
-                        <input class="form-control" type="password" name="password" placeholder="Password...">
-                        <button class="btn btn-primary btn-outline-primary" name="submit" type="submit">LOGIN</button>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input class="form-control" type="text" name="username" placeholder="Username...">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input class="form-control" type="password" name="password" placeholder="Password...">
+                        </div>
+                        <button class="btn btn-outline-primary form-control" name="submit" type="submit">LOGIN</button>
                     </form>
                 </div>
             </div>

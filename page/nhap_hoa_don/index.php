@@ -47,7 +47,7 @@
         <div class='col-md-3'>
             <div class="form-group">
                 <label for="kieu-lieu">
-                    <input type="radio" name="kieu" value="lieu" id="kieu-lieu">
+                    <input type="radio" checked name="kieu" value="lieu" id="kieu-lieu">
                     BÁN THEO LIỀU
                 </label>
             </div>
@@ -101,7 +101,6 @@
             </tbody>
         </table>
     </form>
-
     <footer class='footer'>
         <form id='nhap_hoa_don--hoadon-form' class="form row">
             <div class="col-md-3 form-group">

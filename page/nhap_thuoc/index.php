@@ -1,3 +1,4 @@
+<?php ?>
 <style media="screen">
     body {
         background-color: #f8f8f8;
@@ -48,4 +49,17 @@
             <button class="form-control btn btn-dark btn-outline-dark" type="submit" name="button">THÊM</button>
         </div>
     </form>
+    <table id="nhap_thuoc--table" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Mã Thuốc</th>
+                <th>Tên Thuốc</th>
+                <th>Nhà sản xuất</th>
+                <th>Đơn giá</th>
+                <th>Số lượng</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 </div>

@@ -1,4 +1,5 @@
-const BangDonVi = require('../app/DonVi/BangDonVi').default;
+const BangDonVi = require('../app/Model/DonVi/BangDonVi').default;
+const {BootstrapModal} = require('../app/Model/BoostrapModal');
 
 function fetchToTable(data) {
     $("#nhap_don_vi--table-body").children().remove();
@@ -24,8 +25,8 @@ $(document).ready(async ()=>{
     await bangDonvi.update();
     fetchToTable(bangDonvi.table);
 
-    const popup = new StatusPopup();
-    popup.create();
+    const popup = new BootstrapModal('nhap_don_vi--popup');
+    popup.setTitle('Nhap Don Vi');
 
     $("#nhap_don_vi--form").on('submit', (e)=>{
         e.preventDefault();
@@ -42,29 +43,23 @@ $(document).ready(async ()=>{
             data: `ten_don_vi=${tenDonVi}&id_quy_doi=${idQuyDoi}&he_so_quydoi=${heSoQuyDoi}`,
             success: function(json) {
                 if (!!json.err) {
-                    popup.setStatus(false, json.msg);
-                    popup.show();
+                    popup.setContent(json.err);
+                    popup.open();
                     return;
                 }
 
-                parent.postMessage({
-                    msg: 'update',
-                }, "*");
-
-                popup.setStatus(true, json.msg);
-                popup.show();
+                popup.setContent(json.data);
+                popup.open();
                 setTimeout(()=>{
-                    popup.hide();
+                    popup.close();
                 }, 1000);
 
                 $("#nhap_don_vi--form input").val("");
                 $("#nhap_don_vi--id_quy_doi").val("null");
             },
             error: function(err) {
-                popup.setStatus(false, err.responseText);
-                popup.show();
-
-                return;
+                popup.setContent(err);
+                popup.open();
             },
         });
     });
