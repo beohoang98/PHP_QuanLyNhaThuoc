@@ -44,6 +44,3 @@
 		</table>
 	</div>
 </div>
-<script defer>
-	
-</script>

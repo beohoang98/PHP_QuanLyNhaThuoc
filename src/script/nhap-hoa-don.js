@@ -1,8 +1,11 @@
 const {HoaDonForm} = require('../app/HoaDonForm');
 const {QLNT} = require('../app/App');
+const {BootstrapModal} = require('../app/Model/BoostrapModal');
+const CONFIG = require('../../config');
 
 const hoaDonForm = new HoaDonForm();
 const App = new QLNT();
+const popup = new BootstrapModal('nhap_hoa_don--popup');
 
 function displayTime() {
     let now = new Date();
@@ -52,8 +55,6 @@ $(document).ready(function() {
     loopShowTime();
     displayUser();
     focusTenThuocFirst();
-    const popup = new StatusPopup();
-    popup.create();
 
     App.addSelectInput($('#nhap_hoa_don--don_vi')[0], {
         title: 'ten',
@@ -76,12 +77,9 @@ $(document).ready(function() {
             $('#nhap_hoa_don--form-nhap').find('input, select').val('');
             hoaDonForm.newHoaDon();
             console.log(hoaDonForm);
-            popup.setStatus(true, "OK");
-            popup.show();
+            popup.show('OK', '');
         }, (err)=>{
-            popup.setStatus(false, err.messageText);
-            popup.show();
-
+            popup.show('Error', err.responseText);
             console.log(err);
         });
     });
@@ -105,7 +103,7 @@ $(document).ready(function() {
     });
 
     $("#kieu-lieu").click(() => {
-        $('#nhap_hoa_don--sum').val(8000);
+        $('#nhap_hoa_don--sum').val(CONFIG.GIA_BAN_THEO_LIEU);
     });
     $('#kieu-banle').click(() => {
         const sum = $('#sum');

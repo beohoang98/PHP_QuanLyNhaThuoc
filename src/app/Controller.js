@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const DonVi_1 = require("./DonVi");
-const Thuoc_1 = require("./Thuoc");
-const Nsx_1 = require("./Nsx");
+const DonVi_1 = require("./Model/DonVi");
+const Thuoc_1 = require("./Model/Thuoc");
+const Nsx_1 = require("./Model/Nsx");
 const _Controller = class {
     constructor() {
         this._componentList = {};

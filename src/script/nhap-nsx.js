@@ -1,4 +1,4 @@
-const {Nsx} = require('../app/Nsx');
+const {Nsx} = require('../app/Model/Nsx');
 
 $(document).ready(()=>{
     const popup = new StatusPopup();
