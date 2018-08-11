@@ -1,5 +1,5 @@
 const {Thuoc, BangThuoc} = require('../app/Model/Thuoc');
-// const thuoc = new Thuoc();
+const thuoc = new Thuoc();
 const bangThuoc = new BangThuoc();
 
 $(document).ready(function() {
