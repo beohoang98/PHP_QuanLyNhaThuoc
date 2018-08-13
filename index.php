@@ -1,6 +1,6 @@
 <?php
     $ROOT = $_SERVER["DOCUMENT_ROOT"];
-    require ($ROOT."/public/api/_checkSessionCode.php");
+    require ($ROOT."/api/_checkSessionCode.php");
     $username = $_SESSION['username'];
 ?>
 

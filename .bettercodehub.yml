@@ -1,0 +1,9 @@
+languages:
+  - typescript
+  - php
+exclude:
+  - public/*
+test:
+  include:
+    - api/test/*.test.php
+    - src/test/*.test.js

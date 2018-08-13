@@ -5,12 +5,12 @@ class _DonVi extends Model {
 
 	public constructor() {
 		super();
-		this._database = "/public/api/don_vi/";
+		this._database = "/api/don_vi/";
 		this._fetchData = null;
 	}
 
-	public update(callback) {
-		this._get({}, (err, data)=>{
+	public async get(callback: (err, data)=>any) {
+		const data = await this._get({}, (err, data)=>{
 			if (!!err) {
 				console.log(err);
 				return;
@@ -18,6 +18,8 @@ class _DonVi extends Model {
 			this._fetchData = this._filter(data);
 			callback(err, this._fetchData);
 		});
+
+		return this._fetchData;
 	}
 
 	_filter(rawData) {

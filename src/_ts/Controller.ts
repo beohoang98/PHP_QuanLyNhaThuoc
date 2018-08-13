@@ -53,7 +53,7 @@ const _Controller = class {
 	onUpdateAll() {
 		for (const compoName of Object.keys(this._componentList)) {
 			const that = this;
-			this._componentList[compoName].update(function(err, data) {
+			this._componentList[compoName].get(function(err, data) {
 				for (const func of that._event[compoName]) {
 					func(err, data);
 				}

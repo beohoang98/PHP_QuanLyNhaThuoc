@@ -6,10 +6,10 @@ class _Thuoc extends Model {
 	constructor()
 	{
 		super();
-		this._database = "/public/api/thuoc/";
+		this._database = "/api/thuoc/";
 	}
 
-	update(callback)
+	public get(callback)
 	{
 		let $this = this;
 		$this._get({}, function(err, data) {

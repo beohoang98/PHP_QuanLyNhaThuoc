@@ -1,5 +1,5 @@
-const {Thuoc, BangThuoc} = require('../app/Model/Thuoc');
-const thuoc = new Thuoc();
+const {BangThuoc} = require('../app/Model/Thuoc');
+// const thuoc = new Thuoc();
 const bangThuoc = new BangThuoc();
 
 $(document).ready(function() {
@@ -10,9 +10,9 @@ $(document).ready(function() {
         for (const row of bangThuoc.list) {
             const priceString = (+row.don_gia).toLocaleString();
             const tr = $('<tr/>').html(`
-                <td>${row.ma_thuoc}</td>
-                <td>${row.ten_thuoc}</td>
-                <td>${row.ten_nsx}</td>
+                <td>${row.ma}</td>
+                <td>${row.ten}</td>
+                <td>${row.id_nsx}</td>
                 <td>${priceString}</td>
                 <td>${row.so_luong}</td>
             `);

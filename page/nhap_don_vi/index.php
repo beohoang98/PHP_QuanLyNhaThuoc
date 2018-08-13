@@ -39,15 +39,15 @@
 			}
 		</style>
 		<h3>ĐƠN VỊ ĐÃ CÓ</h3>
-		<table class="table table-striped">
-			<thead id='table-head'>
+		<table id='nhap_don_vi--table' class="table table-striped">
+			<thead>
 				<tr>
 					<th>ID</th>
 					<th>Tên</th>
 					<th>Quy đổi</th>
 				</tr>
 			</thead>
-			<tbody id='nhap_don_vi--table-body'>
+			<tbody>
 			</tbody>
 		</table>
 	</div>

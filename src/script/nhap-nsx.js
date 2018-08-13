@@ -17,7 +17,7 @@ $(document).ready(()=>{
 
     function updateNSX() {
         $('#table-body').children().remove();
-        nsx.update((err, data)=>{
+        nsx.get((err, data)=>{
             if (err) {
                 throw new Error(err);
             }
@@ -26,42 +26,6 @@ $(document).ready(()=>{
             }
         });
     }
-
-    $("#form").on('submit', (e)=>{
-        e.preventDefault();
-
-        $.ajax('/public/api/nsx/', {
-            method: 'post',
-            xhrFields: {
-                withCredentials: 'include',
-            },
-            data: $("#form").serialize(),
-            success: function(json) {
-                if (!!json.err) {
-                    popup.setStatus(false, json.msg);
-                    popup.show();
-                    return;
-                }
-
-                popup.setStatus(true, json.msg);
-                popup.show();
-                setTimeout(()=>{
-                    popup.hide();
-                }, 1000);
-
-                $("input, textarea").val("");
-
-                parent.postMessage({
-                    msg: 'update',
-                }, '*');
-            },
-            error: function(err) {
-                popup.setStatus(false, err.responseText);
-                popup.show();
-                return;
-            },
-        });
-    });
 
     // update data request
     window.addEventListener('message', function(e) {

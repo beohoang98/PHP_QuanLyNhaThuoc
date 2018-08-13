@@ -12,7 +12,7 @@ const TableData_1 = require("../TableData");
 class BangThuoc extends TableData_1.default {
     constructor() {
         super();
-        this._dbURL = "/public/api/thuoc/";
+        this._dbURL = "/api/thuoc/";
     }
     update() {
         return __awaiter(this, void 0, void 0, function* () {

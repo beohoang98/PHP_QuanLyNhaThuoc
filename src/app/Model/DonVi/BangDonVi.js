@@ -12,7 +12,7 @@ const TableData_1 = require("../TableData");
 class BangDonVi extends TableData_1.default {
     constructor() {
         super();
-        this._dbURL = "/public/api/don_vi/";
+        this._dbURL = "/api/don_vi/";
     }
     update() {
         return __awaiter(this, void 0, void 0, function* () {

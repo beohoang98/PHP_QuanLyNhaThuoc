@@ -6,9 +6,9 @@ exports.BangThuoc = BangThuoc_1.BangThuoc;
 class _Thuoc extends ModelClass_1.Model {
     constructor() {
         super();
-        this._database = "/public/api/thuoc/";
+        this._database = "/api/thuoc/";
     }
-    update(callback) {
+    get(callback) {
         let $this = this;
         $this._get({}, function (err, data) {
             if (err) {

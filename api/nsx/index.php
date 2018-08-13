@@ -6,9 +6,13 @@ require_once "../default_api/index.php";
 
 $method = $_SERVER["REQUEST_METHOD"];
 if ($method === "GET") {
-    require_once "_getNsx.php";
+    require "_get_nsx.php";
 } else if ($method === "POST") {
-    require_once "_addNsx.php";
+    require "_create_nsx.php";
+} else if ($method === "PUT") {
+    require "_update_nsx.php"; 
+} else if ($method === "DELETE") {
+    require "_remove_nsx.php";
 } else {
     header("HTTP/1.1 404 Not Found");
 }
