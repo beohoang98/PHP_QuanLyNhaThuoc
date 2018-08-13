@@ -2,7 +2,7 @@ language: php
 php:
   - 7.1.9
 env:
-  - PHP_ENV="test"
+  - PHP_ENV=test
 before_script:
   - composer install
 script:
