@@ -10,5 +10,5 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - find ./api -name '*.test.php' | xargs ./vendor/bin/phpunit --testsuite=unit --coverage-text --coverage-clover build/logs/clover.xml --bootstrap ./vendor/autoload.php
-  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
+  - bash test
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

@@ -3,3 +3,4 @@ package-lock.json
 local_env.json
 vendor/
 *.secret
+build/
