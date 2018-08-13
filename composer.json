@@ -7,6 +7,7 @@
     },
     "require-dev": {
       "heroku/heroku-buildpack-php": "*",
-        "phpunit/phpunit": "^7.3"
+        "phpunit/phpunit": "^7.3",
+        "codeclimate/php-test-reporter": "^0.4.4"
     }
 }
