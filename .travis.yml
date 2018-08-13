@@ -2,7 +2,7 @@ language: php
 php:
   - 7.1.9
 env:
-  - PHP=test CC_TEST_REPORTER_ID=bd2d51d6624952183f1d6c4e3f59b2d6cf499eea28cf7f0ef10e669230f127cc
+  - PHP_ENV=test CC_TEST_REPORTER_ID=bd2d51d6624952183f1d6c4e3f59b2d6cf499eea28cf7f0ef10e669230f127cc
 before_script:
   - "composer require codeclimate/php-test-reporter --dev"
   - composer install
@@ -11,3 +11,4 @@ before_script:
   - ./cc-test-reporter before-build
 script:
   - find ./api -name '*.test.php' | xargs ./vendor/bin/phpunit --testsuite=unit --coverage-text --coverage-clover build/logs/clover.xml --bootstrap ./vendor/autoload.php
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
