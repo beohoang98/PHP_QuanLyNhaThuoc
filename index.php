@@ -19,25 +19,25 @@ $username = $_SESSION['username'];
                 <span class="fa fa-bars"></span>
             </div>
         </a>
-        <a onclick="nhapHoaDon()" class='btn text-light' title="Nhập hóa đơn">
+        <a data-target="page-nhap-hoa-don" class='sidebar-switch-page btn text-light' title="Nhập hóa đơn">
             <span>NHẬP HÓA ĐƠN</span>
             <div class="menu-icon">
                 <span class='fa fa-tachometer-alt'></span>
             </div>
         </a>
-        <a onclick="nhapThuoc()" class='btn text-light' title="Nhập thuốc mới">
+        <a data-target="page-nhap-thuoc" class='sidebar-switch-page btn text-light' title="Nhập thuốc mới">
             <span>NHẬP THUỐC</span>
             <div class="menu-icon">
                 <span class='fa fa-pills'></span>
             </div>
         </a>
-        <a onclick="nhapNSX()" class='btn text-light' title="Nhập nhà sản xuất mới">
+        <a data-target="page-nhap-nsx" class='sidebar-switch-page btn text-light' title="Nhập nhà sản xuất mới">
             <span>NHẬP NSX</span>
             <div class="menu-icon">
                 <span class='fa fa-industry'></span>
             </div>
         </a>
-        <a onclick="nhapDonVi()" class='btn text-light' title="Nhập đơn vị tính mới">
+        <a data-target="page-nhap-don-vi" class='sidebar-switch-page btn text-light' title="Nhập đơn vị tính mới">
             <span>NHẬP ĐƠN VỊ</span>
             <div class="menu-icon">
                 <span class='fa fa-tachometer-alt'></span>

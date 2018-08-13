@@ -1,10 +1,11 @@
 <phpunit bootstrap="./vendor/autoload.php">
     <testsuite name="unit">
-        <directory>./api/test</directory>
+        <directory>./tests</directory>
     </testsuite>
     <filter>
         <whitelist>
             <directory>./api</directory>
+            <directory>./src</directory>
         </whitelist>
     </filter>
     <logging>

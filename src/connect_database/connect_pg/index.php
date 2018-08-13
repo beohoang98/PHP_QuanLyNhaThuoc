@@ -45,13 +45,8 @@ class mSQL {
         $this->_isError = false;
         $this->_errText = "";
 
-        $this->sql = pg_connect(
-            "host=$this->_host 
-            port=$this->_port 
-            dbname=$this->_dbname 
-            user=$this->_user 
-            password=$this->_pass"
-        );
+        $this->sql = pg_connect("host=$this->_host port=$this->_port dbname=$this->_dbname
+            user=$this->_user password=$this->_pass");
 
         if (!$this->sql) {
             $this->_isError = true;

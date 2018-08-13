@@ -1,35 +1,8 @@
-let frame = $("#frame");
-let choose = 2;
-let chooseLength = $(".sidebar > a").length;
-
-function nhapHoaDon() {
+function switchTo(id) {
     let container = $('.frame-container');
     container.animate({
-        scrollTop: $("#page-nhap-hoa-don").offset().top - container.offset().top + container.scrollTop() 
+        scrollTop: $("#" + id).offset().top - container.offset().top + container.scrollTop(),
     });
-    
-}
-function nhapThuoc() {
-    let container = $('.frame-container');
-    container.animate({
-        scrollTop: $("#page-nhap-thuoc").offset().top - container.offset().top + container.scrollTop() 
-    });
-}
-function nhapNSX() {
-    let container = $('.frame-container');
-    container.animate({
-        scrollTop: $("#page-nhap-nsx").offset().top - container.offset().top + container.scrollTop() 
-    });
-}
-function nhapDonVi() {
-    let container = $('.frame-container');
-    container.animate({
-        scrollTop: $("#page-nhap-don-vi").offset().top - container.offset().top + container.scrollTop() 
-    });
-}
-
-function resizepage() {
-    $('.page').css('height', document.body.scrollHeight + 'px');
 }
 
 function togglemenu() {
@@ -41,18 +14,22 @@ $(document).ready(()=>{
     $("#username").text(username);
 
     $("a[title]").tooltip({
-        "content":$(this).attr("title"),
+        "content": $(this).attr("title"),
         "classes": {
-            "ui-tooltip":"text-info ui-corner-all"
-        }
+            "ui-tooltip": "text-info ui-corner-all",
+        },
     });
 
-    $(document).on("keydown",(e)=>{
+    $(".sidebar-switch-page").on("click", function() {
+        const id = $(this).data('target');
+        switchTo(id);
+    });
+
+    $(document).on("keydown", (e)=>{
         if (e.altKey) {
             e.preventDefault();
             togglemenu();
-        }
-        else if (e.keyCode === 38 | e.keyCode === 40) {
+        } else if (e.keyCode === 38 | e.keyCode === 40) {
             if (e.keyCode == 40) ++choose;
             else --choose;
 
@@ -60,51 +37,10 @@ $(document).ready(()=>{
             if (choose > chooseLength) choose = 2;
 
             let string = `.sidebar > a:nth-child(${choose})`;
-            $(".isChoose").removeClass("isChoose")
+            $(".isChoose").removeClass("isChoose");
             $(string).addClass("isChoose");
         }
     });
 
-    $(window).resize(function() {
-        resizepage();
-    });
-
-    // $("iframe").on("load", nhapHoaDon);
-    resizepage();
-    nhapHoaDon();
-
-    window.onmessage = function(e) {
-        let data = e.data;
-        if (data.msg === 'shortcut_key')
-            handleShortcutKey(data.shift, data.key);
-        else if (data.msg === 'update')
-        {
-            $('iframe').each((i, frame)=>{
-                frame.contentWindow.postMessage({
-                    msg: 'update'
-                }, '*');
-            });
-        }
-    }
+    switchTo("page-nhap-hoa-don");
 });
-
-function handleShortcutKey(shift, key)
-{
-    if (!shift) return;
-    if (key == 37) // key left
-    {
-
-    }
-    else if (key == 38) // key up
-    {
-
-    }
-    else if (key == 39) // key right
-    {
-
-    }
-    else if (key == 40) // key down
-    {
-
-    }
-}

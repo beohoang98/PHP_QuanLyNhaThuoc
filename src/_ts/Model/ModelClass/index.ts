@@ -28,10 +28,8 @@ class _Model {
         try {
             const res = await fetch(requestURL, {credentials: 'include'});
             const json = await res.json();
-            if (json.err) {
-                if (typeof callback === "function") callback(json.msg);
-                return;
-            }
+            if (json.err) throw new Error(json.msg);
+
             this._data = json.data;
             if (typeof callback === "function") callback(false, json.data);
             return json.data;
@@ -55,10 +53,8 @@ class _Model {
                 body: JSON.stringify(data),
             });
             const json = await res.json();
-            if (json.err) {
-                if (typeof callback === "function") callback(json.msg);
-                return;
-            }
+            if (json.err) throw new Error(json.msg); 
+
             this._res = json.data;
             if (typeof callback === "function") callback(false, json.data);
             return json.data;
