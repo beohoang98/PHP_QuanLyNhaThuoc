@@ -1,9 +1,9 @@
 languages:
-  - typescript
-  - php
+- typescript
+- php
 exclude:
-  - public/*
+- public/*
 test:
   include:
-    - api/test/*.test.php
-    - src/test/*.test.js
+  - api/test/*.test.php
+  - src/test/*.test.js
