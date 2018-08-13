@@ -34,7 +34,7 @@ class mSQL {
             $this->_user = $db['user'];
             $this->_pass = $db['pass'];
         } else {
-            if (getenv("PHP_ENV") === "test") {
+            if (getenv("PHP_ENV") === "test" || getenv("CI") === true) {
                 $ROOT = realpath(__DIR__."/../../..");
             } else {
                 $ROOT = $_SERVER['DOCUMENT_ROOT'];
