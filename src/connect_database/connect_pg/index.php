@@ -34,7 +34,12 @@ class mSQL {
             $this->_user = $db['user'];
             $this->_pass = $db['pass'];
         } else {
-            $ROOT = $_SERVER['DOCUMENT_ROOT'];
+            if (getenv("PHP_ENV") === "test") {
+                $ROOT = realpath(__DIR__."/../../..");
+            } else {
+                $ROOT = $_SERVER['DOCUMENT_ROOT'];
+            }
+            
             $configText = file_get_contents($ROOT."\\local_env.json");
             $config = json_decode($configText, true);
             $this->_host = $config['host'];

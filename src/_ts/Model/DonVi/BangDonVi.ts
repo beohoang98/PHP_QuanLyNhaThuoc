@@ -3,7 +3,7 @@ import TableData from "../TableData";
 class BangDonVi extends TableData {
 	constructor() {
 		super();
-		this._dbURL = "/public/api/don_vi/";
+		this._dbURL = "/api/don_vi/";
 	}
 
 	public async update() {

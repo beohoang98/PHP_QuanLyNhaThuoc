@@ -33,14 +33,20 @@ class _Model {
                 const res = yield fetch(requestURL, { credentials: 'include' });
                 const json = yield res.json();
                 if (json.err) {
-                    callback(json.msg);
+                    if (typeof callback === "function")
+                        callback(json.msg);
                     return;
                 }
                 this._data = json.data;
-                callback(false, json.data);
+                if (typeof callback === "function")
+                    callback(false, json.data);
+                return json.data;
             }
             catch (err) {
-                callback(err);
+                if (typeof callback === "function")
+                    callback(err);
+                else
+                    throw err;
             }
         });
     }
@@ -60,14 +66,20 @@ class _Model {
                 });
                 const json = yield res.json();
                 if (json.err) {
-                    callback(json.msg);
+                    if (typeof callback === "function")
+                        callback(json.msg);
                     return;
                 }
                 this._res = json.data;
-                callback(false, json.data);
+                if (typeof callback === "function")
+                    callback(false, json.data);
+                return json.data;
             }
             catch (err) {
-                callback(err);
+                if (typeof callback === "function")
+                    callback(err);
+                else
+                    throw err;
             }
         });
     }
