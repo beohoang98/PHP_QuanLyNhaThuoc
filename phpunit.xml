@@ -1,0 +1,13 @@
+<phpunit bootstrap="./vendor/autoload.php">
+    <testsuite name="unit">
+        <directory>./api/test</directory>
+    </testsuite>
+    <filter>
+        <whitelist>
+            <directory>./api</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
+</phpunit>

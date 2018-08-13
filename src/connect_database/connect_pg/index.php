@@ -34,13 +34,13 @@ class mSQL {
             $this->_user = $db['user'];
             $this->_pass = $db['pass'];
         } else {
-            if (getenv("PHP_ENV") === "test") {
-                $ROOT = realpath(__DIR__."/../../..");
+            if (getenv("PHP_ENV") === "test" || getenv("CI") === true) {
+                return; // it will not connect to any database
             } else {
                 $ROOT = $_SERVER['DOCUMENT_ROOT'];
             }
             
-            $configText = file_get_contents($ROOT."\\local_env.json");
+            $configText = file_get_contents($ROOT."/local_env.json");
             $config = json_decode($configText, true);
             $this->_host = $config['host'];
             $this->_port = $config['port'];

@@ -1,0 +1,9 @@
+languages:
+  - php
+  - typescript
+engines:
+  phpcodesniffer:
+    enabled: true
+exclude_paths:
+  - public/*
+  - src/app/*
