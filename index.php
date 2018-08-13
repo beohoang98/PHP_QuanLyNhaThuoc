@@ -1,7 +1,7 @@
 <?php
-    $ROOT = $_SERVER["DOCUMENT_ROOT"];
-    require ($ROOT."/api/_checkSessionCode.php");
-    $username = $_SESSION['username'];
+$ROOT = $_SERVER["DOCUMENT_ROOT"];
+require $ROOT."/api/_checkSessionCode.php";
+$username = $_SESSION['username'];
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8"/>
     <title>Quan Ly Nha Thuoc</title>
-    <?php require ($ROOT.'/page/_layouts/meta.php') ?>
+    <?php require $ROOT.'/page/_layouts/meta.php' ?>
 </head>
 <body class='home'>
     <nav class="bg-dark sidebar" role="navigation">
@@ -61,16 +61,16 @@
     <div class='frame-container'>
         <div class="frame-slide">
             <div class='page' id='page-nhap-hoa-don'>
-                <?php require ($ROOT."/page/nhap_hoa_don/index.php") ?>
+                <?php require $ROOT."/page/nhap_hoa_don/index.php"?>
             </div>
             <div class='page' id='page-nhap-thuoc'>
-                <?php require ($ROOT."/page/nhap_thuoc/index.php") ?>
+                <?php require $ROOT."/page/nhap_thuoc/index.php"?>
             </div>
             <div class='page' id='page-nhap-nsx'>
-                <?php require ($ROOT."/page/nhap_nsx/index.php") ?>    
+                <?php require $ROOT."/page/nhap_nsx/index.php"?>    
             </div>
             <div class='page' id='page-nhap-don-vi'>
-                <?php require ($ROOT."/page/nhap_don_vi/index.php") ?>
+                <?php require $ROOT."/page/nhap_don_vi/index.php"?>
             </div>
         </div>
     </div>

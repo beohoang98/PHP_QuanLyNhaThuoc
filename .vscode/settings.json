@@ -10,7 +10,5 @@
 	],
 
 	"git.autofetch": false,
-	
-	"phpcs.standard": "PSR1",
-
+	"phpcs.standard": "PSR2"
 }

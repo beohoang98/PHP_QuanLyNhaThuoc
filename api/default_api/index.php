@@ -6,13 +6,13 @@ require_once "checkSessionForApi.php";
 require_once "connectdb.php";
 require_once "_returnJSON.php";
 
-function checkSessionAndConnect() {
+function checkSessionAndConnect()
+{
     \Api\checkSession();
 }
 
-function initHeader() {
+function initHeader()
+{
     header("Access-Control-Allow-Origin: /");
     header("Content-Type: application/json; charset=UTF-8");
 }
-
-?>

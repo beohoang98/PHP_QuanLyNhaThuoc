@@ -7,10 +7,8 @@ require_once "../default_api/index.php";
 $method = $_SERVER["REQUEST_METHOD"];
 if ($method === "GET") {
     require_once "_getThuoc.php";
-} else if ($method === "POST") {
+} elseif ($method === "POST") {
     require_once "_addThuoc.php";
 } else {
     header("HTTP/1.1 404 Not Found");
 }
-
-?>
