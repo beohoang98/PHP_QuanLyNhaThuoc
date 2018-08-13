@@ -2,8 +2,7 @@ language: php
 php:
   - 7.1.9
 env:
-  - PHP_ENV=test
-  - CC_TEST_REPORTER_ID=bd2d51d6624952183f1d6c4e3f59b2d6cf499eea28cf7f0ef10e669230f127cc
+  - PHP=test CC_TEST_REPORTER_ID=bd2d51d6624952183f1d6c4e3f59b2d6cf499eea28cf7f0ef10e669230f127cc
 before_script:
   - "composer require codeclimate/php-test-reporter --dev"
   - composer install
