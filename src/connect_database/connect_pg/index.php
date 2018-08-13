@@ -35,7 +35,7 @@ class mSQL {
             $this->_pass = $db['pass'];
         } else {
             if (getenv("PHP_ENV") === "test" || getenv("CI") === true) {
-                $ROOT = realpath(__DIR__."/../../..");
+                return; // it will not connect to any database
             } else {
                 $ROOT = $_SERVER['DOCUMENT_ROOT'];
             }
