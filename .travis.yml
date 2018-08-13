@@ -1,5 +1,9 @@
 language: php
 php:
   - 7.1.9
+env:
+  - PHP_ENV="test"
+before_script:
+  - composer install
 script:
-  - bash test
+  - find ./api -name '*.test.php' | xargs ./vendor/bin/phpunit --bootstrap ./vendor/autoload.php
