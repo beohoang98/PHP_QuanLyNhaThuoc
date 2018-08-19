@@ -21,6 +21,10 @@ class _Thuoc extends Model {
 			callback(false, data);
 		});
 	}
+
+	public create(data, callback) {
+		this._post(data, callback);
+	}
 }
 
 export { _Thuoc as Thuoc, BangThuoc as BangThuoc };

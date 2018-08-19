@@ -15,7 +15,7 @@
     "typescript": "^3.0.1"
   },
   "scripts": {
-    "test": "set PHP_ENV=test&& find ./api -name '*.test.php' | xargs .\\vendor\\bin\\phpunit --bootstrap .\\vendor\\autoload.php",
+    "test": "set PHP_ENV=test && ./vendor/bin/phpunit",
     "build": "tsc -p . && node build-js"
   },
   "repository": {

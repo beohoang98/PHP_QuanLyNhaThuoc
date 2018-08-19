@@ -59,6 +59,9 @@ class _Model {
                 const res = yield fetch(this._database, {
                     credentials: 'include',
                     method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
                     body: JSON.stringify(data),
                 });
                 const json = yield res.json();

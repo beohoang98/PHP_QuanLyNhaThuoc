@@ -42,9 +42,9 @@ const _QLNT = class extends Controller {
 		const preview = new inputPreview2();
 		preview.addLookup(optListen);
 		preview.listen(idElement, (data)=>{
-			for (let idEl in optChange)	{
-				if (!optChange.hasOwnProperty(idEl)) continue;
-				$('#'+idEl).val(data[optChange[idEl]]);
+			for (let idEl of Object.keys(optChange)) {
+				const field = optChange[idEl];
+				$('#'+idEl).val(data[field]);
 			}
 		});
 
@@ -62,7 +62,7 @@ const _QLNT = class extends Controller {
 	addSelectInput(element, opt) {
 		const valueKey = opt.value;
 		const titleKey = opt.title;
-		const compoName = element.getAttribute('component');
+		const compoName = $(element).attr('component');
 
 		const onUpdate = function(err, data) {
 			if (err) {
@@ -74,10 +74,10 @@ const _QLNT = class extends Controller {
 
 			// add updated option
 			for (const row of data) {
-				const newOpt = document.createElement("option");
-				newOpt.value = row[valueKey];
-				newOpt.textContent = row[titleKey];
-				element.appendChild(newOpt);
+				const newOpt = $("<option/>");
+				newOpt.attr('value', row[valueKey])
+					.text(row[titleKey])
+					.appendTo(element);
 			}
 		};
 

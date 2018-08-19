@@ -29,9 +29,8 @@ class mSQL {
         } else {
             if (getenv("PHP_ENV") === "test" || getenv("CI") === true) {
                 return; // it will not connect to any database
-            } else {
-                $ROOT = $_SERVER['DOCUMENT_ROOT'];
             }
+            $ROOT = $_SERVER['DOCUMENT_ROOT'];
             
             $configText = file_get_contents($ROOT."/local_env.json");
             $config = json_decode($configText, true);

@@ -1,5 +1,5 @@
-const {BangThuoc} = require('../app/Model/Thuoc');
-// const thuoc = new Thuoc();
+const {Thuoc, BangThuoc} = require('../app/Model/Thuoc');
+const thuoc = new Thuoc();
 const bangThuoc = new BangThuoc();
 
 $(document).ready(function() {
@@ -19,6 +19,20 @@ $(document).ready(function() {
             table.append(tr);
         }
     }
+
+    $("#nhap_thuoc--form").on("submit", function NhapThuocFormSubmit(e) {
+        e.preventDefault();
+        const data = {};
+        $(this).serializeArray().forEach((val)=>{
+            data[val.name] = val.value;
+        });
+        thuoc.create(data, (err)=>{
+            if (err) {
+                throw err;
+            }
+            window.location.reload();
+        });
+    });
 
     updateTable();
 });

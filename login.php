@@ -3,9 +3,9 @@
 session_start();
 if (isset($_SESSION['username'])) {
     header("Location: index.php");
+    exit();
 }
 ?>
-
 <?php
 // IF NOT LOGIN YET
 if (isset($_POST['submit']) && isset($_POST['username']) && isset($_POST['password'])) {
@@ -24,8 +24,10 @@ if (isset($_POST['submit']) && isset($_POST['username']) && isset($_POST['passwo
         $username = trim($ret->data[0]['username']);
         $_SESSION['username'] = $username;
         header("Location: /");
+        exit();
     } else {
         header("Location: /login.php?msg=".htmlspecialchars("Username hoặc mật khẩu của bạn đã bị sai").$ret->errMsg);
+        exit();
     }
 }
 ?>

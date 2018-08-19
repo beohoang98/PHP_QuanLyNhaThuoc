@@ -51,9 +51,9 @@ class inputPreview2 {
     ;
     listen(id, callback) {
         let element = document.getElementById(id);
+        let cur = 0;
         element.addEventListener("keydown", (e) => {
             let code = e.keyCode;
-            let cur = +this._preview_div.getAttribute("cur");
             if (code === 27) { // esc
                 this._deletePreview();
             }
@@ -102,9 +102,7 @@ class inputPreview2 {
                 continue;
             this._currentPreviewData.push(row);
             let arr = [];
-            for (const name in this._lookup) {
-                if (!this._lookup[name])
-                    continue;
+            for (const name of Object.keys(this._lookup)) {
                 const field = this._lookup[name];
                 arr.push(row[field]);
             }

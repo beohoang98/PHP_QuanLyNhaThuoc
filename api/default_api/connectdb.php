@@ -86,6 +86,13 @@ class ConnectDatabase
         return $this;
     }
 
+    public function insert($fieldAndValue) {
+        $fieldStr = join(", ", array_keys($fieldAndValue));
+        $valueStr = join(", ", array_values($fieldAndValue));
+        $this->query = "INSERT INTO $this->table ($fieldStr) VALUES ($valueStr)";
+        return $this;
+    }
+
     public function update($fieldsMatch, $fieldsUpdate)
     {
         if (!isset($fieldsMatch) || !isset($fieldsUpdate)

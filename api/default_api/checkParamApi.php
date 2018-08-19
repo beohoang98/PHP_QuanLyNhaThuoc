@@ -8,6 +8,7 @@ class CheckParam
     private $method;
     private $errMsg;
     public $listInvalid;
+    public $data; // after check
 
     public function __construct($dataJSON = array(), $method = "GET")
     {
@@ -45,7 +46,7 @@ class CheckParam
                 $httpParam = $_GET;
                 break;
             case "POST":
-                $httpParam = $_POST;
+                $httpParam = json_decode(\file_get_contents("php://input"), true);
                 break;
             case "PUT":
                 $httpParam = $_PUT;
@@ -64,7 +65,9 @@ class CheckParam
                 array_push($this->listInvalid, $name);
             }
         }
-
+        if ($isTrue) {
+            $this->data = $httpParam;
+        }
         return $isTrue;
     }
 

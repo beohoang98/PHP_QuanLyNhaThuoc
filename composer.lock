@@ -1193,16 +1193,16 @@
         },
         {
             "name": "heroku/heroku-buildpack-php",
-            "version": "v142",
+            "version": "v143",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heroku/heroku-buildpack-php.git",
-                "reference": "6a2c921a0d691223a5b92b764ae986fda15b90d6"
+                "reference": "1cdd477661d3da7434efe5fedcb42d7b42503b8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/6a2c921a0d691223a5b92b764ae986fda15b90d6",
-                "reference": "6a2c921a0d691223a5b92b764ae986fda15b90d6",
+                "url": "https://api.github.com/repos/heroku/heroku-buildpack-php/zipball/1cdd477661d3da7434efe5fedcb42d7b42503b8d",
+                "reference": "1cdd477661d3da7434efe5fedcb42d7b42503b8d",
                 "shasum": ""
             },
             "bin": [
@@ -1233,7 +1233,7 @@
                 "nginx",
                 "php"
             ],
-            "time": "2018-08-08T00:56:54+00:00"
+            "time": "2018-08-17T16:27:37+00:00"
         },
         {
             "name": "myclabs/deep-copy",

@@ -10,5 +10,10 @@
 	],
 
 	"git.autofetch": false,
-	"phpcs.standard": "PSR2"
+	
+	"phpcs.enable": true,
+	"phpcs.standard": "PSR2",
+	"phpcs.autoConfigSearch": true,
+	"php.validate.executablePath": "/usr/bin/php",
+	"phpcs.executablePath": "./vendor/bin/phpcs"
 }

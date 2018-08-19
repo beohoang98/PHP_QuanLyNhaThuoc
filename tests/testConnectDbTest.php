@@ -45,4 +45,18 @@ class ConnectDatabaseTest extends TestCase
             self::$db->getQuery()
         );
     }
+
+    public function testInsertQuery()
+    {
+        self::$db->clear();
+        self::$db->table("User")->insert([
+            "id"=>1,
+            "name"=>"'Hello'",
+            "age"=>18
+        ]);
+        $this->assertEquals(
+            "INSERT INTO User (id, name, age) VALUES (1, 'Hello', 18)",
+            self::$db->getQuery()
+        );
+    }
 }
