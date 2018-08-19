@@ -1,99 +1,120 @@
 <?php
-
 namespace Api;
 
-require __DIR__."/dbresponse.php";
+class ConnectDatabase
+{
+    private $mSQL;
+    private $table;
+    private $limit;
+    private $offset;
+    private $query;
+    private $res;
 
-class ConnectDatabase {
-    private $_mSQL;
-    private $_table;
-    private $_limit;
-    private $_offset;
-    private $_query;
-    private $_res;
-
-    public function __construct() {
+    public function __construct()
+    {
+        require_once __DIR__."/dbresponse.php";
         require_once __DIR__."/../../src/connect_database/connect_pg/index.php";
 
-        $this->_mSQL = new \mSQL();
+        $this->mSQL = new \mSQL();
 
-        $this->_offset = 0;
-        $this->_limit = 0;
+        $this->offset = 0;
+        $this->limit = 0;
     }
 
-    public function getQuery() {
-        return $this->_query;
+    public function getQuery()
+    {
+        return $this->query;
     }
 
-    public function table($table_name) {
-        $this->_table = $table_name;
+    public function table($table_name)
+    {
+        $this->table = $table_name;
         return $this;
     }
 
-    public function skip($offset) {
-        $this->_offset = $offset;
+    public function skip($offset)
+    {
+        $this->offset = $offset;
         return $this;
     }
 
-    public function limit($limit) {
-        $this->_limit = $limit;
+    public function limit($limit)
+    {
+        $this->limit = $limit;
         return $this;
     }
 
-    public function execute() {
-        if ($this->_limit > 0) $this->_query .= " LIMIT $this->_limit";
-        if ($this->_offset > 0) $this->_query .= " OFFSET $this->_offset";
+    public function execute()
+    {
+        if ($this->limit > 0) {
+            $this->query .= " LIMIT $this->limit";
+        }
+        if ($this->offset > 0) {
+            $this->query .= " OFFSET $this->offset";
+        }
 
-        $this->_mSQL->query($this->_query);
-        $res = new \Api\DBResponse($this->_mSQL);
+        $this->mSQL->query($this->query);
+        $res = new \Api\DBResponse($this->mSQL);
 
-        $this->_res = $res;
+        $this->res = $res;
         return $res;
     }
 
-    public function clear() {
-        $this->_table = "";
-        $this->_query = "";
-        $this->_limit = 0;
-        $this->_offset = 0;
-        $this->_res = null;
+    public function clear()
+    {
+        $this->table = "";
+        $this->query = "";
+        $this->limit = 0;
+        $this->offset = 0;
+        $this->res = null;
     }
 
-    public function find($fieldsMatch) {
+    public function find($fieldsMatch)
+    {
         $whereStr = join(
             " AND ",
-            array_map(function($key, $val) {
+            array_map(function ($key, $val) {
                 return "$key = $val";
             }, array_keys($fieldsMatch), $fieldsMatch)
         );
 
-        $this->_query = "SELECT * FROM $this->_table";
-        if (isset($fieldsMatch) && count($fieldsMatch) > 0) $this->_query .= " WHERE ".$whereStr;
+        $this->query = "SELECT * FROM $this->table";
+        if (isset($fieldsMatch) && count($fieldsMatch) > 0) {
+            $this->query .= " WHERE ".$whereStr;
+        }
 
         return $this;
     }
 
-    public function update($fieldsMatch, $fieldsUpdate) {
+    public function insert($fieldAndValue) {
+        $fieldStr = join(", ", array_keys($fieldAndValue));
+        $valueStr = join(", ", array_values($fieldAndValue));
+        $this->query = "INSERT INTO $this->table ($fieldStr) VALUES ($valueStr)";
+        return $this;
+    }
+
+    public function update($fieldsMatch, $fieldsUpdate)
+    {
         if (!isset($fieldsMatch) || !isset($fieldsUpdate)
-            || count($fieldsMatch) <= 0 || count($fieldsUpdate) <= 0 )
+        || count($fieldsMatch) <= 0 || count($fieldsUpdate) <= 0) {
             die("params must be valid");
+        }
+
         $setStr = join(
             ", ",
-            array_map(function($key, $value) {
+            array_map(function ($key, $value) {
                 return "$key = $value";
             }, array_keys($fieldsUpdate), $fieldsUpdate)
         );
         $whereStr = join(
             " AND ",
-            array_map(function($key, $value) {
+            array_map(function ($key, $value) {
                 return "$key = $value";
             }, array_keys($fieldsMatch), $fieldsMatch)
         );
 
-        $this->_query = "UPDATE $this->_table SET (".$setStr.") WHERE ".$whereStr;
+        $this->query = "UPDATE $this->table SET (".$setStr.") WHERE ".$whereStr;
 
         return $this;
     }
 }
-
-?>

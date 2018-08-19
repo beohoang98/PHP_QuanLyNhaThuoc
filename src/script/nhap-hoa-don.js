@@ -56,11 +56,13 @@ $(document).ready(function() {
     displayUser();
     focusTenThuocFirst();
 
-    App.addSelectInput($('#nhap_hoa_don--don_vi')[0], {
+    App.addSelectInput($('[component="DonVi"]'), {
         title: 'ten',
         value: 'id',
     });
+
     App.onUpdateAll();
+
 
     hoaDonForm.setHeader($("#nhap_hoa_don--form-nhap").get(0));
     hoaDonForm.setTable($("#table-nhap").get(0));

@@ -2,14 +2,20 @@
 
 namespace Api;
 
-class CheckParam {
+class CheckParam
+{
     private $paramList;
     private $method;
     private $errMsg;
     public $listInvalid;
+    public $data; // after check
 
     public function __construct($dataJSON = array(), $method = "GET")
     {
+        if (gettype($dataJSON) != "array") {
+            throw new Error("invalid array");
+            return;
+        }
         $this->errMsg = "";
         $this->method = $method;
         $this->paramList = $dataJSON;
@@ -18,14 +24,12 @@ class CheckParam {
 
     public function addParam($array)
     {
-        if (gettype($array) != "array")
-        {
+        if (gettype($array) != "array") {
             throw new Error("invalid array");
             return;
         }
 
-        foreach ($array as $name)
-        {
+        foreach ($array as $name) {
             array_push($this->paramList, $name);
         }
     }
@@ -36,34 +40,35 @@ class CheckParam {
      */
     public function isOK()
     {
-        if (gettype($this->paramList) != "array")
-        {
-            $this->errMsg = "data in must be array";
-            return false;
-        }
-
         $httpParam = null;
-        if ($this->method == "GET") $httpParam = $_GET;
-        else if ($this->method == "POST") $httpParam = $_POST;
-        else return false;
+        switch ($this->method) {
+            case "GET":
+                $httpParam = $_GET;
+                break;
+            case "POST":
+                $httpParam = json_decode(\file_get_contents("php://input"), true);
+                break;
+            case "PUT":
+                $httpParam = $_PUT;
+                break;
+            case "DELETE":
+                $httpParam = $_DELETE;
+                break;
+            default:
+                return false;
+        }
 
         $isTrue = true;
-        foreach ($this->paramList as $name)
-        {
-            if (!isset($httpParam[$name]))
-            {
-                $isTrue = false;
-                array_push($this->listInvalid, $name);
-            }
-            else if (trim($httpParam[$name]) == "")
-            {
+        foreach ($this->paramList as $name) {
+            if (!isset($httpParam[$name]) || trim($httpParam[$name]) === "") {
                 $isTrue = false;
                 array_push($this->listInvalid, $name);
             }
         }
-
-        if ($isTrue) return true;
-        return false;
+        if ($isTrue) {
+            $this->data = $httpParam;
+        }
+        return $isTrue;
     }
 
     /**
@@ -74,4 +79,3 @@ class CheckParam {
         return $this->errMsg;
     }
 }
-?>

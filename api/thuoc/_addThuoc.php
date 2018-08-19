@@ -1,51 +1,42 @@
 <?php
-	$checkParam = new CheckParam(["ma_thuoc", "ten_thuoc", "nsx", "viet_tat", "don_vi", "don_gia"], "POST");
-	if (!$checkParam->isOK())
-	{
-		$msgerr = "";
-		foreach ($checkParam->listInvalid as $name)
-			$msgerr = $msgerr." ".$name;
-		echo json_encode([
-			"err"=>true,
-			"msg"=>"missing or invalid parameters: ".$msgerr
-		]);
-		exit();
-	}
-	$ma_thuoc 	=  trim($_POST["ma_thuoc"]);
-	$ten_thuoc 	=  trim($_POST["ten_thuoc"]);
-	$nsx 		=  trim($_POST["nsx"]);
-	$viet_tat 	=  trim($_POST["viet_tat"]);
-	$don_vi		=  trim($_POST['don_vi']);
-	$don_gia	=  "".trim($_POST['don_gia']);
-	$don_gia = preg_replace('/\D/', '', $don_gia);
-	$don_gia = intval($don_gia);
-	
+$checkParam = new \Api\CheckParam(["ma_thuoc", "ten_thuoc", "nsx", "viet_tat", "don_vi", "don_gia"], "POST");
+if (!$checkParam->isOK()) {
+    $msgerr = "";
+    foreach ($checkParam->listInvalid as $name) {
+        $msgerr = $msgerr." ".$name;
+    }
 
-	//check session
-	require_once "_checkSessionForApi.php";
+    echo json_encode([
+        "err"=>true,
+        "msg"=>"missing or invalid parameters: ".$msgerr
+    ]);
+    exit();
+}
 
+$data = $checkParam->data;
 
-	//connect and fetch data to database
-	$sql = new mSQL('127.0.0.1', 'qlnt_access', base64_decode('NDg2MjUxNzkz'));
-	if ($sql->isError())
-	{
-		echo json_encode([
-			"err"=>true,
-			"msg"=>"Connect error: ".$sql->errText()
-		]);
-		exit();
-	}
+$ma_thuoc = trim($data["ma_thuoc"]);
+$ten_thuoc = trim($data["ten_thuoc"]);
+$nsx = trim($data["nsx"]);
+$viet_tat = trim($data["viet_tat"]);
+$don_vi = trim($data['don_vi']);
+$don_gia = "".trim($data['don_gia']);
+$don_gia = preg_replace('/\D/', '', $don_gia);
+$don_gia = intval($don_gia);
 
-	$result = $sql->query("select * from func_addThuoc($ma_thuoc, N'$ten_thuoc', N'$nsx', '$viet_tat', $don_vi, $don_gia)");
+$db = new \Api\ConnectDatabase();
 
-	if ($sql->isError())
-	{
-		echo json_encode([
-			"err"=>true,
-			"msg"=>$sql->errText()
-		]);
-		exit();
-	}
+$res = $db->table("Thuoc")->insert([
+    "ma"=>$ma_thuoc,
+    "ten"=>"'$ten_thuoc'",
+    "id_nsx"=>"'$nsx'",
+    "viet_tat"=>"'$viet_tat'",
+    "id_don_vi"=>$don_vi,
+    "don_gia"=>$don_gia
+])->execute();
 
-	echo $sql->getJsonResult();
-?>
+if ($res->ok) {
+    \Api\returnSuccess($res->data);
+} else {
+    \Api\returnError($res->errMsg);
+}

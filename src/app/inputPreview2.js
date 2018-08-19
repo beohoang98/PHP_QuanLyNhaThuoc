@@ -51,34 +51,26 @@ class inputPreview2 {
     ;
     listen(id, callback) {
         let element = document.getElementById(id);
+        let cur = 0;
         element.addEventListener("keydown", (e) => {
             let code = e.keyCode;
-            if (code == 27) //esc
-             {
+            if (code === 27) { // esc
                 this._deletePreview();
             }
-            else if (code == 38 || code == 40) //up -down
-             {
+            else if (code == 38 || code == 40) { // up-down
                 e.preventDefault();
-                let cur = +this._preview_div.getAttribute('cur');
-                this._preview_div.children[cur]
-                    .classList.remove("preview-row-active");
-                if (code == 38)
-                    --cur;
-                else
-                    ++cur;
+                this._preview_div.children[cur].classList.remove("preview-row-active");
                 let len = this._preview_div.children.length;
+                cur = (code == 38) ? cur - 1 : cur + 1;
                 if (cur < 0)
                     cur = len - 1;
                 if (cur > len - 1)
                     cur = 0;
-                this._preview_div.children[cur]
-                    .classList.add("preview-row-active");
+                this._preview_div.children[cur].classList.add("preview-row-active");
                 this._preview_div.setAttribute("cur", cur + "");
             }
-            else if (code == 13) {
+            else if (code == 13) { // enter
                 e.preventDefault();
-                let cur = +this._preview_div.getAttribute("cur");
                 callback(this._currentPreviewData[cur]);
                 this._deletePreview();
             }
@@ -95,34 +87,32 @@ class inputPreview2 {
     fetchOn(id, callback) {
         this._deletePreview();
         this._currentPreviewData.length = 0; //clear current preview suggest name
-        if (this._list.hasOwnProperty(id)) {
-            let input = this._list[id];
-            input.setAttribute('autocomplete', 'off');
-            let input_preview = this._createFlyWrap(input);
-            this._preview_div = input_preview;
-            let value = input.value;
-            for (const row of this._data) {
-                if (!this._isLike(row[this._lookup[id]], value))
-                    continue;
-                this._currentPreviewData.push(row);
-                let arr = [];
-                for (const name in this._lookup) {
-                    if (!this._lookup[name])
-                        continue;
-                    const field = this._lookup[name];
-                    arr.push(row[field]);
-                }
-                let newRow = this._createFlyRow(arr);
-                newRow.addEventListener("click", (e) => {
-                    callback(row);
-                    this._deletePreview();
-                });
-                input_preview.appendChild(newRow);
-                document.body.appendChild(input_preview);
-            }
+        if (!this._list.hasOwnProperty(id)) {
+            console.log("Cannot find " + id);
+            return;
         }
-        else {
-            console.log("cannot find id");
+        ;
+        let input = this._list[id];
+        let input_preview = this._createFlyWrap(input);
+        let value = input.value;
+        this._preview_div = input_preview;
+        input.setAttribute('autocomplete', 'off');
+        for (const row of this._data) {
+            if (!this._isLike(row[this._lookup[id]], value))
+                continue;
+            this._currentPreviewData.push(row);
+            let arr = [];
+            for (const name of Object.keys(this._lookup)) {
+                const field = this._lookup[name];
+                arr.push(row[field]);
+            }
+            let newRow = this._createFlyRow(arr);
+            newRow.addEventListener("click", (e) => {
+                callback(row);
+                this._deletePreview();
+            });
+            input_preview.appendChild(newRow);
+            document.body.appendChild(input_preview);
         }
     }
     ;

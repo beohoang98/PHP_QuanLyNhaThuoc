@@ -1,4 +1,3 @@
-<?php ?>
 <style media="screen">
     body {
         background-color: #f8f8f8;
@@ -14,7 +13,7 @@
     <h2>NHẬP MỚI THUỐC</h2>
 </div>
 <div class="container">
-    <form id="form" class="form-horizontal" role='form' action="#" method="post">
+    <form id="nhap_thuoc--form" class="form-horizontal" role='form' action="#" method="post">
         <div class="form-group row">
             <div class="col-md-4">
                 <label for="ma_thuoc">Mã Thuốc</label>
@@ -38,7 +37,7 @@
         <div class="form-group row">
             <div class="col-md-4">
                 <label for="don_vi">Đơn vị</label>
-                <select class="form-control" id="don_vi" name="don_vi" required></select>
+                <select class="form-control" id="don_vi" name="don_vi" component='DonVi' required></select>
             </div>
             <div class="col-md-8">
                 <label for="don_gia">Đơn giá</label>
@@ -49,7 +48,7 @@
             <button class="form-control btn btn-dark btn-outline-dark" type="submit" name="button">THÊM</button>
         </div>
     </form>
-    <table id="nhap_thuoc--table" class="table table-striped">
+    <table id="nhap_thuoc--table" component='Thuoc' component-type="table" class="table table-striped">
         <thead>
             <tr>
                 <th>Mã Thuốc</th>

@@ -18,6 +18,9 @@ class _Thuoc extends ModelClass_1.Model {
             callback(false, data);
         });
     }
+    create(data, callback) {
+        this._post(data, callback);
+    }
 }
 exports.Thuoc = _Thuoc;
 //# sourceMappingURL=index.js.map

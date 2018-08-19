@@ -1,4 +1,4 @@
-use qlnhathuoc_test;
+﻿--use qlnhathuoc_test;
 
 insert into don_vi (ten, id_quy_doi, he_so_quydoi) values
 	(N'Viên', null, null),
@@ -21,4 +21,4 @@ SELECT thuoc.ma as 'ma_thuoc', thuoc.ten as 'ten_thuoc', don_gia
 							AND (thuoc.ten LIKE N't%' OR thuoc.viet_tat LIKE '%t%');
 select * from thuoc;
 select * from nsx;
-SELECT salt_pass AS sessionid, username from nhanvien WHERE username = 'admin' AND salt_pass = crypt('admin', salt_pass)
+SELECT salt_pass AS sessionid, username from nhanvien WHERE username = 'admin' AND salt_pass = crypt('admin', salt_pass);

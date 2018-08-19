@@ -1,7 +1,4 @@
 <?php
-/**
- * Something
- */
 
 class mSQL {
     private $_host;
@@ -9,7 +6,7 @@ class mSQL {
     private $_dbname;
     private $_user;
     private $_pass;
-    
+
     public $sql;
     private $_isError = false;
     private $_errText = "";
@@ -17,15 +14,11 @@ class mSQL {
 
     /**
      * Contructor
-     * 
      * @param string $user username
      * @param string $pass password
      */
-    public function __construct($user = "postgres", 
-        $pass = '', 
-        $host = '', 
-        $port = '5432'
-    ) {
+    public function __construct()
+    {
         if (getenv("PHP_ENV") === "production") {
             $db = parse_url(getenv("DATABASE_URL"));
             $this->_host = $db['host'];
@@ -36,9 +29,8 @@ class mSQL {
         } else {
             if (getenv("PHP_ENV") === "test" || getenv("CI") === true) {
                 return; // it will not connect to any database
-            } else {
-                $ROOT = $_SERVER['DOCUMENT_ROOT'];
             }
+            $ROOT = $_SERVER['DOCUMENT_ROOT'];
             
             $configText = file_get_contents($ROOT."/local_env.json");
             $config = json_decode($configText, true);
@@ -52,13 +44,8 @@ class mSQL {
         $this->_isError = false;
         $this->_errText = "";
 
-        $this->sql = pg_connect(
-            "host=$this->_host 
-            port=$this->_port 
-            dbname=$this->_dbname 
-            user=$this->_user 
-            password=$this->_pass"
-        );
+        $this->sql = pg_connect("host=$this->_host port=$this->_port dbname=$this->_dbname
+            user=$this->_user password=$this->_pass");
 
         if (!$this->sql) {
             $this->_isError = true;
@@ -83,8 +70,7 @@ class mSQL {
 
         $this->_result = pg_query($this->sql, $query);
 
-        if (!$this->_result)
-        {
+        if (!$this->_result) {
             $this->_isError = true;
             $this->_errText = pg_last_error();
         }
@@ -94,9 +80,9 @@ class mSQL {
 
     public function getArrayResult()
     {
-        $arr = Array();
+        $arr = array();
         $result = $this->_result;
-        while($row = pg_fetch_assoc($result)) {
+        while ($row = pg_fetch_assoc($result)) {
             array_push($arr, $row);
         }
         

@@ -12,18 +12,14 @@ const _QLNT = class extends Controller_1.Controller {
     addTable(element) {
         let nameTHs = element.querySelectorAll("th");
         let compoName = element.getAttribute('component');
-        const lookName = Array.from(nameTHs)
-            .map((val) => val.getAttribute('for'));
+        const lookName = Array.from(nameTHs).map((val) => val.getAttribute('for'));
         const updateTable = function (err, data) {
             if (err)
                 return;
             let body = element.querySelector('tbody');
             // delete old row
-            let trbody = element.querySelectorAll('tbody tr');
-            if (trbody && trbody.length) {
-                for (let el of trbody)
-                    el.removeChild();
-            }
+            while (body.lastChild)
+                body.removeChild(body.lastChild);
             // updata new row
             for (let row of data) {
                 let rowEl = document.createElement('tr');
@@ -41,10 +37,9 @@ const _QLNT = class extends Controller_1.Controller {
         const preview = new inputPreview2_1.default();
         preview.addLookup(optListen);
         preview.listen(idElement, (data) => {
-            for (let idEl in optChange) {
-                if (!optChange.hasOwnProperty(idEl))
-                    continue;
-                $('#' + idEl).val(data[optChange[idEl]]);
+            for (let idEl of Object.keys(optChange)) {
+                const field = optChange[idEl];
+                $('#' + idEl).val(data[field]);
             }
         });
         const onUpdate = function (err, data) {
@@ -57,26 +52,23 @@ const _QLNT = class extends Controller_1.Controller {
         this.addUpdateFunc('Thuoc', onUpdate);
     }
     addSelectInput(element, opt) {
-        let valueKey = opt.value;
-        let titleKey = opt.title;
-        let compoName = element.getAttribute('component');
+        const valueKey = opt.value;
+        const titleKey = opt.title;
+        const compoName = $(element).attr('component');
         const onUpdate = function (err, data) {
             if (err) {
                 console.log(err);
                 return;
             }
             // remove old options
-            let oldOpt = element.childNodes;
-            if (oldOpt.length)
-                oldOpt.forEach((val) => val.remove());
+            while (element.lastChild)
+                element.removeChild(element.lastChild);
             // add updated option
-            for (let row of data) {
-                let value = row[valueKey];
-                let title = row[titleKey];
-                let newOpt = document.createElement("option");
-                newOpt.value = value;
-                newOpt.textContent = title;
-                element.appendChild(newOpt);
+            for (const row of data) {
+                const newOpt = $("<option/>");
+                newOpt.attr('value', row[valueKey])
+                    .text(row[titleKey])
+                    .appendTo(element);
             }
         };
         this.addUpdateFunc(compoName, onUpdate);

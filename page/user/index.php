@@ -1,7 +1,7 @@
 <?php
-    $ROOT = $_SERVER["DOCUMENT_ROOT"];
-    require_once $ROOT."/public/api/_checkSessionCode.php";
-    $user = $_SESSION['username'];
+$ROOT = $_SERVER["DOCUMENT_ROOT"];
+require_once $ROOT."/api/_checkSessionCode.php";
+$user = $_SESSION['username'];
 ?>
 
 <!DOCTYPE html>

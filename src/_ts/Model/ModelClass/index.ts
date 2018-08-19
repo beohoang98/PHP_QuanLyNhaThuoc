@@ -28,10 +28,8 @@ class _Model {
         try {
             const res = await fetch(requestURL, {credentials: 'include'});
             const json = await res.json();
-            if (json.err) {
-                if (typeof callback === "function") callback(json.msg);
-                return;
-            }
+            if (json.err) throw new Error(json.msg);
+
             this._data = json.data;
             if (typeof callback === "function") callback(false, json.data);
             return json.data;
@@ -46,19 +44,20 @@ class _Model {
      * @param data 
      * @param callback 
      */
-    protected async _post(data: JSON, callback?: (err: boolean, res?: any)=>any) {
+    protected async _post(data: any, callback?: (err: boolean, res?: any)=>any) {
         this._res = "";
         try {
             const res = await fetch(this._database, {
                 credentials: 'include',
                 method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(data),
             });
             const json = await res.json();
-            if (json.err) {
-                if (typeof callback === "function") callback(json.msg);
-                return;
-            }
+            if (json.err) throw new Error(json.msg); 
+
             this._res = json.data;
             if (typeof callback === "function") callback(false, json.data);
             return json.data;
