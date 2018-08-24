@@ -12,7 +12,7 @@ const ModelClass_1 = require("../ModelClass");
 class _Nsx extends ModelClass_1.Model {
     constructor() {
         super();
-        this._database = "/api/nsx/";
+        this._database = "/api/ncc/";
     }
     /**
      * get data of nsx

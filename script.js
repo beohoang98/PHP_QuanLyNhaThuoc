@@ -9,16 +9,24 @@ function togglemenu() {
     $(".sidebar").toggleClass("hideSidebar");
 }
 
+function setSetting() {
+
+}
+
+function changeSetting(type, value) {
+    switch (type) {
+        case "theme": break;
+        default: return;
+    }
+
+    $.cookie("setting:"+type, value, 3600*24*30);
+}
+
 $(document).ready(()=>{
     let username = document.cookie.match(/username=([0-9a-zA-Z_]+)/i)[1];
     $("#username").text(username);
 
-    $("a[title]").tooltip({
-        "content": $(this).attr("title"),
-        "classes": {
-            "ui-tooltip": "text-info ui-corner-all",
-        },
-    });
+    $("a[title]").attr('data-toggle', 'tooltip');
 
     $(".sidebar-switch-page").on("click", function() {
         const id = $(this).data('target');

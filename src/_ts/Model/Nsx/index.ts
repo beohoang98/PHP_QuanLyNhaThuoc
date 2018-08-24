@@ -4,7 +4,7 @@ class _Nsx extends Model {
 
 	public constructor() {
 		super();
-		this._database = "/api/nsx/";
+		this._database = "/api/ncc/";
 	}
 
 	/**

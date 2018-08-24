@@ -12,7 +12,7 @@ $(document).ready(function() {
             const tr = $('<tr/>').html(`
                 <td>${row.ma}</td>
                 <td>${row.ten}</td>
-                <td>${row.id_nsx}</td>
+                <td>${row.ten_nsx}</td>
                 <td>${priceString}</td>
                 <td>${row.so_luong}</td>
             `);

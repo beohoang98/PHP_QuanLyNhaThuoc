@@ -48,14 +48,16 @@ class ConnectDatabaseTest extends TestCase
 
     public function testInsertQuery()
     {
+        $asdasd = "asdasd";
         self::$db->clear();
-        self::$db->table("User")->insert([
+        self::$db->table("user")->insert([
             "id"=>1,
             "name"=>"'Hello'",
-            "age"=>18
+            "age"=>18,
+            "password"=>"'".$asdasd."'"
         ]);
         $this->assertEquals(
-            "INSERT INTO User (id, name, age) VALUES (1, 'Hello', 18)",
+            "INSERT INTO user (id, name, age, password) VALUES (1, 'Hello', 18, 'asdasd')",
             self::$db->getQuery()
         );
     }
