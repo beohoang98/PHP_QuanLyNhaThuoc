@@ -1,38 +1,92 @@
-const {Thuoc, BangThuoc} = require('../app/Model/Thuoc');
-const thuoc = new Thuoc();
-const bangThuoc = new BangThuoc();
+const {ThuocTable} = require("../app/View/ThuocTable");
 
-$(document).ready(function() {
-    async function updateTable() {
-        const table = $("#nhap_thuoc--table tbody");
-        table.children().remove();
-        await bangThuoc.update();
-        for (const row of bangThuoc.list) {
-            const priceString = (+row.don_gia).toLocaleString();
-            const tr = $('<tr/>').html(`
-                <td>${row.ma}</td>
-                <td>${row.ten}</td>
-                <td>${row.id_nsx}</td>
-                <td>${priceString}</td>
-                <td>${row.so_luong}</td>
-            `);
-            table.append(tr);
-        }
-    }
+module.exports = function(app) {
+    const thuocTable = new ThuocTable();
+    thuocTable.setElement($("#nhap_thuoc--table"));
+    thuocTable.render("");
 
-    $("#nhap_thuoc--form").on("submit", function NhapThuocFormSubmit(e) {
-        e.preventDefault();
-        const data = {};
-        $(this).serializeArray().forEach((val)=>{
-            data[val.name] = val.value;
-        });
-        thuoc.create(data, (err)=>{
-            if (err) {
-                throw err;
-            }
-            window.location.reload();
-        });
+    thuocTable.onChoose((data) => {
+        editThuoc(data);
+    });
+    thuocTable.onFocus((data) => {
+        $('.thuoc--button').removeAttr('disabled');
     });
 
-    updateTable();
-});
+    handleControlKey(app, thuocTable);
+    handleSelectKey(app, thuocTable);
+    handleModal(app);
+
+    $(".thuoc--button").on('click', function ButtonClick() {
+        const role = $(this).attr('app-role');
+        switch (role) {
+            case "new": newThuoc(); break;
+            case "edit": editThuoc(thuocTable.currentData()); break;
+            case "add": addThuoc(thuocTable.currentData()); break;
+            case "chinh-gia": break;
+        }
+    });
+};
+
+function handleSelectKey(app, thuocTable) {
+    app.keyevent.on("ArrowUp", (e) => {
+        if (app.page === "page-nhap-thuoc") {
+            thuocTable.selectUp();
+        }
+    });
+    app.keyevent.on("ArrowDown", (e) => {
+        if (app.page === "page-nhap-thuoc") {
+            thuocTable.selectDown();
+        }
+    });
+}
+
+function handleControlKey(app, thuocTable) {
+    app.keyevent.on("ctrl+d", (e) => {
+        if (app.page === "page-nhap-thuoc") {
+            e.preventDefault();
+            newThuoc();
+        }
+    });
+    app.keyevent.on("ctrl+e", (e) => {
+        if (app.page === "page-nhap-thuoc") {
+            e.preventDefault();
+            editThuoc(thuocTable.currentData());
+        }
+    });
+    app.keyevent.on("ctrl+a", (e) => {
+        if (app.page === "page-nhap-thuoc") {
+            e.preventDefault();
+            addThuoc(thuocTable.currentData());
+        }
+    });
+    app.keyevent.on("ctrl+f", (e) => {
+        if (app.page === "page-nhap-thuoc") {
+            e.preventDefault();
+            $("#thuoc--search").focus();
+        }
+    });
+}
+
+function handleModal(app) {
+    $('.modal').on('shown.bs.modal', () => {
+        app.keyevent.block();
+    });
+    $('.modal').on('hidden.bs.modal', () => {
+        app.keyevent.unblock();
+    });
+}
+
+function editThuoc(data) {
+    $("#thuoc--edit-modal").modal("show");
+    $("#thuoc--edit-mathuoc").val(data.ma);
+    $("#thuoc--edit-tenthuoc").val(data.ten);
+    $("#thuoc--edit-ncc").val(data.ten_ncc);
+}
+
+function newThuoc() {
+    $("#thuoc--newthuoc-modal").modal("show");
+}
+
+function addThuoc() {
+    //
+}

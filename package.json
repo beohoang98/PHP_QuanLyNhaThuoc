@@ -1,22 +1,23 @@
 {
-  "name": "QuanLyNhaThuoc",
+  "name": "qlnt",
   "version": "1.0.0",
   "description": "",
   "main": "script.js",
-  "dependencies": {
-    "tsc": "^1.20150623.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/bootstrap": "^4.1.2",
     "@types/jquery": "^3.3.5",
     "browserify": "^16.2.2",
     "eslint": "^5.3.0",
     "eslint-config-google": "^0.9.1",
+    "jest": "^23.5.0",
+    "node-sass": "^4.9.3",
+    "tslint": "^5.11.0",
     "typescript": "^3.0.1"
   },
   "scripts": {
-    "test": "set PHP_ENV=test && ./vendor/bin/phpunit",
-    "build": "tsc -p . && node build-js"
+    "test": "bash test",
+    "build": "bash build-src"
   },
   "repository": {
     "type": "git",

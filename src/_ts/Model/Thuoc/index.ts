@@ -1,30 +1,21 @@
 import {Model} from "../ModelClass";
 import {BangThuoc} from "./BangThuoc";
 
-class _Thuoc extends Model {
+class Thuoc extends Model {
 
-	constructor()
-	{
-		super();
-		this._database = "/api/thuoc/";
-	}
+    constructor() {
+        super();
+        this.database = "/api/thuoc/";
+    }
 
-	public get(callback)
-	{
-		let $this = this;
-		$this._get({}, function(err, data) {
-			if (err) {
-				console.log(err);
-				return;
-			}
+    public async get(params: any, offset: number, limit: number): Promise<any[]> {
+        return await this._get({params, offset, limit});
+    }
 
-			callback(false, data);
-		});
-	}
-
-	public create(data, callback) {
-		this._post(data, callback);
-	}
+    public async create(data): Promise<boolean> {
+        this.res = await this._post(data);
+        return (!this.res.err);
+    }
 }
 
-export { _Thuoc as Thuoc, BangThuoc as BangThuoc };
+export { Thuoc, BangThuoc as BangThuoc };

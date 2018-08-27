@@ -8,85 +8,120 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-class _Model {
+class Model {
     constructor() {
-        this._database = "";
-        this._data = [];
-    }
-    get data() {
-        return Object.assign({}, this._data);
+        this.database = "";
+        this.data = [];
     }
     get response() {
-        return Object.assign({}, this._res);
+        return Object.assign({}, this.res);
     }
+    // =============== INHERIT FUNC
+    get(params, offset, limit) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return undefined;
+        });
+    }
+    create(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return false;
+        });
+    }
+    /**
+     * update record
+     * @param fieldMatch match field to update record
+     * @param fieldUpdate the data need update
+     */
+    update(fieldMatch, fieldUpdate) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return false;
+        });
+    }
+    /**
+     * remove a record
+     * @param fieldMatch field match to remove
+     * @return true of false
+     */
+    remove(fieldMatch) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return false;
+        });
+    }
+    // =============== CORE FUNC
     /**
      * fetch data from database and do thing
      * @param params
      * @param callback callback function
-     *
      */
     _get(params, callback) {
         return __awaiter(this, void 0, void 0, function* () {
-            this._data = [];
-            const requestURL = this._database + this._urlparams(params);
+            this.data = [];
+            const requestURL = this.database + "?" + this._urlparams(params);
             try {
-                const res = yield fetch(requestURL, { credentials: 'include' });
+                const res = yield fetch(requestURL, { credentials: "include" });
                 const json = yield res.json();
-                if (json.err)
+                if (json.err) {
                     throw new Error(json.msg);
-                this._data = json.data;
-                if (typeof callback === "function")
+                }
+                this.data = json.data;
+                if (typeof callback === "function") {
                     callback(false, json.data);
+                }
                 return json.data;
             }
             catch (err) {
-                if (typeof callback === "function")
+                if (typeof callback === "function") {
                     callback(err);
-                else
+                }
+                else {
                     throw err;
+                }
             }
         });
     }
     /**
-     *
-     * @param data
-     * @param callback
+     * post request
+     * @param {any} data
+     * @param {Function} [callback]
      */
     _post(data, callback) {
         return __awaiter(this, void 0, void 0, function* () {
-            this._res = "";
+            this.res = "";
             try {
-                const res = yield fetch(this._database, {
-                    credentials: 'include',
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                const res = yield fetch(this.database, {
                     body: JSON.stringify(data),
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
                 });
                 const json = yield res.json();
-                if (json.err)
+                if (json.err) {
                     throw new Error(json.msg);
-                this._res = json.data;
-                if (typeof callback === "function")
+                }
+                this.res = json.data;
+                if (typeof callback === "function") {
                     callback(false, json.data);
+                }
                 return json.data;
             }
             catch (err) {
-                if (typeof callback === "function")
+                if (typeof callback === "function") {
                     callback(err);
-                else
+                }
+                else {
                     throw err;
+                }
             }
         });
     }
     _urlparams(params) {
-        const url = Object.keys(params).map(function (k) {
-            return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-        }).join('&');
+        const url = Object.keys(params).map((k) => {
+            return encodeURIComponent(k) + "=" + encodeURIComponent(params[k]);
+        }).join("&");
         return url;
     }
 }
-exports.Model = _Model;
-;
+exports.Model = Model;
 //# sourceMappingURL=index.js.map

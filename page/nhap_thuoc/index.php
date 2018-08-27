@@ -10,55 +10,105 @@
     }
 </style>
 <div class="bg-dark text-center text-light">
-    <h2>NHẬP MỚI THUỐC</h2>
+    <h2>KHO THUỐC</h2>
 </div>
-<div class="container">
-    <form id="nhap_thuoc--form" class="form-horizontal" role='form' action="#" method="post">
-        <div class="form-group row">
-            <div class="col-md-4">
-                <label for="ma_thuoc">Mã Thuốc</label>
-                <input class="form-control" type="number" id="ma_thuoc" name="ma_thuoc" required>
-            </div>
-            <div class="col-md-8">
-                <label for="ten_thuoc">Tên Thuốc</label>
-                <input class="form-control" type="text" id="ten_thuoc" name="ten_thuoc" autocomplete='off' required>
+<div class="container d-flex flex-column postition-relative">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-search"></i></span>
+        </div>
+        <input class='form-control' type="text" id="thuoc--search" placeholder="Tim kiem (Ctrl + F)">
+    </div>
+    
+    <!-- DANH SACH THUOC -->
+    <div class="flex-grow-1">
+        <table id='nhap_thuoc--table' class="table table-striped table-view flex-grow-1" component='Thuoc' component-type='table'>
+            <thead>
+                <tr>
+                    <th>Ma thuoc</th>
+                    <th>Ten Thuoc</th>
+                    <th>Nha cung cap</th>
+                    <th>Don Gia</th>
+                    <th>So luong</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>  
+    
+
+    <div class="position-absolute w-100 d-flex flex-row justify-content-around" style="bottom: 1em">
+
+        <!-- NHAP MOI -->
+        <button app-role="new" class="btn btn-default thuoc--button">
+            NHAP MOI<br>Ctrl+D
+        </button>
+
+        <!-- NHAP THEM -->
+        <button app-role="add" class="btn btn-default thuoc--button" disabled>
+            NHAP THEM<br>Ctrl+A
+        </button>
+
+        <!-- EDIT -->
+        <button app-role="edit" class="btn btn-default thuoc--button" disabled>
+            CHINH SUA<br>Ctrl+E
+        </button>
+
+        <!-- DIEU CHINH GIA -->
+        <button app-role="chinh-gia" class="btn btn-default thuoc--button" disabled>
+            DIEU CHINH GIA <br>Ctrl+G
+        </button>
+
+    </div>
+
+    <!-- modal new thuoc -->
+    <div id="thuoc--newthuoc-modal" class="modal fade" aria-hidden='true' tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-light">
+                    <h3>THUOC MOI</h3>
+                    <span class="close" data-dismiss='modal'><i class="fa fa-times"></i></span>
+                </div>
+                <form id="thuoc--newthuoc-form" action="#" class="modal-body form">
+                    <div class="form-group">
+                        <label for="thuoc--newthuoc-tenthuoc">Ten Thuoc</label>
+                        <input class="form-control" type="text" id="thuoc--newthuoc-tenthuoc" name='ten'>
+                    </div>
+                    <div class="form-group">
+                        <label for="thuoc--newthuoc-tenthuoc">Ten Thuoc</label>
+                        <input class="form-control" type="text" id="thuoc--newthuoc-tenthuoc" name='ten'>
+                    </div>
+                    <button class="btn btn-outline-primary">Them</button>
+                </form>
             </div>
         </div>
-        <div class="form-group row">
-            <div class="col-md-8">
-                <label for="ten_nsx">Nhà sản xuất</label>
-                <input class="form-control" type="text" id="ten_nsx" name="nsx" required>
-            </div>
-            <div class="col-md-4">
-                <label for="tag">Viết tắt</label>
-                <input class="form-control" type="text" id="tag" name="viet_tat">
+    </div>
+
+
+    <!-- modal edit thuoc -->
+    <div id="thuoc--edit-modal" class="modal fade" aria-hidden='true' tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-light">
+                    <h3>EDIT THUOC</h3>
+                    <span class="close" data-dismiss='modal'><i class="fa fa-times"></i></span>
+                </div>
+                <form id="thuoc--edit-form" action="#" class="modal-body form">
+                    <div class="form-group">
+                        <label for="thuoc--edit-mathuoc">Ma Thuoc</label>
+                        <input class="form-control" type="text" id="thuoc--edit-mathuoc" name='ma'>
+                    </div>
+                    <div class="form-group">
+                        <label for="thuoc--edit-tenthuoc">Ten Thuoc</label>
+                        <input class="form-control" type="text" id="thuoc--edit-tenthuoc" name='ten'>
+                    </div>
+                    <div class="form-group">
+                        <label for="thuoc--edit-ncc">Nha cung cap</label>
+                        <input class="form-control" type="text" id="thuoc--edit-ncc" name='ncc'>
+                    </div>
+                    <button class="btn btn-outline-primary">CAP NHAT</button>
+                </form>
             </div>
         </div>
-        <div class="form-group row">
-            <div class="col-md-4">
-                <label for="don_vi">Đơn vị</label>
-                <select class="form-control" id="don_vi" name="don_vi" component='DonVi' required></select>
-            </div>
-            <div class="col-md-8">
-                <label for="don_gia">Đơn giá</label>
-                <input class="form-control" type="text" id="don_gia" name="don_gia" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <button class="form-control btn btn-dark btn-outline-dark" type="submit" name="button">THÊM</button>
-        </div>
-    </form>
-    <table id="nhap_thuoc--table" component='Thuoc' component-type="table" class="table table-striped">
-        <thead>
-            <tr>
-                <th>Mã Thuốc</th>
-                <th>Tên Thuốc</th>
-                <th>Nhà sản xuất</th>
-                <th>Đơn giá</th>
-                <th>Số lượng</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    </div>
 </div>

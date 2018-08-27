@@ -4,10 +4,10 @@
     "module": "commonjs",
     "outDir": "./src/app/",
     "sourceMap": true,
-    "watch": true
+    "watch": false
   },
   "include": [
-    "src/_ts/**/*"
+    "src/_ts/**/*",
   ],
   "exclude": [
     "node_modules",

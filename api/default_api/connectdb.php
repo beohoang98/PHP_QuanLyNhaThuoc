@@ -13,10 +13,15 @@ class ConnectDatabase
     public function __construct()
     {
         require_once __DIR__."/dbresponse.php";
-        require_once __DIR__."/../../src/connect_database/connect_pg/index.php";
+        require_once __DIR__."/../../src/connect_database/connect_mysql/index.php";
 
-        $this->mSQL = new \mSQL();
-
+        if (getenv("PHP_ENV") !== "test") {
+            $this->mSQL = new \NoobCoder\ConnectMySQL();
+            $this->mSQL->query("SET NAMES utf8");
+            if ($this->mSQL->error) {
+                throw new \Exception($this->mSQL->error);
+            }
+        }
         $this->offset = 0;
         $this->limit = 0;
     }
@@ -24,6 +29,12 @@ class ConnectDatabase
     public function getQuery()
     {
         return $this->query;
+    }
+
+    public function query($query)
+    {
+        $this->query = $query;
+        return $this;
     }
 
     public function table($table_name)
@@ -57,6 +68,7 @@ class ConnectDatabase
         $res = new \Api\DBResponse($this->mSQL);
 
         $this->res = $res;
+        $this->clear();
         return $res;
     }
 
@@ -86,7 +98,8 @@ class ConnectDatabase
         return $this;
     }
 
-    public function insert($fieldAndValue) {
+    public function insert($fieldAndValue)
+    {
         $fieldStr = join(", ", array_keys($fieldAndValue));
         $valueStr = join(", ", array_values($fieldAndValue));
         $this->query = "INSERT INTO $this->table ($fieldStr) VALUES ($valueStr)";

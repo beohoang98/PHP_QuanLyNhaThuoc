@@ -1,0 +1,21 @@
+.table-view {
+  display: flex;
+  flex-direction: column;
+  thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  tbody {
+    display: table;
+    table-layout: fixed;
+    overflow: auto;
+    width: 100%;
+    flex-grow: 1;
+
+    tr.active {
+      background-color: var(--dark);
+      color: var(--light);
+    }
+  }
+}

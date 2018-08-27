@@ -9,3 +9,4 @@
 <script src="/public/static/lib/lib.js"></script>
 <link rel="stylesheet" href="/public/static/lib/lib.css">
 <link rel="stylesheet" href="/public/static/css/style.min.css">
+<link rel="stylesheet" href="/public/static/css/tableview.min.css">

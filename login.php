@@ -15,12 +15,9 @@ if (isset($_POST['submit']) && isset($_POST['username']) && isset($_POST['passwo
 
     $user = $_POST['username'];
     $pass = $_POST['password'];
-    $ret = $db->table("nhanvien")->find([
-        "username"=>"'$user'",
-        "salt_pass"=>"crypt('$pass', salt_pass)"
-    ])->execute();
+    $ret = $db->table("user")->find(["username"=>"'$user'"])->execute();
 
-    if ($ret->ok && count($ret->data) > 0) {
+    if ($ret->ok && count($ret->data) > 0 && password_verify($pass, $ret->data[0]['password'])) {
         $username = trim($ret->data[0]['username']);
         $_SESSION['username'] = $username;
         header("Location: /");
@@ -31,11 +28,9 @@ if (isset($_POST['submit']) && isset($_POST['username']) && isset($_POST['passwo
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
     <head>
-        <meta charset="utf-8">
         <title>LOGIN</title>
         <?php require $_SERVER["DOCUMENT_ROOT"]."/page/_layouts/meta.php";?>
         <style>

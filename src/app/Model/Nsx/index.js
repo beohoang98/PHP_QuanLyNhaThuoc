@@ -12,35 +12,16 @@ const ModelClass_1 = require("../ModelClass");
 class _Nsx extends ModelClass_1.Model {
     constructor() {
         super();
-        this._database = "/api/nsx/";
+        this.database = "/api/ncc/";
     }
     /**
      * get data of nsx
      * @param callback callback function
      */
-    get(callback) {
+    get(params, offset, limit) {
         return __awaiter(this, void 0, void 0, function* () {
-            const data = yield this._get({}).catch((err) => {
-                if (typeof callback === "function")
-                    callback(err);
-                else
-                    throw err;
-            });
-            if (typeof callback === "function")
-                callback(false, data);
+            const data = yield this._get({ params, offset, limit });
             return data;
-        });
-    }
-    update(callback) {
-        return __awaiter(this, void 0, void 0, function* () {
-        });
-    }
-    create(callback) {
-        return __awaiter(this, void 0, void 0, function* () {
-        });
-    }
-    remove(callback) {
-        return __awaiter(this, void 0, void 0, function* () {
         });
     }
 }

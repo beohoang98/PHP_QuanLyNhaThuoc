@@ -1,10 +1,8 @@
 const {HoaDonForm} = require('../app/HoaDonForm');
-const {QLNT} = require('../app/App');
 const {BootstrapModal} = require('../app/Model/BoostrapModal');
 const CONFIG = require('../../config');
 
 const hoaDonForm = new HoaDonForm();
-const App = new QLNT();
 const popup = new BootstrapModal('nhap_hoa_don--popup');
 
 function displayTime() {
@@ -63,10 +61,6 @@ $(document).ready(function() {
 
     App.onUpdateAll();
 
-
-    hoaDonForm.setHeader($("#nhap_hoa_don--form-nhap").get(0));
-    hoaDonForm.setTable($("#table-nhap").get(0));
-
     $('#nhap_hoa_don--tienkh-tra').moneyInput().on('keyup', ()=>{
         updateTienThoi();
     });
@@ -87,14 +81,14 @@ $(document).ready(function() {
     });
 
     App.addNameInputThuoc("nhap_hoa_don--ten_thuoc", {
-        "nhap_hoa_don--ma_thuoc": "ma_thuoc",
-        "nhap_hoa_don--ten_thuoc": "ten_thuoc",
-        "nhap_hoa_don--don_vi": "ten_don_vi",
+        "nhap_hoa_don--ma_thuoc": "ma",
+        "nhap_hoa_don--ten_thuoc": "ten",
+        "nhap_hoa_don--don_vi": "don_vi",
         "nhap_hoa_don--cost": "don_gia",
     }, {
-        "nhap_hoa_don--ten_thuoc": "ten_thuoc",
-        "nhap_hoa_don--ma_thuoc": "ma_thuoc",
-        "nhap_hoa_don--don_vi": "id_don_vi",
+        "nhap_hoa_don--ten_thuoc": "ten",
+        "nhap_hoa_don--ma_thuoc": "ma",
+        "nhap_hoa_don--don_vi": "don_vi",
         "nhap_hoa_don--cost": "don_gia",
     });
 

@@ -1,7 +1,8 @@
 <?php
 
 namespace Api {
-    function returnError($msg) {
+    function returnError($msg)
+    {
         echo json_encode([
             "err"=>true,
             "msg"=>$msg
@@ -9,7 +10,8 @@ namespace Api {
         exit();
     }
 
-    function returnSuccess($data) {
+    function returnSuccess($data)
+    {
         echo json_encode([
             "err"=>false,
             "data"=>$data
@@ -17,5 +19,3 @@ namespace Api {
         exit();
     }
 }
-
-?>
