@@ -8,22 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ModelClass_1 = require("../ModelClass");
-class _Nsx extends ModelClass_1.Model {
+const ViewTable_1 = require("./ViewTable");
+class ThuocTable extends ViewTable_1.ViewTable {
     constructor() {
         super();
-        this.database = "/api/ncc/";
     }
-    /**
-     * get data of nsx
-     * @param callback callback function
-     */
-    get(params, offset, limit) {
+    render(search) {
         return __awaiter(this, void 0, void 0, function* () {
-            const data = yield this._get({ params, offset, limit });
-            return data;
+            const data = yield this.update(search);
+            this.element.find("tbody").html("");
         });
     }
 }
-exports.Nsx = _Nsx;
-//# sourceMappingURL=index.js.map
+exports.ThuocTable = ThuocTable;
+//# sourceMappingURL=ThuocTable.js.map

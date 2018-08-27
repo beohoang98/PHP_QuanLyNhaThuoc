@@ -1,0 +1,12 @@
+.table-view {
+  display: flex;
+  flex-direction: column;
+  thead {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+  }
+  tbody {
+    flex-grow: 1;
+  }
+}

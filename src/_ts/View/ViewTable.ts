@@ -11,6 +11,10 @@ class ViewTable {
     protected funcOnChoose: (data: any) => any;
     protected funcOnFocus: (data: any) => any;
 
+    // event control
+    protected currentPos: number;
+    protected sizeOfRecord: number;
+
     public constructor() {
         // construct
     }
@@ -25,6 +29,9 @@ class ViewTable {
         this.data = Array.from(rawData).map((val) => {
             return this.filterDataRow(val);
         });
+        this.sizeOfRecord = this.data.length;
+        this.currentPos = -1;
+
         return this.data;
     }
 
@@ -38,42 +45,73 @@ class ViewTable {
         return this.element;
     }
 
+    /**
+     * attach event of choose
+     * @param callback callback function when the row of record is choosed
+     */
     public onChoose(callback: (data) => any) {
         this.funcOnChoose = callback;
     }
 
+    /**
+     * attach event of hover
+     * @param callback callback function when the row of record is hover on
+     */
     public onFocus(callback: (data) => any) {
         this.funcOnFocus = callback;
     }
 
-    protected filterDataRow(dataRow) {
+    protected filterDataRow(dataRow: any): any {
         // nothing here, just raw
         return dataRow;
     }
 
-    protected _createRow(dataRow) {
-        const row = $("<tr/>");
+    protected _createRow(dataRow, pos): JQuery<HTMLElement> {
+        const row = $("<tr/>").attr("tabindex", 0);
         for (const field of Object.keys(dataRow)) {
             const cell = $("<td/>").attr("name", field).text(dataRow[field]);
             row.append(cell);
         }
-        row.on("click", (e: JQuery.Event) => {
+
+        // choose event
+        this._rowOnChoose(row, () => {
             this.funcOnChoose(dataRow);
         });
-        row.on("hover", (e: JQuery.Event) => {
+
+        // hover event
+        row.on("hover focus", (e: JQuery.Event) => {
+            this.element.find("tbody > tr").removeClass("active");
+            row.addClass("active");
+            this.currentPos = pos;
             this.funcOnFocus(dataRow);
         });
 
         return row;
     }
 
-    protected _createTableBody(data) {
+    protected _createTableHead(titleArr) {
+        //
+    }
+
+    protected _createTableBody(data): JQuery<HTMLElement> {
         const tbody = $("<tbody/>");
+        let pos = 0;
         for (const rowData of data) {
-            const trow = this._createRow(rowData);
+            const trow = this._createRow(rowData, pos++);
             tbody.append(trow);
         }
         return tbody;
+    }
+
+    private _rowOnChoose(row, callback) {
+        row.on("click", (e: JQuery.Event) => {
+            callback();
+        });
+        row.on("keydown", (e: JQuery.Event) => {
+            if (e.keyCode === 13) {
+                callback();
+            }
+        });
     }
 }
 
