@@ -7,7 +7,6 @@ class App {
         this.handleSwitchPage();
         this.keyevent = new KeyEvent_1.KeyEvent();
         this.handleSetting();
-        this.isBlocking = false;
     }
     getUsername() {
         const username = document.cookie.match(/username=([0-9a-zA-Z_]+)/i)[1];

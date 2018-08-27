@@ -15,12 +15,13 @@ class ConnectDatabase
         require_once __DIR__."/dbresponse.php";
         require_once __DIR__."/../../src/connect_database/connect_mysql/index.php";
 
-        $this->mSQL = new \NoobCoder\ConnectMySQL();
-        if ($this->mSQL->error) {
-            throw new \Exception($this->mSQL->error);
+        if (getenv("PHP_ENV") !== "test") {
+            $this->mSQL = new \NoobCoder\ConnectMySQL();
+            $this->mSQL->query("SET NAMES utf8");
+            if ($this->mSQL->error) {
+                throw new \Exception($this->mSQL->error);
+            }
         }
-
-        $this->mSQL->query("SET NAMES utf8");
         $this->offset = 0;
         $this->limit = 0;
     }

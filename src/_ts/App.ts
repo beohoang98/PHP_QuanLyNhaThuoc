@@ -3,14 +3,12 @@ import { KeyEvent } from "./KeyEvent";
 class App {
     public page: string;
     public keyevent: KeyEvent;
-    public isBlocking: boolean;
 
     public constructor() {
         this.switchToPage(this.getPageFromUrl());
         this.handleSwitchPage();
         this.keyevent = new KeyEvent();
         this.handleSetting();
-        this.isBlocking = false;
     }
 
     public getUsername() {
