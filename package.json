@@ -16,7 +16,7 @@
     "typescript": "^3.0.1"
   },
   "scripts": {
-    "test": "set PHP_ENV=test && ./vendor/bin/phpunit",
+    "test": "bash test",
     "build": "bash build-src"
   },
   "repository": {

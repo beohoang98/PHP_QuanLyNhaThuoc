@@ -12,7 +12,9 @@ class ConnectMySQL
     {
         // asd
         $ROOT = __DIR__."/../../..";
-        $dbConfig = \json_decode(\file_get_contents($ROOT."/local_env.json"), true)["mysql"];
+        $dbConfig = getenv("PHP_ENV") === "production"
+                    ? \json_decode(getenv("GEARHOST_DB"), true)["mysql"]
+                    : \json_decode(\file_get_contents($ROOT."/local_env.json"), true)["mysql"];
 
         $this->error = null;
 
