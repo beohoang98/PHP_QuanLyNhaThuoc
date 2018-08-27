@@ -13,10 +13,16 @@
     <h2>KHO THUỐC</h2>
 </div>
 <div class="container d-flex flex-column postition-relative">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-search"></i></span>
+        </div>
+        <input class='form-control' type="text" id="thuoc--search" placeholder="Tim kiem (Ctrl + F)">
+    </div>
     
     <!-- DANH SACH THUOC -->
     <div class="flex-grow-1">
-        <table id='nhap_thuoc--table' class="table table-striped flex-grow-1" component='Thuoc' component-type='table'>
+        <table id='nhap_thuoc--table' class="table table-striped table-view flex-grow-1" component='Thuoc' component-type='table'>
             <thead>
                 <tr>
                     <th>Ma thuoc</th>
@@ -27,32 +33,82 @@
                 </tr>
             </thead>
             <tbody></tbody>
-        </table>    
+        </table>
     </div>  
     
 
     <div class="position-absolute w-100 d-flex flex-row justify-content-around" style="bottom: 1em">
 
         <!-- NHAP MOI -->
-        <button class="btn btn-default">
-            NHAP MOI<br>Ctrl-N
+        <button app-role="new" class="btn btn-default thuoc--button">
+            NHAP MOI<br>Ctrl+D
         </button>
 
         <!-- NHAP THEM -->
-        <button class="btn btn-default" disabled>
-            NHAP THEM<br>Ctrl-A
+        <button app-role="add" class="btn btn-default thuoc--button" disabled>
+            NHAP THEM<br>Ctrl+A
         </button>
 
         <!-- EDIT -->
-        <button class="btn btn-default" disabled>
-            CHINH SUA<br>Ctrl-E
+        <button app-role="edit" class="btn btn-default thuoc--button" disabled>
+            CHINH SUA<br>Ctrl+E
         </button>
 
         <!-- DIEU CHINH GIA -->
-        <button class="btn btn-default" disabled>
-            DIEU CHINH GIA
+        <button app-role="chinh-gia" class="btn btn-default thuoc--button" disabled>
+            DIEU CHINH GIA <br>Ctrl+G
         </button>
 
     </div>
 
+    <!-- modal new thuoc -->
+    <div id="thuoc--newthuoc-modal" class="modal fade" aria-hidden='true' tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-light">
+                    <h3>THUOC MOI</h3>
+                    <span class="close" data-dismiss='modal'><i class="fa fa-times"></i></span>
+                </div>
+                <form id="thuoc--newthuoc-form" action="#" class="modal-body form">
+                    <div class="form-group">
+                        <label for="thuoc--newthuoc-tenthuoc">Ten Thuoc</label>
+                        <input class="form-control" type="text" id="thuoc--newthuoc-tenthuoc" name='ten'>
+                    </div>
+                    <div class="form-group">
+                        <label for="thuoc--newthuoc-tenthuoc">Ten Thuoc</label>
+                        <input class="form-control" type="text" id="thuoc--newthuoc-tenthuoc" name='ten'>
+                    </div>
+                    <button class="btn btn-outline-primary">Them</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- modal edit thuoc -->
+    <div id="thuoc--edit-modal" class="modal fade" aria-hidden='true' tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-light">
+                    <h3>EDIT THUOC</h3>
+                    <span class="close" data-dismiss='modal'><i class="fa fa-times"></i></span>
+                </div>
+                <form id="thuoc--edit-form" action="#" class="modal-body form">
+                    <div class="form-group">
+                        <label for="thuoc--edit-mathuoc">Ma Thuoc</label>
+                        <input class="form-control" type="text" id="thuoc--edit-mathuoc" name='ma'>
+                    </div>
+                    <div class="form-group">
+                        <label for="thuoc--edit-tenthuoc">Ten Thuoc</label>
+                        <input class="form-control" type="text" id="thuoc--edit-tenthuoc" name='ten'>
+                    </div>
+                    <div class="form-group">
+                        <label for="thuoc--edit-ncc">Nha cung cap</label>
+                        <input class="form-control" type="text" id="thuoc--edit-ncc" name='ncc'>
+                    </div>
+                    <button class="btn btn-outline-primary">CAP NHAT</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

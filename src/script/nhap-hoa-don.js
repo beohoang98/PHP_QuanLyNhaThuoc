@@ -1,10 +1,8 @@
 const {HoaDonForm} = require('../app/HoaDonForm');
-const {QLNT} = require('../app/App');
 const {BootstrapModal} = require('../app/Model/BoostrapModal');
 const CONFIG = require('../../config');
 
 const hoaDonForm = new HoaDonForm();
-const App = new QLNT();
 const popup = new BootstrapModal('nhap_hoa_don--popup');
 
 function displayTime() {

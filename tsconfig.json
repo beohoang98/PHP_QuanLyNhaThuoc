@@ -7,7 +7,7 @@
     "watch": false
   },
   "include": [
-    "src/_ts/**/*"
+    "src/_ts/**/*",
   ],
   "exclude": [
     "node_modules",

@@ -32,7 +32,7 @@ $username = $_SESSION['username'];
             </div>
         </a>
         <div class="sidebar-last">
-            <a href='./page/user/' class="btn text-light" title="Xem thông tin tài khoản">
+            <a href='/user/' class="btn text-light" title="Xem thông tin tài khoản">
                 <span id="username"><?php echo $username?></span>
                 <div class="menu-icon">
                     <span class='fa fa-user'></span>
@@ -66,7 +66,7 @@ $username = $_SESSION['username'];
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
     <script src="/public/static/js/bundle.js"></script>
 </body>
 </html>

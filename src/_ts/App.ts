@@ -1,88 +1,52 @@
-import {Controller} from './Controller';
-import inputPreview2 from './inputPreview2';
+import { KeyEvent } from "./KeyEvent";
 
+class App {
+    public page: string;
+    public keyevent: KeyEvent;
+    public isBlocking: boolean;
 
-const _QLNT = class extends Controller {
-	constructor() {
-		super();
-		this.addModel('DonVi', 'DonVi');
-		this.addModel('Thuoc', 'Thuoc');
-		this.addModel('Nsx', 'Nsx');
-	}
+    public constructor() {
+        this.switchToPage(this.getPageFromUrl());
+        this.handleSwitchPage();
+        this.keyevent = new KeyEvent();
+        this.handleSetting();
+        this.isBlocking = false;
+    }
 
-	addTable(element) {
-		let nameTHs = element.querySelectorAll("th");
-		let compoName = element.getAttribute('component');
+    public getUsername() {
+        const username = document.cookie.match(/username=([0-9a-zA-Z_]+)/i)[1];
+        $("#username").text(username);
+    }
 
-		const lookName = Array.from(nameTHs).map((val: any)=>val.getAttribute('for'));
+    private getPageFromUrl() {
+        let page = new URL(window.location.toString()).searchParams.get("page");
+        if (!page) {
+            page = "page-nhap-hoa-don";
+        }
+        return page;
+    }
 
-		const updateTable = function(err, data) {
-			if (err) return;
-			let body = element.querySelector('tbody');
+    private handleSwitchPage() {
+        const $this = this;
+        $(".sidebar-switch-page").on("click", function() {
+            const id = $(this).data("target");
+            $this.switchToPage(id);
+        });
+    }
 
-			// delete old row
-			while (body.lastChild) body.removeChild(body.lastChild);
+    private switchToPage(id) {
+        this.page = id;
+        window.history.replaceState(null, id, "/?page=" + id);
+        const container = $(".frame-container");
+        const page = $("#" + id);
+        container.animate({
+            scrollTop: page.offset().top - container.offset().top + container.scrollTop(),
+        });
+    }
 
-			// updata new row
-			for (let row of data) {
-				let rowEl = document.createElement('tr');
-				for (let name of lookName) {
-					let newTD = document.createElement('td');
-					newTD.textContent = row[name];
-					rowEl.appendChild(newTD);
-				}
-				body.appendChild(rowEl);
-			}
-		};
+    private handleSetting() {
+        //
+    }
+}
 
-		this.addUpdateFunc(compoName, updateTable);
-	}
-
-	addNameInputThuoc(idElement, optListen, optChange) {
-		const preview = new inputPreview2();
-		preview.addLookup(optListen);
-		preview.listen(idElement, (data)=>{
-			for (let idEl of Object.keys(optChange)) {
-				const field = optChange[idEl];
-				$('#'+idEl).val(data[field]);
-			}
-		});
-
-		const onUpdate = function(err, data) {
-			if (err) {
-				console.log(err);
-				return;
-			}
-			preview.addData(data);
-		};
-
-		this.addUpdateFunc('Thuoc', onUpdate);
-	}
-
-	addSelectInput(element, opt) {
-		const valueKey = opt.value;
-		const titleKey = opt.title;
-		const compoName = $(element).attr('component');
-
-		const onUpdate = function(err, data) {
-			if (err) {
-				console.log(err);
-				return;
-			}
-			// remove old options
-			while (element.lastChild) element.removeChild(element.lastChild);
-
-			// add updated option
-			for (const row of data) {
-				const newOpt = $("<option/>");
-				newOpt.attr('value', row[valueKey])
-					.text(row[titleKey])
-					.appendTo(element);
-			}
-		};
-
-		this.addUpdateFunc(compoName, onUpdate);
-	}
-};
-
-export {_QLNT as QLNT};
+export {App};

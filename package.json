@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "set PHP_ENV=test && ./vendor/bin/phpunit",
-    "build": "./node_modules/.bin/tsc -p . && node build-js && ./node_modules/.bin/node-sass ./src/scss/ -o ./public/static/css/"
+    "build": "bash build-src"
   },
   "repository": {
     "type": "git",

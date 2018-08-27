@@ -56,7 +56,7 @@ class Model {
     _get(params, callback) {
         return __awaiter(this, void 0, void 0, function* () {
             this.data = [];
-            const requestURL = this.database + this._urlparams(params);
+            const requestURL = this.database + "?" + this._urlparams(params);
             try {
                 const res = yield fetch(requestURL, { credentials: "include" });
                 const json = yield res.json();

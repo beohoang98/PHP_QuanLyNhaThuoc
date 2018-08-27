@@ -14,9 +14,12 @@ class ViewTable {
     // event control
     protected currentPos: number;
     protected sizeOfRecord: number;
+    protected currentRowData;
 
     public constructor() {
         // construct
+        this.offset = 0;
+        this.limit = 10;
     }
 
     /**
@@ -25,7 +28,7 @@ class ViewTable {
      */
     public async update(search) {
         // render data to element
-        const rawData = await this.model.get({}, this.offset, this.limit);
+        const rawData = await this.model.get("", this.offset, this.limit);
         this.data = Array.from(rawData).map((val) => {
             return this.filterDataRow(val);
         });
@@ -38,11 +41,17 @@ class ViewTable {
     public async render(search: string) {
         const data = await this.update(search);
         const tbody = this._createTableBody(data);
-        this.element.find("tbody").html(tbody.html());
+        this.element.find("tbody").html("").append(tbody.children());
     }
 
+    public setElement(el: JQuery<HTMLElement>) {
+        this.element = el;
+    }
     public getElement() {
         return this.element;
+    }
+    public currentData() {
+        return Object.assign({}, this.currentRowData);
     }
 
     /**
@@ -61,13 +70,26 @@ class ViewTable {
         this.funcOnFocus = callback;
     }
 
+    public selectDown() {
+        if (this.currentPos < this.sizeOfRecord - 1) {
+            ++this.currentPos;
+        }
+        this.element.find(`tr[data-pos=${this.currentPos}]`).focus();
+    }
+    public selectUp() {
+        if (this.currentPos > 0) {
+            --this.currentPos;
+        }
+        this.element.find(`tr[data-pos=${this.currentPos}]`).focus();
+    }
+
     protected filterDataRow(dataRow: any): any {
         // nothing here, just raw
         return dataRow;
     }
 
     protected _createRow(dataRow, pos): JQuery<HTMLElement> {
-        const row = $("<tr/>").attr("tabindex", 0);
+        const row = $("<tr/>").attr("tabindex", -1).attr("data-pos", pos);
         for (const field of Object.keys(dataRow)) {
             const cell = $("<td/>").attr("name", field).text(dataRow[field]);
             row.append(cell);
@@ -79,10 +101,15 @@ class ViewTable {
         });
 
         // hover event
-        row.on("hover focus", (e: JQuery.Event) => {
-            this.element.find("tbody > tr").removeClass("active");
+        row.on("mouseenter focus", (e: JQuery.Event) => {
+            this.element.find("tr").removeClass("active");
             row.addClass("active");
+            if (e.type === "mouseenter") {
+                row.focus();
+            }
+
             this.currentPos = pos;
+            this.currentRowData = dataRow;
             this.funcOnFocus(dataRow);
         });
 
@@ -104,9 +131,6 @@ class ViewTable {
     }
 
     private _rowOnChoose(row, callback) {
-        row.on("click", (e: JQuery.Event) => {
-            callback();
-        });
         row.on("keydown", (e: JQuery.Event) => {
             if (e.keyCode === 13) {
                 callback();

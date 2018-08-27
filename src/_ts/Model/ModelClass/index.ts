@@ -49,7 +49,7 @@ class Model {
      */
     protected async _get(params: any, callback?: (err: boolean, data ?: any) => any): Promise<any[]> {
         this.data = [];
-        const requestURL = this.database + this._urlparams(params);
+        const requestURL = this.database + "?" + this._urlparams(params);
         try {
             const res = await fetch(requestURL, {credentials: "include"});
             const json = await res.json();

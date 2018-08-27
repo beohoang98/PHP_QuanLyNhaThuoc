@@ -1,23 +1,21 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+const Thuoc_1 = require("../Model/Thuoc");
 const ViewTable_1 = require("./ViewTable");
 class ThuocTable extends ViewTable_1.ViewTable {
     constructor() {
         super();
-    }
-    render(search) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const data = yield this.update(search);
-            this.element.find("tbody").html("");
-        });
+        this.element = $("<table/>").addClass("table table-striped table-view");
+        this.element.html(`
+        <thead>
+            <tr>
+                <th>Ma Thuoc</th>
+                <th>Ten Thuoc</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        `);
+        this.model = new Thuoc_1.Thuoc();
     }
 }
 exports.ThuocTable = ThuocTable;
