@@ -28,7 +28,7 @@ class ViewTable {
      */
     public async update(search) {
         // render data to element
-        const rawData = await this.model.get("", this.offset, this.limit);
+        const rawData = await this.model.get(search, this.offset, this.limit);
         this.data = Array.from(rawData).map((val) => {
             return this.filterDataRow(val);
         });
@@ -101,12 +101,9 @@ class ViewTable {
         });
 
         // hover event
-        row.on("mouseenter focus", (e: JQuery.Event) => {
+        row.on("click focus", (e: JQuery.Event) => {
             this.element.find("tr").removeClass("active");
             row.addClass("active");
-            if (e.type === "mouseenter") {
-                row.focus();
-            }
 
             this.currentPos = pos;
             this.currentRowData = dataRow;
@@ -114,10 +111,6 @@ class ViewTable {
         });
 
         return row;
-    }
-
-    protected _createTableHead(titleArr) {
-        //
     }
 
     protected _createTableBody(data): JQuery<HTMLElement> {
@@ -135,6 +128,9 @@ class ViewTable {
             if (e.keyCode === 13) {
                 callback();
             }
+        });
+        row.on("dblclick", () => {
+            callback();
         });
     }
 }

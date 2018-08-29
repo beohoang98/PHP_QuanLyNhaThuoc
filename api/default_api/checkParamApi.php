@@ -46,13 +46,9 @@ class CheckParam
                 $httpParam = $_GET;
                 break;
             case "POST":
-                $httpParam = json_decode(\file_get_contents("php://input"), true);
-                break;
             case "PUT":
-                $httpParam = $_PUT;
-                break;
             case "DELETE":
-                $httpParam = $_DELETE;
+                $httpParam = \json_decode(\file_get_contents("php://input"), true);
                 break;
             default:
                 return false;
@@ -77,5 +73,16 @@ class CheckParam
     public function getErrMsg()
     {
         return $this->errMsg;
+    }
+
+    public function fastCheck($onError)
+    {
+        if (!$checkParam->isOK()) {
+            $msgerr = "";
+            foreach ($checkParam->listInvalid as $name) {
+                $msgerr = $msgerr." ".$name;
+            }
+            $onError($msgerr);
+        }
     }
 }

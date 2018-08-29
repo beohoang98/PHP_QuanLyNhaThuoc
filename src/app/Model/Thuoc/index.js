@@ -18,13 +18,19 @@ class Thuoc extends ModelClass_1.Model {
     }
     get(params, offset, limit) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this._get({ params, offset, limit });
+            return yield this._get({ q: params, offset, limit });
         });
     }
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
             this.res = yield this._post(data);
             return (!this.res.err);
+        });
+    }
+    add(ma, soLuong, tongGia) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // this.res = await this._post();
+            return false;
         });
     }
 }

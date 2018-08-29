@@ -98,6 +98,18 @@ INSERT into ncc (ten) values (N'Dược Hậu Giang'), (N'Dược Cần Thơ'), 
 INSERT into don_vi (ten) values (N'Viên'), (N'Tuýp'), (N'Hộp'), (N'Vĩ');
 
 insert into thuoc (ma, ten, id_don_vi, id_ncc) values
-	('ABC001', N'Thuốc 01', 1, 1),
+    ('ABC001', N'Thuốc 01', 1, 1),
     ('ABC002', N'Thuoc 02', 1, 2),
-    ('ABC003', N'Thuoc 03', 4, 3);
+    ('ABC003', N'Thuoc 03', 4, 3),
+    ('ABC004', N'Thuoc 04', 1, 3),
+    ('ABC005', N'Thuoc 05', 1, 2),
+    ('ABC006', N'Thuoc 06', 1, 1),
+    ('ABC007', N'Thuoc 07', 3, 3),
+    ('ABC008', N'Thuoc 08', 3, 3),
+    ('ABC009', N'Thuoc 09', 2, 2),
+    ('ABC010', N'Thuoc 10', 2, 2),
+    ('ABC011', N'Thuoc 11', 2, 2),
+    ('ABC012', N'Thuoc 12', 1, 1),
+    ('ABC013', N'Thuoc 13', 1, 3),
+    ('ABC014', N'Thuoc 14', 1, 3),
+    ('ABC015', N'Thuoc 15', 4, 3);

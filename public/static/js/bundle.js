@@ -8,10 +8,19 @@ class App {
         this.handleSwitchPage();
         this.keyevent = new KeyEvent_1.KeyEvent();
         this.handleSetting();
+        this.handleModal();
     }
     getUsername() {
         const username = document.cookie.match(/username=([0-9a-zA-Z_]+)/i)[1];
         $("#username").text(username);
+    }
+    onShortcutKey(combKey, page, func) {
+        // f*king incredible scope things!
+        this.keyevent.on(combKey, (e) => {
+            if (this.page === page) {
+                func(e);
+            }
+        });
     }
     getPageFromUrl() {
         let page = new URL(window.location.toString()).searchParams.get("page");
@@ -39,6 +48,14 @@ class App {
     handleSetting() {
         //
     }
+    handleModal() {
+        $(".modal").on("shown.bs.modal", () => {
+            this.keyevent.block();
+        });
+        $(".modal").on("hidden.bs.modal", () => {
+            this.keyevent.unblock();
+        });
+    }
 }
 exports.App = App;
 
@@ -58,6 +75,7 @@ class KeyEvent {
                 combKey = "ctrl+";
             }
             combKey += e.key;
+            console.log(combKey);
             if (this.eventAttach.hasOwnProperty(combKey)) {
                 const listFunc = this.eventAttach[combKey];
                 for (const func of listFunc) {
@@ -314,13 +332,19 @@ class Thuoc extends ModelClass_1.Model {
     }
     get(params, offset, limit) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this._get({ params, offset, limit });
+            return yield this._get({ q: params, offset, limit });
         });
     }
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
             this.res = yield this._post(data);
             return (!this.res.err);
+        });
+    }
+    add(ma, soLuong, tongGia) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // this.res = await this._post();
+            return false;
         });
     }
 }
@@ -373,7 +397,7 @@ class ViewTable {
     update(search) {
         return __awaiter(this, void 0, void 0, function* () {
             // render data to element
-            const rawData = yield this.model.get("", this.offset, this.limit);
+            const rawData = yield this.model.get(search, this.offset, this.limit);
             this.data = Array.from(rawData).map((val) => {
                 return this.filterDataRow(val);
             });
@@ -439,20 +463,14 @@ class ViewTable {
             this.funcOnChoose(dataRow);
         });
         // hover event
-        row.on("mouseenter focus", (e) => {
+        row.on("click focus", (e) => {
             this.element.find("tr").removeClass("active");
             row.addClass("active");
-            if (e.type === "mouseenter") {
-                row.focus();
-            }
             this.currentPos = pos;
             this.currentRowData = dataRow;
             this.funcOnFocus(dataRow);
         });
         return row;
-    }
-    _createTableHead(titleArr) {
-        //
     }
     _createTableBody(data) {
         const tbody = $("<tbody/>");
@@ -469,11 +487,181 @@ class ViewTable {
                 callback();
             }
         });
+        row.on("dblclick", () => {
+            callback();
+        });
     }
 }
 exports.ViewTable = ViewTable;
 
 },{}],9:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Thuoc_1 = require("../Model/Thuoc");
+const ThuocTable_1 = require("../View/ThuocTable");
+const thuoc_modal_1 = require("./thuoc-modal");
+const PAGE_ID = "page-nhap-thuoc";
+class Init {
+    constructor(app) {
+        const thuocTable = new ThuocTable_1.ThuocTable();
+        const thuoc = new Thuoc_1.Thuoc();
+        this.thuocTable = thuocTable;
+        this.thuoc = thuoc;
+        this.app = app;
+        thuocTable.setElement($("#nhap_thuoc--table"));
+        thuocTable.render("");
+        thuocTable.onChoose((data) => {
+            this.addThuoc(data);
+        });
+        thuocTable.onFocus((data) => {
+            $(".thuoc--button").removeAttr("disabled");
+        });
+        this.handleControlKey(app);
+        this.handleSelectKey(app);
+        this.handleModalEvent();
+        this.handleSearchInput();
+        const $this = this;
+        $(".thuoc--button").on("click", function ButtonClick() {
+            const role = $(this).attr("app-role");
+            switch (role) {
+                case "new":
+                    $this.newThuoc();
+                    break;
+                case "edit":
+                    $this.editThuoc(thuocTable.currentData());
+                    break;
+                case "add":
+                    $this.addThuoc(thuocTable.currentData());
+                    break;
+                case "chinh-gia": break;
+            }
+        });
+    }
+    handleSelectKey(app) {
+        app.onShortcutKey("ArrowUp", PAGE_ID, (e) => {
+            this.thuocTable.selectUp();
+        });
+        app.onShortcutKey("ArrowDown", PAGE_ID, (e) => {
+            this.thuocTable.selectDown();
+        });
+    }
+    handleControlKey(app) {
+        app.onShortcutKey("ctrl+d", PAGE_ID, (e) => {
+            e.preventDefault();
+            this.newThuoc();
+        });
+        app.onShortcutKey("ctrl+e", PAGE_ID, (e) => {
+            e.preventDefault();
+            this.editThuoc(this.thuocTable.currentData());
+        });
+        app.onShortcutKey("ctrl+a", PAGE_ID, (e) => {
+            e.preventDefault();
+            this.addThuoc(this.thuocTable.currentData());
+        });
+        app.onShortcutKey("ctrl+f", PAGE_ID, (e) => {
+            e.preventDefault();
+            $("#thuoc--search").focus();
+        });
+    }
+    handleSearchInput() {
+        const $this = this;
+        $("#thuoc--search").on("keyup", function Searching() {
+            const val = $(this).val();
+            $this.thuocTable.render(val);
+        });
+    }
+    handleModalEvent() {
+        this.addModal = new thuoc_modal_1.NewThuocModal("thuoc--new-modal", this.thuoc);
+        this.newModal = new thuoc_modal_1.AddThuocModal("thuoc--add-modal", this.thuoc);
+        this.editModal = new thuoc_modal_1.EditThuocModal("thuoc--edit-modal", this.thuoc);
+    }
+    editThuoc(data) {
+        $("#thuoc--edit-modal").modal("show");
+        $("#thuoc--edit-mathuoc").val(data.ma);
+        $("#thuoc--edit-tenthuoc").val(data.ten);
+        $("#thuoc--edit-ncc").val(data.ten_ncc);
+    }
+    newThuoc() {
+        $("#thuoc--new-modal").modal("show");
+    }
+    addThuoc(data) {
+        $("#thuoc--add-modal").modal("show");
+        $("#thuoc--add-mathuoc").val(data.ma);
+        $("#thuoc--add-tenthuoc").val(data.ten);
+        $("#thuoc--add-ncc").val(data.ten_ncc);
+        $("#thuoc--add-soluong").val(data.so_luong);
+    }
+}
+function init(app) {
+    return new Init(app);
+}
+exports.init = init;
+
+},{"../Model/Thuoc":6,"../View/ThuocTable":7,"./thuoc-modal":12}],10:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class AddThuocModal {
+    constructor(id, model) {
+        this.model = model;
+        this.popup = $("#" + id);
+        this.popup.load("/layouts/modal-add-thuoc.html");
+    }
+    show() {
+        this.popup.modal("show");
+    }
+    hide() {
+        this.popup.modal("hide");
+    }
+}
+exports.AddThuocModal = AddThuocModal;
+
+},{}],11:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class EditThuocModal {
+    constructor(id, model) {
+        this.model = model;
+        this.popup = $("#" + id);
+        this.popup.load("/layouts/modal-edit-thuoc.html");
+    }
+    show() {
+        this.popup.modal("show");
+    }
+    hide() {
+        this.popup.modal("hide");
+    }
+}
+exports.EditThuocModal = EditThuocModal;
+
+},{}],12:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const thuoc_add_modal_1 = require("./thuoc-add-modal");
+exports.AddThuocModal = thuoc_add_modal_1.AddThuocModal;
+const thuoc_edit_modal_1 = require("./thuoc-edit-modal");
+exports.EditThuocModal = thuoc_edit_modal_1.EditThuocModal;
+const thuoc_new_modal_1 = require("./thuoc-new-modal");
+exports.NewThuocModal = thuoc_new_modal_1.NewThuocModal;
+
+},{"./thuoc-add-modal":10,"./thuoc-edit-modal":11,"./thuoc-new-modal":13}],13:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class NewThuocModal {
+    constructor(id, model) {
+        this.model = model;
+        this.popup = $("#" + id);
+        this.popup.load("/layouts/modal-new-thuoc.html");
+    }
+    show() {
+        this.popup.modal("show");
+    }
+    hide() {
+        this.popup.modal("hide");
+    }
+}
+exports.NewThuocModal = NewThuocModal;
+
+},{}],14:[function(require,module,exports){
 const {App} = require('../app/App');
 
 $(document).ready(()=>{
@@ -483,101 +671,7 @@ $(document).ready(()=>{
         alert('key pressed');
     });
 
-    const NhapThuoc = require('./nhap-thuoc')(app);
+    require("../app/nhap-thuoc").init(app);
 });
 
-},{"../app/App":1,"./nhap-thuoc":10}],10:[function(require,module,exports){
-const {ThuocTable} = require("../app/View/ThuocTable");
-
-module.exports = function(app) {
-    const thuocTable = new ThuocTable();
-    thuocTable.setElement($("#nhap_thuoc--table"));
-    thuocTable.render("");
-
-    thuocTable.onChoose((data) => {
-        editThuoc(data);
-    });
-    thuocTable.onFocus((data) => {
-        $('.thuoc--button').removeAttr('disabled');
-    });
-
-    handleControlKey(app, thuocTable);
-    handleSelectKey(app, thuocTable);
-    handleModal(app);
-
-    $(".thuoc--button").on('click', function ButtonClick() {
-        const role = $(this).attr('app-role');
-        switch (role) {
-            case "new": newThuoc(); break;
-            case "edit": editThuoc(thuocTable.currentData()); break;
-            case "add": addThuoc(thuocTable.currentData()); break;
-            case "chinh-gia": break;
-        }
-    });
-};
-
-function handleSelectKey(app, thuocTable) {
-    app.keyevent.on("ArrowUp", (e) => {
-        if (app.page === "page-nhap-thuoc") {
-            thuocTable.selectUp();
-        }
-    });
-    app.keyevent.on("ArrowDown", (e) => {
-        if (app.page === "page-nhap-thuoc") {
-            thuocTable.selectDown();
-        }
-    });
-}
-
-function handleControlKey(app, thuocTable) {
-    app.keyevent.on("ctrl+d", (e) => {
-        if (app.page === "page-nhap-thuoc") {
-            e.preventDefault();
-            newThuoc();
-        }
-    });
-    app.keyevent.on("ctrl+e", (e) => {
-        if (app.page === "page-nhap-thuoc") {
-            e.preventDefault();
-            editThuoc(thuocTable.currentData());
-        }
-    });
-    app.keyevent.on("ctrl+a", (e) => {
-        if (app.page === "page-nhap-thuoc") {
-            e.preventDefault();
-            addThuoc(thuocTable.currentData());
-        }
-    });
-    app.keyevent.on("ctrl+f", (e) => {
-        if (app.page === "page-nhap-thuoc") {
-            e.preventDefault();
-            $("#thuoc--search").focus();
-        }
-    });
-}
-
-function handleModal(app) {
-    $('.modal').on('shown.bs.modal', () => {
-        app.keyevent.block();
-    });
-    $('.modal').on('hidden.bs.modal', () => {
-        app.keyevent.unblock();
-    });
-}
-
-function editThuoc(data) {
-    $("#thuoc--edit-modal").modal("show");
-    $("#thuoc--edit-mathuoc").val(data.ma);
-    $("#thuoc--edit-tenthuoc").val(data.ten);
-    $("#thuoc--edit-ncc").val(data.ten_ncc);
-}
-
-function newThuoc() {
-    $("#thuoc--newthuoc-modal").modal("show");
-}
-
-function addThuoc() {
-    //
-}
-
-},{"../app/View/ThuocTable":7}]},{},[9]);
+},{"../app/App":1,"../app/nhap-thuoc":9}]},{},[14]);

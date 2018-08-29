@@ -21,7 +21,7 @@ class ViewTable {
     update(search) {
         return __awaiter(this, void 0, void 0, function* () {
             // render data to element
-            const rawData = yield this.model.get("", this.offset, this.limit);
+            const rawData = yield this.model.get(search, this.offset, this.limit);
             this.data = Array.from(rawData).map((val) => {
                 return this.filterDataRow(val);
             });
@@ -87,20 +87,14 @@ class ViewTable {
             this.funcOnChoose(dataRow);
         });
         // hover event
-        row.on("mouseenter focus", (e) => {
+        row.on("click focus", (e) => {
             this.element.find("tr").removeClass("active");
             row.addClass("active");
-            if (e.type === "mouseenter") {
-                row.focus();
-            }
             this.currentPos = pos;
             this.currentRowData = dataRow;
             this.funcOnFocus(dataRow);
         });
         return row;
-    }
-    _createTableHead(titleArr) {
-        //
     }
     _createTableBody(data) {
         const tbody = $("<tbody/>");
@@ -116,6 +110,9 @@ class ViewTable {
             if (e.keyCode === 13) {
                 callback();
             }
+        });
+        row.on("dblclick", () => {
+            callback();
         });
     }
 }

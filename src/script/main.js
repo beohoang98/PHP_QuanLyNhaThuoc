@@ -7,5 +7,5 @@ $(document).ready(()=>{
         alert('key pressed');
     });
 
-    const NhapThuoc = require('./nhap-thuoc')(app);
+    require("../app/nhap-thuoc").init(app);
 });

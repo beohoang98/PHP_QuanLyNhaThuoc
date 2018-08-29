@@ -6,7 +6,5 @@
 <link rel="stylesheet" href="/public/lib/fontawesome/fontawesome-all.min.css">
 
 <!-- own style and script -->
-<script src="/public/static/lib/lib.js"></script>
-<link rel="stylesheet" href="/public/static/lib/lib.css">
 <link rel="stylesheet" href="/public/static/css/style.min.css">
 <link rel="stylesheet" href="/public/static/css/tableview.min.css">

@@ -62,53 +62,11 @@
     </div>
 
     <!-- modal new thuoc -->
-    <div id="thuoc--newthuoc-modal" class="modal fade" aria-hidden='true' tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-light">
-                    <h3>THUOC MOI</h3>
-                    <span class="close" data-dismiss='modal'><i class="fa fa-times"></i></span>
-                </div>
-                <form id="thuoc--newthuoc-form" action="#" class="modal-body form">
-                    <div class="form-group">
-                        <label for="thuoc--newthuoc-tenthuoc">Ten Thuoc</label>
-                        <input class="form-control" type="text" id="thuoc--newthuoc-tenthuoc" name='ten'>
-                    </div>
-                    <div class="form-group">
-                        <label for="thuoc--newthuoc-tenthuoc">Ten Thuoc</label>
-                        <input class="form-control" type="text" id="thuoc--newthuoc-tenthuoc" name='ten'>
-                    </div>
-                    <button class="btn btn-outline-primary">Them</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
+    <div id="thuoc--new-modal" class="modal fade" aria-hidden='true' tabindex="-1"></div>
 
     <!-- modal edit thuoc -->
-    <div id="thuoc--edit-modal" class="modal fade" aria-hidden='true' tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-light">
-                    <h3>EDIT THUOC</h3>
-                    <span class="close" data-dismiss='modal'><i class="fa fa-times"></i></span>
-                </div>
-                <form id="thuoc--edit-form" action="#" class="modal-body form">
-                    <div class="form-group">
-                        <label for="thuoc--edit-mathuoc">Ma Thuoc</label>
-                        <input class="form-control" type="text" id="thuoc--edit-mathuoc" name='ma'>
-                    </div>
-                    <div class="form-group">
-                        <label for="thuoc--edit-tenthuoc">Ten Thuoc</label>
-                        <input class="form-control" type="text" id="thuoc--edit-tenthuoc" name='ten'>
-                    </div>
-                    <div class="form-group">
-                        <label for="thuoc--edit-ncc">Nha cung cap</label>
-                        <input class="form-control" type="text" id="thuoc--edit-ncc" name='ncc'>
-                    </div>
-                    <button class="btn btn-outline-primary">CAP NHAT</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <div id="thuoc--edit-modal" class="modal fade" aria-hidden='true' tabindex="-1"></div>
+
+    <!-- modal add thuoc -->
+    <div id="thuoc--add-modal" class="modal fade" aria-hidden='true' tabindex="-1"></div>
 </div>
