@@ -13,11 +13,21 @@ class Init {
         this.app = app;
         thuocTable.setElement($("#nhap_thuoc--table"));
         thuocTable.render("");
+        thuocTable.setLimitPerPage(100);
         thuocTable.onChoose((data) => {
             this.addThuoc(data);
         });
         thuocTable.onFocus((data) => {
             $(".thuoc--button").removeAttr("disabled");
+        });
+        thuocTable.onContextAdd(() => {
+            this.addThuoc(thuocTable.currentData());
+        });
+        thuocTable.onContextEdit(() => {
+            this.editThuoc(thuocTable.currentData());
+        });
+        thuocTable.onContextEditPrice(() => {
+            //
         });
         this.handleControlKey(app);
         this.handleSelectKey(app);
@@ -79,6 +89,9 @@ class Init {
         this.editModal = new thuoc_modal_1.EditThuocModal("thuoc--edit-modal", this.thuoc);
     }
     editThuoc(data) {
+        if (!data) {
+            return;
+        }
         $("#thuoc--edit-modal").modal("show");
         $("#thuoc--edit-mathuoc").val(data.ma);
         $("#thuoc--edit-tenthuoc").val(data.ten);
@@ -88,6 +101,9 @@ class Init {
         $("#thuoc--new-modal").modal("show");
     }
     addThuoc(data) {
+        if (!data) {
+            return;
+        }
         $("#thuoc--add-modal").modal("show");
         $("#thuoc--add-mathuoc").val(data.ma);
         $("#thuoc--add-tenthuoc").val(data.ten);

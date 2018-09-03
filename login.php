@@ -54,7 +54,7 @@ if (isset($_POST['submit']) && isset($_POST['username']) && isset($_POST['passwo
                     <form class="form" action="" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input class="form-control" type="text" name="username" placeholder="Username...">
+                            <input class="form-control" type="text" autofocus name="username" placeholder="Username...">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>

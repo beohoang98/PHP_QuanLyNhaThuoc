@@ -1,12 +1,11 @@
 import { KeyEvent } from "./KeyEvent";
+import { Thuoc } from "./Model/Thuoc";
 
 class App {
     public page: string;
     public keyevent: KeyEvent;
 
-    public component: any[];
-
-    private pageEvent: any[];
+    public thuoc: Thuoc;
 
     public constructor() {
         this.switchToPage(this.getPageFromUrl());
@@ -14,6 +13,8 @@ class App {
         this.keyevent = new KeyEvent();
         this.handleSetting();
         this.handleModal();
+
+        this.thuoc = new Thuoc();
     }
 
     public getUsername() {

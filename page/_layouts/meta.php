@@ -6,5 +6,7 @@
 <link rel="stylesheet" href="/public/lib/fontawesome/fontawesome-all.min.css">
 
 <!-- own style and script -->
-<link rel="stylesheet" href="/public/static/css/style.min.css">
-<link rel="stylesheet" href="/public/static/css/tableview.min.css">
+<link rel="stylesheet" href="/public/static/css/style.css">
+<link rel="stylesheet" href="/public/static/css/tableview.css">
+<link rel="stylesheet" href="/public/static/css/contextmenu.css">
+<link rel="stylesheet" href="/public/static/css/autocomplete.css">

@@ -1,11 +1,33 @@
 <div class="modal-dialog">
     <div class="modal-content">
-        <header class="modal-header">
-            <div class="modal-title"></div>
+        <header class="modal-header bg-warning text-dark">
+            <div class="modal-title">NHAP MOI THUOC</div>
             <span class="close" data-dismiss="modal"><i class="fa fa-times"></i></span>
         </header>
         <div class="modal-body">
-            <form action="#" class="form"></form>
+            <form action="#" class="form">
+                <div class="form-group">
+                    <label for="">Mã thuốc</label>
+                    <input class="form-control" type="text" required autofocus name="ma">
+                </div>
+                <div class="form-group">
+                    <label for="">Tên Thuốc</label>
+                    <input type="text" required class="form-control" name="ten">
+                </div>
+                <div class="form-group">
+                    <label for="">Nhà cung cấp</label>
+                    <input type="text" required class="form-control" name="ten_ncc">
+                </div>
+                <div class="form-group">
+                    <label for="">Số lượng</label>
+                    <input type="number" required class="form-control" name="so_luong">
+                </div>
+                <div class="form-group">
+                    <label for="">Đơn giá bán</label>
+                    <input type="text" required class="form-control" name="don_gia">
+                </div>
+                <button class="btn btn-outline-warning">THÊM MỚI</button>
+            </form>
         </div>
     </div>
 </div>

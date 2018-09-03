@@ -44,6 +44,9 @@ class ViewTable {
         return this.element;
     }
     currentData() {
+        if (!this.currentRowData) {
+            return undefined;
+        }
         return Object.assign({}, this.currentRowData);
     }
     /**
@@ -72,6 +75,16 @@ class ViewTable {
         }
         this.element.find(`tr[data-pos=${this.currentPos}]`).focus();
     }
+    nextPage(search = "") {
+        this.offset += this.limit;
+        this.render(search);
+    }
+    setLimitPerPage(limit) {
+        this.limit = limit;
+    }
+    setOffset(offset) {
+        this.offset = offset;
+    }
     filterDataRow(dataRow) {
         // nothing here, just raw
         return dataRow;
@@ -94,6 +107,7 @@ class ViewTable {
             this.currentRowData = dataRow;
             this.funcOnFocus(dataRow);
         });
+        this.customCreateRow(row);
         return row;
     }
     _createTableBody(data) {
@@ -104,6 +118,9 @@ class ViewTable {
             tbody.append(trow);
         }
         return tbody;
+    }
+    customCreateRow(row) {
+        // nothing here, will change in inheritance
     }
     _rowOnChoose(row, callback) {
         row.on("keydown", (e) => {

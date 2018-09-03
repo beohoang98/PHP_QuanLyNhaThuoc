@@ -1,17 +1,20 @@
 .table-view {
   display: flex;
   flex-direction: column;
-  thead {
+  overflow: auto;
+
+  tbody, thead {
+    display: flex;
+    flex-direction: column;
+  }
+  tr {
     display: table;
-    width: 100%;
     table-layout: fixed;
+    width: 100%;
   }
   tbody {
-    display: table;
-    table-layout: fixed;
     overflow: auto;
-    width: 100%;
-    flex-grow: 1;
+    max-height: 80vh;
 
     tr.active {
       background-color: var(--dark);

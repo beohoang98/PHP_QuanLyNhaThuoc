@@ -58,10 +58,10 @@ $username = $_SESSION['username'];
     </nav>
     <div class='frame-container'>
         <div class="frame-slide">
-            <div class='page' id='page-nhap-hoa-don'>
+            <div class='d-flex flex-column page' id='page-nhap-hoa-don'>
                 <?php require $ROOT."/page/nhap_hoa_don/index.php"?>
             </div>
-            <div class='page' id='page-nhap-thuoc'>
+            <div class='d-flex flex-column page' id='page-nhap-thuoc'>
                 <?php require $ROOT."/page/nhap_thuoc/index.php"?>
             </div>
         </div>

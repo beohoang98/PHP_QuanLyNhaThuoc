@@ -1,14 +1,4 @@
 {
-	"easysass.excludeRegex": "_.*.scss",
-	"easysass.targetDir": "./public/static/css/",
-	"easysass.compileAfterSave": true,
-	"easysass.formats": [
-		{
-			"format": "compressed",
-			"extension": ".min.css"
-		}
-	],
-
 	"git.autofetch": false,
 	
 	"phpcs.enable": true,

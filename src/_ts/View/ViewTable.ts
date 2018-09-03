@@ -51,6 +51,9 @@ class ViewTable {
         return this.element;
     }
     public currentData() {
+        if (!this.currentRowData) {
+            return undefined;
+        }
         return Object.assign({}, this.currentRowData);
     }
 
@@ -83,6 +86,19 @@ class ViewTable {
         this.element.find(`tr[data-pos=${this.currentPos}]`).focus();
     }
 
+    public nextPage(search: string = "") {
+        this.offset += this.limit;
+        this.render(search);
+    }
+
+    public setLimitPerPage(limit: number) {
+        this.limit = limit;
+    }
+
+    public setOffset(offset: number) {
+        this.offset = offset;
+    }
+
     protected filterDataRow(dataRow: any): any {
         // nothing here, just raw
         return dataRow;
@@ -110,6 +126,8 @@ class ViewTable {
             this.funcOnFocus(dataRow);
         });
 
+        this.customCreateRow(row);
+
         return row;
     }
 
@@ -121,6 +139,10 @@ class ViewTable {
             tbody.append(trow);
         }
         return tbody;
+    }
+
+    protected customCreateRow(row: JQuery<HTMLElement>) {
+        // nothing here, will change in inheritance
     }
 
     private _rowOnChoose(row, callback) {
