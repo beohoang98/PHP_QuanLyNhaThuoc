@@ -1,4 +1,4 @@
 #!/bin/bash
-npm run build
+bash build-src
 php ./database/addAdmin.php
 ./vendor/bin/heroku-php-apache2 ./

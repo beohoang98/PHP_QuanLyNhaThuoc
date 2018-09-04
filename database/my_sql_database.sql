@@ -97,6 +97,7 @@ alter table hoa_don
 INSERT into ncc (ten) values (N'Dược Hậu Giang'), (N'Dược Cần Thơ'), (N'Dược Hà Nội');
 INSERT into don_vi (ten) values (N'Viên'), (N'Tuýp'), (N'Hộp'), (N'Vĩ');
 
+truncate table thuoc;
 insert into thuoc (ma, ten, id_don_vi, id_ncc) values
     ('ABC001', N'Thuốc 01', 1, 1),
     ('ABC002', N'Thuoc 02', 1, 2),
