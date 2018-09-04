@@ -2,7 +2,7 @@ import {getFormValue} from "../formVal";
 import {BootstrapModal} from "../Model/BootstrapModal";
 import {Thuoc} from "../Model/Thuoc";
 import {ThuocTable} from "../View/ThuocTable";
-import {AddThuocModal, EditThuocModal, NewThuocModal} from "./thuoc-modal";
+import {AddThuocModal, EditThuocModal, NewThuocModal, EditPriceThuocModal} from "./thuoc-modal";
 
 const PAGE_ID = "page-nhap-thuoc";
 
@@ -10,6 +10,7 @@ class Init {
     public addModal;
     public newModal;
     public editModal;
+    public editPriceModal;
 
     private app;
     private thuoc;
@@ -17,13 +18,10 @@ class Init {
 
     constructor(app) {
         const thuocTable = new ThuocTable();
-        const thuoc = new Thuoc();
         this.thuocTable = thuocTable;
-        this.thuoc = thuoc;
         this.app = app;
 
         thuocTable.setElement($("#nhap_thuoc--table"));
-        thuocTable.render("");
         thuocTable.setLimitPerPage(100);
         thuocTable.onChoose((data) => {
             this.addThuoc(data);
@@ -38,8 +36,9 @@ class Init {
             this.editThuoc(thuocTable.currentData());
         });
         thuocTable.onContextEditPrice(() => {
-            //
+            this.editPriceThuoc(thuocTable.currentData());
         });
+        thuocTable.render("");
 
         this.handleControlKey(app);
         this.handleSelectKey(app);
@@ -53,7 +52,7 @@ class Init {
                 case "new": $this.newThuoc(); break;
                 case "edit": $this.editThuoc(thuocTable.currentData()); break;
                 case "add": $this.addThuoc(thuocTable.currentData()); break;
-                case "chinh-gia": break;
+                case "chinh-gia": $this.editPriceThuoc(thuocTable.currentData()); break;
             }
         });
     }
@@ -76,9 +75,9 @@ class Init {
             e.preventDefault();
             this.editThuoc(this.thuocTable.currentData());
         });
-        app.onShortcutKey("ctrl+a", PAGE_ID, (e) => {
+        app.onShortcutKey("ctrl+g", PAGE_ID, (e) => {
             e.preventDefault();
-            this.addThuoc(this.thuocTable.currentData());
+            this.editPriceThuoc(this.thuocTable.currentData());
         });
         app.onShortcutKey("ctrl+f", PAGE_ID, (e) => {
             e.preventDefault();
@@ -95,9 +94,10 @@ class Init {
     }
 
     public handleModalEvent() {
-        this.addModal = new NewThuocModal("thuoc--new-modal", this.thuoc);
-        this.newModal = new AddThuocModal("thuoc--add-modal", this.thuoc);
-        this.editModal = new EditThuocModal("thuoc--edit-modal", this.thuoc);
+        this.addModal = new NewThuocModal("thuoc--new-modal", this.app.thuoc);
+        this.newModal = new AddThuocModal("thuoc--add-modal", this.app.thuoc);
+        this.editModal = new EditThuocModal("thuoc--edit-modal", this.app.thuoc);
+        this.editPriceModal = new EditPriceThuocModal("thuoc--edit-price-modal", this.app.thuoc);
     }
 
     public editThuoc(data) {
@@ -125,6 +125,14 @@ class Init {
         $("#thuoc--add-soluong").val(data.so_luong);
     }
 
+    public editPriceThuoc(data) {
+        if (!data) {
+            return;
+        }
+        $("#thuoc--edit-price-modal").modal("show");
+        $("#thuoc--edit-price-mathuoc").val(data.ma);
+        $("#thuoc--edit-price-tenthuoc").val(data.ten);
+    }
 }
 
 function init(app) {

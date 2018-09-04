@@ -1,11 +1,16 @@
 import { KeyEvent } from "./KeyEvent";
 import { Thuoc } from "./Model/Thuoc";
+import { HoaDon } from "./Model/HoaDon";
+import { DonVi } from "./Model/DonVi";
 
 class App {
     public page: string;
     public keyevent: KeyEvent;
 
     public thuoc: Thuoc;
+    public hoaDon: HoaDon;
+    public donVi: DonVi;
+    // public ncc:
 
     public constructor() {
         this.switchToPage(this.getPageFromUrl());

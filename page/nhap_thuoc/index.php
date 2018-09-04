@@ -27,7 +27,7 @@
     </div>  
     
 
-    <div class="w-100 d-flex flex-row justify-content-around" style="min-height: 3em">
+    <div class="w-100 d-flex flex-row justify-content-around p-4" style="min-height: 3em">
 
         <!-- NHAP MOI -->
         <button app-role="new" class="btn btn-warning thuoc--button">
@@ -36,7 +36,7 @@
 
         <!-- NHAP THEM -->
         <button app-role="add" class="btn btn-success thuoc--button" disabled>
-            <i class="fas fa-plus-circle"></i> NHAP THEM<br>Ctrl+A
+            <i class="fas fa-plus-circle"></i> NHAP THEM<br>Enter
         </button>
 
         <!-- EDIT -->
@@ -59,4 +59,7 @@
 
     <!-- modal add thuoc -->
     <div id="thuoc--add-modal" class="modal fade" aria-hidden='true' tabindex="-1"></div>
+
+    <!-- modal add thuoc -->
+    <div id="thuoc--edit-price-modal" class="modal fade" aria-hidden='true' tabindex="-1"></div>
 </div>

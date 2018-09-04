@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const KeyEvent_1 = require("./KeyEvent");
 const Thuoc_1 = require("./Model/Thuoc");
 class App {
+    // public ncc:
     constructor() {
         this.switchToPage(this.getPageFromUrl());
         this.handleSwitchPage();

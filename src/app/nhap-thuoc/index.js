@@ -1,18 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Thuoc_1 = require("../Model/Thuoc");
 const ThuocTable_1 = require("../View/ThuocTable");
 const thuoc_modal_1 = require("./thuoc-modal");
 const PAGE_ID = "page-nhap-thuoc";
 class Init {
     constructor(app) {
         const thuocTable = new ThuocTable_1.ThuocTable();
-        const thuoc = new Thuoc_1.Thuoc();
         this.thuocTable = thuocTable;
-        this.thuoc = thuoc;
         this.app = app;
         thuocTable.setElement($("#nhap_thuoc--table"));
-        thuocTable.render("");
         thuocTable.setLimitPerPage(100);
         thuocTable.onChoose((data) => {
             this.addThuoc(data);
@@ -27,8 +23,9 @@ class Init {
             this.editThuoc(thuocTable.currentData());
         });
         thuocTable.onContextEditPrice(() => {
-            //
+            this.editPriceThuoc(thuocTable.currentData());
         });
+        thuocTable.render("");
         this.handleControlKey(app);
         this.handleSelectKey(app);
         this.handleModalEvent();
@@ -46,7 +43,9 @@ class Init {
                 case "add":
                     $this.addThuoc(thuocTable.currentData());
                     break;
-                case "chinh-gia": break;
+                case "chinh-gia":
+                    $this.editPriceThuoc(thuocTable.currentData());
+                    break;
             }
         });
     }
@@ -67,9 +66,9 @@ class Init {
             e.preventDefault();
             this.editThuoc(this.thuocTable.currentData());
         });
-        app.onShortcutKey("ctrl+a", PAGE_ID, (e) => {
+        app.onShortcutKey("ctrl+g", PAGE_ID, (e) => {
             e.preventDefault();
-            this.addThuoc(this.thuocTable.currentData());
+            this.editPriceThuoc(this.thuocTable.currentData());
         });
         app.onShortcutKey("ctrl+f", PAGE_ID, (e) => {
             e.preventDefault();
@@ -84,9 +83,10 @@ class Init {
         });
     }
     handleModalEvent() {
-        this.addModal = new thuoc_modal_1.NewThuocModal("thuoc--new-modal", this.thuoc);
-        this.newModal = new thuoc_modal_1.AddThuocModal("thuoc--add-modal", this.thuoc);
-        this.editModal = new thuoc_modal_1.EditThuocModal("thuoc--edit-modal", this.thuoc);
+        this.addModal = new thuoc_modal_1.NewThuocModal("thuoc--new-modal", this.app.thuoc);
+        this.newModal = new thuoc_modal_1.AddThuocModal("thuoc--add-modal", this.app.thuoc);
+        this.editModal = new thuoc_modal_1.EditThuocModal("thuoc--edit-modal", this.app.thuoc);
+        this.editPriceModal = new thuoc_modal_1.EditPriceThuocModal("thuoc--edit-price-modal", this.app.thuoc);
     }
     editThuoc(data) {
         if (!data) {
@@ -109,6 +109,14 @@ class Init {
         $("#thuoc--add-tenthuoc").val(data.ten);
         $("#thuoc--add-ncc").val(data.ten_ncc);
         $("#thuoc--add-soluong").val(data.so_luong);
+    }
+    editPriceThuoc(data) {
+        if (!data) {
+            return;
+        }
+        $("#thuoc--edit-price-modal").modal("show");
+        $("#thuoc--edit-price-mathuoc").val(data.ma);
+        $("#thuoc--edit-price-tenthuoc").val(data.ten);
     }
 }
 function init(app) {

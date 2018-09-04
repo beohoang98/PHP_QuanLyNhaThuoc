@@ -16,6 +16,7 @@ class AutoComplete {
         else {
             this.target = target;
         }
+        this.target.attr("autocomplete", "off");
         this.model = model;
     }
     onChoose(func) {
@@ -64,7 +65,7 @@ class AutoComplete {
         return __awaiter(this, void 0, void 0, function* () {
             this.element = $("<ul/>").addClass("my-autocomplete shadow-lg rounded");
             this.element.css({
-                top: this.target.offset().top + this.target.height(),
+                top: this.target.offset().top + this.target.outerHeight(),
                 left: this.target.offset().left,
             });
             const data = yield this.getData(search);

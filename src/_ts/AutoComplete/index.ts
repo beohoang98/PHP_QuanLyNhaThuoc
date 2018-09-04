@@ -16,6 +16,7 @@ class AutoComplete {
         } else {
             this.target = target;
         }
+        this.target.attr("autocomplete", "off");
         this.model = model;
     }
 
@@ -68,7 +69,7 @@ class AutoComplete {
     public async render(search) {
         this.element = $("<ul/>").addClass("my-autocomplete shadow-lg rounded");
         this.element.css({
-            top: this.target.offset().top + this.target.height(),
+            top: this.target.offset().top + this.target.outerHeight(),
             left: this.target.offset().left,
         });
         const data = await this.getData(search);
