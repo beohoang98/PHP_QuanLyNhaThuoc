@@ -1,16 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const KeyEvent_1 = require("./KeyEvent");
+const Thuoc_1 = require("./Model/Thuoc");
 class App {
+    // public ncc:
     constructor() {
         this.switchToPage(this.getPageFromUrl());
         this.handleSwitchPage();
         this.keyevent = new KeyEvent_1.KeyEvent();
         this.handleSetting();
+        this.handleModal();
+        this.thuoc = new Thuoc_1.Thuoc();
     }
     getUsername() {
         const username = document.cookie.match(/username=([0-9a-zA-Z_]+)/i)[1];
         $("#username").text(username);
+    }
+    onShortcutKey(combKey, page, func) {
+        // f*king incredible scope things!
+        this.keyevent.on(combKey, (e) => {
+            if (this.page === page) {
+                func(e);
+            }
+        });
     }
     getPageFromUrl() {
         let page = new URL(window.location.toString()).searchParams.get("page");
@@ -37,6 +49,14 @@ class App {
     }
     handleSetting() {
         //
+    }
+    handleModal() {
+        $(".modal").on("shown.bs.modal", () => {
+            this.keyevent.block();
+        });
+        $(".modal").on("hidden.bs.modal", () => {
+            this.keyevent.unblock();
+        });
     }
 }
 exports.App = App;

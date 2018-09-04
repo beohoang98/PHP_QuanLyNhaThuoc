@@ -28,7 +28,7 @@ class ViewTable {
      */
     public async update(search) {
         // render data to element
-        const rawData = await this.model.get("", this.offset, this.limit);
+        const rawData = await this.model.get(search, this.offset, this.limit);
         this.data = Array.from(rawData).map((val) => {
             return this.filterDataRow(val);
         });
@@ -51,6 +51,9 @@ class ViewTable {
         return this.element;
     }
     public currentData() {
+        if (!this.currentRowData) {
+            return undefined;
+        }
         return Object.assign({}, this.currentRowData);
     }
 
@@ -83,6 +86,19 @@ class ViewTable {
         this.element.find(`tr[data-pos=${this.currentPos}]`).focus();
     }
 
+    public nextPage(search: string = "") {
+        this.offset += this.limit;
+        this.render(search);
+    }
+
+    public setLimitPerPage(limit: number) {
+        this.limit = limit;
+    }
+
+    public setOffset(offset: number) {
+        this.offset = offset;
+    }
+
     protected filterDataRow(dataRow: any): any {
         // nothing here, just raw
         return dataRow;
@@ -101,23 +117,18 @@ class ViewTable {
         });
 
         // hover event
-        row.on("mouseenter focus", (e: JQuery.Event) => {
+        row.on("click focus", (e: JQuery.Event) => {
             this.element.find("tr").removeClass("active");
             row.addClass("active");
-            if (e.type === "mouseenter") {
-                row.focus();
-            }
 
             this.currentPos = pos;
             this.currentRowData = dataRow;
             this.funcOnFocus(dataRow);
         });
 
-        return row;
-    }
+        this.customCreateRow(row);
 
-    protected _createTableHead(titleArr) {
-        //
+        return row;
     }
 
     protected _createTableBody(data): JQuery<HTMLElement> {
@@ -130,11 +141,18 @@ class ViewTable {
         return tbody;
     }
 
+    protected customCreateRow(row: JQuery<HTMLElement>) {
+        // nothing here, will change in inheritance
+    }
+
     private _rowOnChoose(row, callback) {
         row.on("keydown", (e: JQuery.Event) => {
             if (e.keyCode === 13) {
                 callback();
             }
+        });
+        row.on("dblclick", () => {
+            callback();
         });
     }
 }

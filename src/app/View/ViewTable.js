@@ -21,7 +21,7 @@ class ViewTable {
     update(search) {
         return __awaiter(this, void 0, void 0, function* () {
             // render data to element
-            const rawData = yield this.model.get("", this.offset, this.limit);
+            const rawData = yield this.model.get(search, this.offset, this.limit);
             this.data = Array.from(rawData).map((val) => {
                 return this.filterDataRow(val);
             });
@@ -44,6 +44,9 @@ class ViewTable {
         return this.element;
     }
     currentData() {
+        if (!this.currentRowData) {
+            return undefined;
+        }
         return Object.assign({}, this.currentRowData);
     }
     /**
@@ -72,6 +75,16 @@ class ViewTable {
         }
         this.element.find(`tr[data-pos=${this.currentPos}]`).focus();
     }
+    nextPage(search = "") {
+        this.offset += this.limit;
+        this.render(search);
+    }
+    setLimitPerPage(limit) {
+        this.limit = limit;
+    }
+    setOffset(offset) {
+        this.offset = offset;
+    }
     filterDataRow(dataRow) {
         // nothing here, just raw
         return dataRow;
@@ -87,20 +100,15 @@ class ViewTable {
             this.funcOnChoose(dataRow);
         });
         // hover event
-        row.on("mouseenter focus", (e) => {
+        row.on("click focus", (e) => {
             this.element.find("tr").removeClass("active");
             row.addClass("active");
-            if (e.type === "mouseenter") {
-                row.focus();
-            }
             this.currentPos = pos;
             this.currentRowData = dataRow;
             this.funcOnFocus(dataRow);
         });
+        this.customCreateRow(row);
         return row;
-    }
-    _createTableHead(titleArr) {
-        //
     }
     _createTableBody(data) {
         const tbody = $("<tbody/>");
@@ -111,11 +119,17 @@ class ViewTable {
         }
         return tbody;
     }
+    customCreateRow(row) {
+        // nothing here, will change in inheritance
+    }
     _rowOnChoose(row, callback) {
         row.on("keydown", (e) => {
             if (e.keyCode === 13) {
                 callback();
             }
+        });
+        row.on("dblclick", () => {
+            callback();
         });
     }
 }

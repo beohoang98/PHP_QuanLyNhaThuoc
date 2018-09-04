@@ -5,6 +5,7 @@ class KeyEvent {
     public constructor() {
         this.eventAttach = {};
         this.isBlocking = false;
+
         $(document).on("keydown", (e: JQuery.Event) => {
             if (this.isBlocking) {
                 return;
@@ -15,6 +16,7 @@ class KeyEvent {
                 combKey = "ctrl+";
             }
             combKey += e.key;
+            console.log(combKey);
             if (this.eventAttach.hasOwnProperty(combKey)) {
                 const listFunc = this.eventAttach[combKey];
                 for (const func of listFunc) {

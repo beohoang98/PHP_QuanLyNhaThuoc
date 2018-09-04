@@ -1,19 +1,39 @@
 import { KeyEvent } from "./KeyEvent";
+import { Thuoc } from "./Model/Thuoc";
+import { HoaDon } from "./Model/HoaDon";
+import { DonVi } from "./Model/DonVi";
 
 class App {
     public page: string;
     public keyevent: KeyEvent;
+
+    public thuoc: Thuoc;
+    public hoaDon: HoaDon;
+    public donVi: DonVi;
+    // public ncc:
 
     public constructor() {
         this.switchToPage(this.getPageFromUrl());
         this.handleSwitchPage();
         this.keyevent = new KeyEvent();
         this.handleSetting();
+        this.handleModal();
+
+        this.thuoc = new Thuoc();
     }
 
     public getUsername() {
         const username = document.cookie.match(/username=([0-9a-zA-Z_]+)/i)[1];
         $("#username").text(username);
+    }
+
+    public onShortcutKey(combKey: string, page: string, func: (e: JQuery.Event) => any) {
+        // f*king incredible scope things!
+        this.keyevent.on(combKey, (e) => {
+            if (this.page === page) {
+                func(e);
+            }
+        });
     }
 
     private getPageFromUrl() {
@@ -44,6 +64,15 @@ class App {
 
     private handleSetting() {
         //
+    }
+
+    private handleModal() {
+        $(".modal").on("shown.bs.modal", () => {
+            this.keyevent.block();
+        });
+        $(".modal").on("hidden.bs.modal", () => {
+            this.keyevent.unblock();
+        });
     }
 }
 

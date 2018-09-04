@@ -1,18 +1,8 @@
-<style media="screen">
-    body {
-        background-color: #f8f8f8;
-    }
-    #tag {
-        border: 1px solid #ccccff;
-    }
-    .tag {
-        margin: 0.5em;
-    }
-</style>
+<?php ?>
 <div class="bg-dark text-center text-light">
     <h2>KHO THUỐC</h2>
 </div>
-<div class="container d-flex flex-column postition-relative">
+<div class="container d-flex flex-column flex-grow-1 flex-shrink-1">
     <div class="input-group">
         <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-search"></i></span>
@@ -22,7 +12,7 @@
     
     <!-- DANH SACH THUOC -->
     <div class="flex-grow-1">
-        <table id='nhap_thuoc--table' class="table table-striped table-view flex-grow-1" component='Thuoc' component-type='table'>
+        <table id='nhap_thuoc--table' class="table table-striped table-view">
             <thead>
                 <tr>
                     <th>Ma thuoc</th>
@@ -32,83 +22,44 @@
                     <th>So luong</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody class="flex-grow-1"></tbody>
         </table>
     </div>  
     
 
-    <div class="position-absolute w-100 d-flex flex-row justify-content-around" style="bottom: 1em">
+    <div class="w-100 d-flex flex-row justify-content-around p-4" style="min-height: 3em">
 
         <!-- NHAP MOI -->
-        <button app-role="new" class="btn btn-default thuoc--button">
+        <button app-role="new" class="btn btn-warning thuoc--button">
             NHAP MOI<br>Ctrl+D
         </button>
 
         <!-- NHAP THEM -->
-        <button app-role="add" class="btn btn-default thuoc--button" disabled>
-            NHAP THEM<br>Ctrl+A
+        <button app-role="add" class="btn btn-success thuoc--button" disabled>
+            <i class="fas fa-plus-circle"></i> NHAP THEM<br>Enter
         </button>
 
         <!-- EDIT -->
-        <button app-role="edit" class="btn btn-default thuoc--button" disabled>
-            CHINH SUA<br>Ctrl+E
+        <button app-role="edit" class="btn btn-primary thuoc--button" disabled>
+            <i class="fas fa-pen-square"></i> CHINH SUA<br>Ctrl+E
         </button>
 
         <!-- DIEU CHINH GIA -->
         <button app-role="chinh-gia" class="btn btn-default thuoc--button" disabled>
-            DIEU CHINH GIA <br>Ctrl+G
+            <i class="fa fa-dollar-sign"></i> DIEU CHINH GIA <br>Ctrl+G
         </button>
 
     </div>
 
     <!-- modal new thuoc -->
-    <div id="thuoc--newthuoc-modal" class="modal fade" aria-hidden='true' tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-light">
-                    <h3>THUOC MOI</h3>
-                    <span class="close" data-dismiss='modal'><i class="fa fa-times"></i></span>
-                </div>
-                <form id="thuoc--newthuoc-form" action="#" class="modal-body form">
-                    <div class="form-group">
-                        <label for="thuoc--newthuoc-tenthuoc">Ten Thuoc</label>
-                        <input class="form-control" type="text" id="thuoc--newthuoc-tenthuoc" name='ten'>
-                    </div>
-                    <div class="form-group">
-                        <label for="thuoc--newthuoc-tenthuoc">Ten Thuoc</label>
-                        <input class="form-control" type="text" id="thuoc--newthuoc-tenthuoc" name='ten'>
-                    </div>
-                    <button class="btn btn-outline-primary">Them</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
+    <div id="thuoc--new-modal" class="modal fade" aria-hidden='true' tabindex="-1"></div>
 
     <!-- modal edit thuoc -->
-    <div id="thuoc--edit-modal" class="modal fade" aria-hidden='true' tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-light">
-                    <h3>EDIT THUOC</h3>
-                    <span class="close" data-dismiss='modal'><i class="fa fa-times"></i></span>
-                </div>
-                <form id="thuoc--edit-form" action="#" class="modal-body form">
-                    <div class="form-group">
-                        <label for="thuoc--edit-mathuoc">Ma Thuoc</label>
-                        <input class="form-control" type="text" id="thuoc--edit-mathuoc" name='ma'>
-                    </div>
-                    <div class="form-group">
-                        <label for="thuoc--edit-tenthuoc">Ten Thuoc</label>
-                        <input class="form-control" type="text" id="thuoc--edit-tenthuoc" name='ten'>
-                    </div>
-                    <div class="form-group">
-                        <label for="thuoc--edit-ncc">Nha cung cap</label>
-                        <input class="form-control" type="text" id="thuoc--edit-ncc" name='ncc'>
-                    </div>
-                    <button class="btn btn-outline-primary">CAP NHAT</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <div id="thuoc--edit-modal" class="modal fade" aria-hidden='true' tabindex="-1"></div>
+
+    <!-- modal add thuoc -->
+    <div id="thuoc--add-modal" class="modal fade" aria-hidden='true' tabindex="-1"></div>
+
+    <!-- modal add thuoc -->
+    <div id="thuoc--edit-price-modal" class="modal fade" aria-hidden='true' tabindex="-1"></div>
 </div>
