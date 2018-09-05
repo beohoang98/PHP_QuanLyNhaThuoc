@@ -4,18 +4,19 @@ namespace Api;
 
 class DBResponse
 {
-    public $ok;
     public $data;
-    public $errMsg;
+    public $lastInsertId;
 
-    public function __construct($mSQL)
+    public function __construct($stmt)
     {
-        if ($mSQL->error) {
-            $this->ok = false;
-            $this->errMsg = $mSQL->error;
-        } else {
-            $this->ok = true;
-            $this->data = $mSQL->toArray();
+        if ($res === true) {
+            $this->data = true;
+            $this->lastInsertId = $stmt->lastInsertId();
+        } elseif ($res === false) {
+            throw new \Exception($stmt->errorInfo());
+        } elseif (gettype($res) !== "boolean") {
+            $this->data = $stmt->toArray();
+            $this->lastInsertId = $stmt->lastInsertId();
         }
     }
 }

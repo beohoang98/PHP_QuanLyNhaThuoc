@@ -5,6 +5,7 @@ require_once "checkParamApi.php";
 require_once "checkSessionForApi.php";
 require_once "connectdb.php";
 require_once "_returnJSON.php";
+require_once "_qlntAPI.php";
 
 function checkSessionAndConnect()
 {
