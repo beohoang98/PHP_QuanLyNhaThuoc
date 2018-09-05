@@ -3,3 +3,4 @@ languages:
 - php
 exclude:
 - public/*
+- src/app/*
