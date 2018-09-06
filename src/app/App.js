@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const KeyEvent_1 = require("./KeyEvent");
 const Thuoc_1 = require("./Model/Thuoc");
+const DonVi_1 = require("./Model/DonVi");
 class App {
     // public ncc:
     constructor() {
@@ -11,6 +12,7 @@ class App {
         this.handleSetting();
         this.handleModal();
         this.thuoc = new Thuoc_1.Thuoc();
+        this.donVi = new DonVi_1.DonVi();
     }
     getUsername() {
         const username = document.cookie.match(/username=([0-9a-zA-Z_]+)/i)[1];

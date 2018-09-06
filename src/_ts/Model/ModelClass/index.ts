@@ -9,6 +9,10 @@ class Model {
         this.data = [];
     }
 
+    get fetchData() {
+        return Object.assign({}, this.data);
+    }
+
     get response() {
         return Object.assign({}, this.res);
     }

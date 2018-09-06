@@ -94,8 +94,8 @@ class Init {
     }
 
     public handleModalEvent() {
-        this.addModal = new NewThuocModal("thuoc--new-modal", this.app.thuoc);
-        this.newModal = new AddThuocModal("thuoc--add-modal", this.app.thuoc);
+        this.addModal = new AddThuocModal("thuoc--add-modal", this.app.thuoc);
+        this.newModal = new NewThuocModal("thuoc--new-modal", this.app);
         this.editModal = new EditThuocModal("thuoc--edit-modal", this.app.thuoc);
         this.editPriceModal = new EditPriceThuocModal("thuoc--edit-price-modal", this.app.thuoc);
     }

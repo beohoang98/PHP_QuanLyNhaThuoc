@@ -1,9 +1,5 @@
 <?php
-$db = new \Api\ConnectDatabase();
-$res = $db->table("don_vi")->find([])->execute();
+$qlnt = new \Api\QLNT();
+$data = $qlnt->getDonVi();
 
-if ($res->ok) {
-    \Api\returnSuccess($res->data);
-} else {
-    \Api\returnError($res->errMsg);
-}
+\Api\returnSuccess($data);

@@ -13,6 +13,9 @@ class Model {
         this.database = "";
         this.data = [];
     }
+    get fetchData() {
+        return Object.assign({}, this.data);
+    }
     get response() {
         return Object.assign({}, this.res);
     }
