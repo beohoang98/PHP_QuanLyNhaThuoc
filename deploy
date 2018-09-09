@@ -1,4 +1,4 @@
 #!/bin/bash
 bash build-src
-php ./database/addAdmin.php
+php ./database/addInitialData.php
 ./vendor/bin/heroku-php-apache2 ./

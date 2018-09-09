@@ -5,5 +5,8 @@
 	"phpcs.standard": "PSR2",
 	"phpcs.autoConfigSearch": true,
 	"php.validate.executablePath": "/usr/bin/php",
-	"phpcs.executablePath": "./vendor/bin/phpcs"
+	"phpcs.executablePath": "./vendor/bin/phpcs",
+
+	"editor.fontFamily": "Fira Code, monospace",
+	"editor.fontLigatures": true
 }

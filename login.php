@@ -17,15 +17,18 @@ if (isset($_POST['submit']) && isset($_POST['username']) && isset($_POST['passwo
     $pass = $_POST['password'];
     $ret = $db->table("user")->find(["username"=>"'$user'"])->execute();
 
-    if ($ret->ok && count($ret->data) > 0 && password_verify($pass, $ret->data[0]['password'])) {
-        $username = trim($ret->data[0]['username']);
-        $_SESSION['username'] = $username;
-        header("Location: /");
-        exit();
-    } else {
-        header("Location: /login.php?msg=".htmlspecialchars("Username hoặc mật khẩu của bạn đã bị sai").$ret->errMsg);
-        exit();
+
+    if ($ret->rowCount() > 0) {
+        $data = $ret->fetchAll(PDO::FETCH_ASSOC);
+        if (password_verify($pass, $data[0]['password'])) {
+            $username = trim($data[0]['username']);
+            $_SESSION['username'] = $username;
+            header("Location: /");
+            exit();
+        }
     }
+    header("Location: /login.php?msg=".htmlspecialchars("Username hoặc mật khẩu của bạn đã bị sai").$ret->errMsg);
+    exit();
 }
 ?>
 <!DOCTYPE html>

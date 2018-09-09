@@ -94,9 +94,9 @@ class Init {
     }
 
     public handleModalEvent() {
-        this.addModal = new NewThuocModal("thuoc--new-modal", this.app.thuoc);
-        this.newModal = new AddThuocModal("thuoc--add-modal", this.app.thuoc);
-        this.editModal = new EditThuocModal("thuoc--edit-modal", this.app.thuoc);
+        this.addModal = new AddThuocModal("thuoc--add-modal", this.app);
+        this.newModal = new NewThuocModal("thuoc--new-modal", this.app);
+        this.editModal = new EditThuocModal("thuoc--edit-modal", this.app);
         this.editPriceModal = new EditPriceThuocModal("thuoc--edit-price-modal", this.app.thuoc);
     }
 
@@ -104,10 +104,7 @@ class Init {
         if (!data) {
             return;
         }
-        $("#thuoc--edit-modal").modal("show");
-        $("#thuoc--edit-mathuoc").val(data.ma);
-        $("#thuoc--edit-tenthuoc").val(data.ten);
-        $("#thuoc--edit-ncc").val(data.ten_ncc);
+        this.editModal.show(data);
     }
 
     public newThuoc() {

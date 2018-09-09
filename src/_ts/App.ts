@@ -20,6 +20,7 @@ class App {
         this.handleModal();
 
         this.thuoc = new Thuoc();
+        this.donVi = new DonVi();
     }
 
     public getUsername() {

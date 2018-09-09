@@ -9,6 +9,10 @@ class Model {
         this.data = [];
     }
 
+    get fetchData() {
+        return Object.assign({}, this.data);
+    }
+
     get response() {
         return Object.assign({}, this.res);
     }
@@ -103,6 +107,29 @@ class Model {
             } else {
                 throw err;
             }
+        }
+    }
+
+    protected async _put(data: any) {
+        this.res = "";
+        try {
+            const res = await fetch(this.database, {
+                body: JSON.stringify(data),
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method: "PUT",
+            });
+            const json = await res.json();
+            if (json.err) {
+                throw new Error(json.msg);
+            }
+
+            this.res = json.data;
+            return json.data;
+        } catch (err) {
+            throw err;
         }
     }
 

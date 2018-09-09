@@ -56,7 +56,7 @@ class CheckParam
 
         $isTrue = true;
         foreach ($this->paramList as $name) {
-            if (!isset($httpParam[$name]) || trim($httpParam[$name]) === "") {
+            if (!isset($httpParam[$name])) {
                 $isTrue = false;
                 array_push($this->listInvalid, $name);
             }
@@ -77,7 +77,7 @@ class CheckParam
 
     public function fastCheck($onError)
     {
-        if (!$checkParam->isOK()) {
+        if (!$this->isOK()) {
             $msgerr = "";
             foreach ($checkParam->listInvalid as $name) {
                 $msgerr = $msgerr." ".$name;

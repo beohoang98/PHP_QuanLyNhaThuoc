@@ -1,5 +1,4 @@
 import {Model} from "../ModelClass";
-import {BangThuoc} from "./BangThuoc";
 
 class Thuoc extends Model {
     constructor() {
@@ -11,15 +10,26 @@ class Thuoc extends Model {
         return await this._get({q: params, offset, limit});
     }
 
-    public async create(data): Promise<boolean> {
+    public async create(data): Promise<any> {
         this.res = await this._post(data);
-        return (!this.res.err);
+        return (this.res);
     }
 
-    public async add(ma, soLuong, tongGia): Promise<boolean> {
-        // this.res = await this._post();
-        return false;
+    public async add(ma, soLuong, tongGia): Promise<any> {
+        this.res = await this._post({
+            ma,
+            so_luong: soLuong,
+            tong_gia: tongGia,
+        });
+        return this.res;
+    }
+
+    public async update(ma: string, editInfo: any) {
+        this.res = await this._put({
+            ma, editInfo,
+        });
+        return this.res;
     }
 }
 
-export { Thuoc, BangThuoc as BangThuoc };
+export { Thuoc };

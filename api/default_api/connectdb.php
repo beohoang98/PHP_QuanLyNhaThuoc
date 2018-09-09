@@ -16,11 +16,8 @@ class ConnectDatabase
         require_once __DIR__."/../../src/connect_database/connect_mysql/index.php";
 
         if (getenv("PHP_ENV") !== "test") {
-            $this->mSQL = new \NoobCoder\ConnectMySQL();
+            $this->mSQL = \NoobCoder\ConnectMySQL();
             $this->mSQL->query("SET NAMES utf8");
-            if ($this->mSQL->error) {
-                throw new \Exception($this->mSQL->error);
-            }
         }
         $this->offset = 0;
         $this->limit = 0;
@@ -64,12 +61,13 @@ class ConnectDatabase
             $this->query .= " OFFSET $this->offset";
         }
 
-        $this->mSQL->query($this->query);
-        $res = new \Api\DBResponse($this->mSQL);
+        $this->stmt = $this->mSQL->prepare($this->query);
+        if (!$this->stmt) {
+            return false;
+        }
 
-        $this->res = $res;
-        $this->clear();
-        return $res;
+        $this->stmt->execute();
+        return $this->stmt;
     }
 
     public function clear()
@@ -126,8 +124,13 @@ class ConnectDatabase
             }, array_keys($fieldsMatch), $fieldsMatch)
         );
 
-        $this->query = "UPDATE $this->table SET (".$setStr.") WHERE ".$whereStr;
+        $this->query = "UPDATE $this->table SET $setStr WHERE $whereStr";
 
         return $this;
+    }
+
+    public function lastInsertId()
+    {
+        return $this->mSQL->lastInsertId();
     }
 }
