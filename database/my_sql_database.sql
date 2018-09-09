@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS qlnt;
-CREATE DATABASE qlnt;
+-- DROP DATABASE IF EXISTS qlnt;
+-- CREATE DATABASE qlnt;
 
-use qlnt;
+-- use qlnt;
 
 CREATE TABLE thuoc (
     ma VARCHAR(10) PRIMARY KEY,

@@ -1,0 +1,13 @@
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE thuoc;
+DROP TABLE don_vi;
+DROP TABLE ncc;
+DROP TABLE kho_thuoc;
+DROP TABLE user;
+DROP TABLE hoa_don;
+DROP TABLE ct_hoa_don;
+DROP TABLE error_log;
+DROP TABLE bang_gia;
+
+SET FOREIGN_KEY_CHECKS = 1;
