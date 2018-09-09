@@ -41,7 +41,7 @@ class ConnectDatabaseTest extends TestCase
             "last_name"=>"world"
         ]);
         $this->assertEquals(
-            "UPDATE User SET first_name = hello, last_name = world WHERE id = 1",
+            "UPDATE User SET first_name = 'hello', last_name = 'world' WHERE id = 1",
             self::$db->getQuery()
         );
     }

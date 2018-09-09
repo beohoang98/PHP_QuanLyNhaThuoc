@@ -2,6 +2,7 @@ import { KeyEvent } from "./KeyEvent";
 import { Thuoc } from "./Model/Thuoc";
 import { HoaDon } from "./Model/HoaDon";
 import { DonVi } from "./Model/DonVi";
+import { Ncc } from "./Model/Ncc";
 
 class App {
     public page: string;
@@ -10,7 +11,7 @@ class App {
     public thuoc: Thuoc;
     public hoaDon: HoaDon;
     public donVi: DonVi;
-    // public ncc:
+    public ncc: Ncc;
 
     public constructor() {
         this.switchToPage(this.getPageFromUrl());
@@ -21,6 +22,7 @@ class App {
 
         this.thuoc = new Thuoc();
         this.donVi = new DonVi();
+        this.ncc = new Ncc();
     }
 
     public getUsername() {

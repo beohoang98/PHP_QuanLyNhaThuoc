@@ -1,6 +1,6 @@
 import {Model} from "../ModelClass";
 
-class _Nsx extends Model {
+class Ncc extends Model {
 
     public constructor() {
         super();
@@ -11,10 +11,10 @@ class _Nsx extends Model {
      * get data of nsx
      * @param callback callback function
      */
-    public async get(params, offset, limit): Promise<any[]> {
-        const data = await this._get({params, offset, limit});
+    public async get(params): Promise<any[]> {
+        const data = await this._get({q: params});
         return data;
     }
 }
 
-export { _Nsx as Nsx };
+export { Ncc };

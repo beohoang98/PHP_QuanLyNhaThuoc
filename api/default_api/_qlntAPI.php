@@ -118,6 +118,18 @@ class QLNT
      */
     public function suaThongTinThuoc(string $ma, array $editInfo)
     {
+        if (isset($editInfo["ncc"])) {
+            $ncc = $editInfo["ncc"];
+            unset($editInfo["ncc"]);
+
+            $res = $this->getNhaCungCap($ncc);
+            if (count($res) === 0) {
+                $res = $this->themNhaCungCap($ncc, "");
+                $editInfo["id_ncc"] = $res;
+            } else {
+                $editInfo["id_ncc"] = $res[0]["id"];
+            }
+        }
         $res = $this->dbconn->table("thuoc")->update(["ma"=>"'$ma'"], $editInfo)->execute();
         return $res->rowCount();
     }
@@ -151,5 +163,23 @@ class QLNT
     {
         $res = $this->dbconn->table("don_vi")->find([])->execute();
         return $res->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getNhaCungCap($name): array
+    {
+        $res = $this->dbconn->query("SELECT * FROM ncc WHERE ten = '$name';")->execute();
+        return $res->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function searchNhaCungCap($name): array
+    {
+        $res = $this->dbconn->query("SELECT * FROM ncc WHERE ten LIKE '$name%';")->execute();
+        return $res->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function themNhaCungCap($name, $info = ""): int
+    {
+        $res = $this->dbconn->table("ncc")->insert(["ten"=>$name, "thong_tin"=>$info])->execute();
+        return $res->lastInsertId();
     }
 }

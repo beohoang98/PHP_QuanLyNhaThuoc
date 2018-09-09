@@ -1,5 +1,6 @@
 import { getFormValue } from "../formVal";
 import { App } from "../App";
+import { AutoComplete } from "../AutoComplete";
 
 class EditThuocModal {
     private popup: JQuery<HTMLElement>;
@@ -13,6 +14,9 @@ class EditThuocModal {
                 e.preventDefault();
                 this.formSubmitHandle(e);
             });
+
+            this.handleNccInput(this.popup.find("[name=ncc]"));
+            this.handleDonViSelect(this.popup.find("[name=id_don_vi]"));
         });
     }
 
@@ -31,6 +35,20 @@ class EditThuocModal {
         } catch (e) {
             alert("Error: " + e);
         }
+    }
+
+    public handleNccInput(target: JQuery<HTMLElement>) {
+        const autocomplete = new AutoComplete(target, this.app.ncc);
+        autocomplete.setLookup(["ten"]);
+        autocomplete.onChoose((data) => {
+            target.val(data.ten);
+        });
+        autocomplete.listen();
+    }
+
+    public handleDonViSelect(target: JQuery<HTMLElement>) {
+        target.html("");
+        this.app.donVi.renderSelectInput(target);
     }
 
     public show(data) {

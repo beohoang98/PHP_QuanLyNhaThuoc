@@ -11,15 +11,7 @@ class NewThuocModal {
 
         this.popup = $("#" + id);
         this.popup.load("/layouts/modal-new-thuoc.html", () => {
-            this.app.donVi.get((data) => {
-                const selectInput = this.popup.find("[component='DonVi']");
-                selectInput.children().remove();
-                for (const row of data) {
-                    const opt = $("<option/>").val(row.id).text(row.ten);
-                    selectInput.append(opt);
-                }
-                selectInput.children().eq(0).attr("checked", "true");
-            });
+            this.app.donVi.renderSelectInput(this.popup.find("[name=id_don_vi]"));
 
             this.popup.find("form").on("submit", async function(e: JQuery.Event) {
                 e.preventDefault();
