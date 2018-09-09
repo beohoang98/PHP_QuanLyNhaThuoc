@@ -1,5 +1,4 @@
 import {Model} from "../ModelClass";
-import {BangThuoc} from "./BangThuoc";
 
 class Thuoc extends Model {
     constructor() {
@@ -24,6 +23,13 @@ class Thuoc extends Model {
         });
         return this.res;
     }
+
+    public async update(ma: string, editInfo: any) {
+        this.res = await this._put({
+            ma, editInfo,
+        });
+        return this.res;
+    }
 }
 
-export { Thuoc, BangThuoc as BangThuoc };
+export { Thuoc };

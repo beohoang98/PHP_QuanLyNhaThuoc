@@ -1,16 +1,15 @@
 <?php
-$db = new \Api\ConnectDatabase();
+$qlnt = new \Api\QLNT();
 
-$checkParam = new \Api\CheckParam(["ma", "type"], "PUT");
+$checkParam = new \Api\CheckParam(["ma", "editInfo"], "PUT");
 $checkParam->fastCheck(function ($err) {
     \Api\returnError($err);
 });
 
 $data = $checkParam->data;
 $ma = trim($data["ma"]);
+$editInfo = $data["editInfo"];
 
-if ($res->ok) {
-    \Api\returnSuccess($res->last_id);
-} else {
-    \Api\returnError($res->errMsg);
-}
+$rowCount = $qlnt->suaThongTinThuoc($ma, $editInfo); // idk why, but row affected is need to know
+
+\Api\returnSuccess($rowCount);

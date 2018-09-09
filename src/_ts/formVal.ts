@@ -1,4 +1,4 @@
-function getFormValue(form: JQuery<HTMLElement>) {
+function getFormValue(form: JQuery<HTMLElement>): any {
     const arr = form.serializeArray();
     const val = {};
     for (const input of arr) {

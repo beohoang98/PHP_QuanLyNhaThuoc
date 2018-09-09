@@ -110,6 +110,29 @@ class Model {
         }
     }
 
+    protected async _put(data: any) {
+        this.res = "";
+        try {
+            const res = await fetch(this.database, {
+                body: JSON.stringify(data),
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method: "PUT",
+            });
+            const json = await res.json();
+            if (json.err) {
+                throw new Error(json.msg);
+            }
+
+            this.res = json.data;
+            return json.data;
+        } catch (err) {
+            throw err;
+        }
+    }
+
     protected _urlparams(params) {
         const url = Object.keys(params).map((k) => {
             return encodeURIComponent(k) + "=" + encodeURIComponent(params[k]);

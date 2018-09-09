@@ -118,7 +118,7 @@ class QLNT
      */
     public function suaThongTinThuoc(string $ma, array $editInfo)
     {
-        $res = $this->dbconn->table("thuoc")->update(["ma"=>"'$ma'"], $editInfo);
+        $res = $this->dbconn->table("thuoc")->update(["ma"=>"'$ma'"], $editInfo)->execute();
         return $res->rowCount();
     }
 
