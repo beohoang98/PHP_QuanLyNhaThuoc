@@ -24,13 +24,17 @@ class Thuoc extends ModelClass_1.Model {
     create(data) {
         return __awaiter(this, void 0, void 0, function* () {
             this.res = yield this._post(data);
-            return (!this.res.err);
+            return (this.res);
         });
     }
     add(ma, soLuong, tongGia) {
         return __awaiter(this, void 0, void 0, function* () {
-            // this.res = await this._post();
-            return false;
+            this.res = yield this._post({
+                ma,
+                so_luong: soLuong,
+                tong_gia: tongGia,
+            });
+            return this.res;
         });
     }
 }

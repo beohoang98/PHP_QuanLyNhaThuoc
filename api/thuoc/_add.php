@@ -8,8 +8,8 @@ $ma_thuoc = trim($data["ma"]);
 if ($qlnt->checkThuoc($ma_thuoc)) {
     // update kho
     $so_luong = intval($data["so_luong"]);
-    $qlnt->themThuoc($ma_thuoc, $so_luong);
-    \Api\returnSuccess($ma_thuoc);
+    $so_luong_moi = $qlnt->themThuoc($ma_thuoc, $so_luong);
+    \Api\returnSuccess(["ma"=>$ma_thuoc, "so_luong_moi"=>$so_luong_moi]);
 }
 
 // else create one

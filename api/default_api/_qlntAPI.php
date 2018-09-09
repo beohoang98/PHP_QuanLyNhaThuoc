@@ -50,7 +50,12 @@ class QLNT
         return $res->rowCount() > 0;
     }
 
-    public function themThuoc(string $ma, int $so_luong)
+    /**
+     * @param ma ma thuoc
+     * @param so_luong so luong them vao
+     * @return int so luong hien co
+     */
+    public function themThuoc(string $ma, int $so_luong): int
     {
         $res = $this->dbconn->table("kho_thuoc")->find(["ma_thuoc"=>"'$ma'"])->execute();
         if ($res->rowCount() === 0) {
@@ -60,7 +65,15 @@ class QLNT
         $soLuongCu = $res->fetchAll(\PDO::FETCH_ASSOC)[0]["so_luong"];
         $soLuongMoi = $soLuongCu + $so_luong;
 
-        $this->dbconn->table("kho_thuoc")->update(["ma_thuoc"=>"'$ma'"], ["so_luong"=>$soLuongMoi]);
+        $this->dbconn->table("kho_thuoc")->update(["ma_thuoc"=>"'$ma'"], ["so_luong"=>$soLuongMoi])->execute();
+        
+        $res = $this->dbconn->table("kho_thuoc")->find(["ma_thuoc"=>"'$ma'"])->execute();
+        $so_luong_sau_khi_them = intval($res->fetchAll(\PDO::FETCH_ASSOC)[0]["so_luong"]);
+        if ($soLuongMoi !== $so_luong_sau_khi_them) {
+            throw new \Exception("So-luong-moi and So-luong-sau-khi-them not matched");
+        }
+
+        return $soLuongMoi;
     }
 
     public function themMoiThuoc(string $ma, string $ten, int $id_don_vi, string $ncc, string $viet_tat, int $so_luong_ban_dau, int $don_gia_ban_dau, string $username)

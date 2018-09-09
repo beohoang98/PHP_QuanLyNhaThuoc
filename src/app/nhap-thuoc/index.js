@@ -83,7 +83,7 @@ class Init {
         });
     }
     handleModalEvent() {
-        this.addModal = new thuoc_modal_1.AddThuocModal("thuoc--add-modal", this.app.thuoc);
+        this.addModal = new thuoc_modal_1.AddThuocModal("thuoc--add-modal", this.app);
         this.newModal = new thuoc_modal_1.NewThuocModal("thuoc--new-modal", this.app);
         this.editModal = new thuoc_modal_1.EditThuocModal("thuoc--edit-modal", this.app.thuoc);
         this.editPriceModal = new thuoc_modal_1.EditPriceThuocModal("thuoc--edit-price-modal", this.app.thuoc);

@@ -124,7 +124,7 @@ class ConnectDatabase
             }, array_keys($fieldsMatch), $fieldsMatch)
         );
 
-        $this->query = "UPDATE $this->table SET (".$setStr.") WHERE ".$whereStr;
+        $this->query = "UPDATE $this->table SET $setStr WHERE $whereStr";
 
         return $this;
     }
