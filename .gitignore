@@ -5,4 +5,4 @@ vendor/
 *.secret
 build/
 .sass-cache/
-src/app/*
+src/app/
