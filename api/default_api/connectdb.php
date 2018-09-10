@@ -84,7 +84,7 @@ class ConnectDatabase
         $whereStr = join(
             " AND ",
             array_map(function ($key, $val) {
-                return "$key = $val";
+                return "$key = ".$this->renderValue($val);
             }, array_keys($fieldsMatch), $fieldsMatch)
         );
 
@@ -136,6 +136,11 @@ class ConnectDatabase
     public function lastInsertId()
     {
         return $this->mSQL->lastInsertId();
+    }
+
+    public function toArray(): array
+    {
+        return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**

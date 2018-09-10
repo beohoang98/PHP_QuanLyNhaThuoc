@@ -3,6 +3,7 @@ import { Thuoc } from "./Model/Thuoc";
 import { HoaDon } from "./Model/HoaDon";
 import { DonVi } from "./Model/DonVi";
 import { Ncc } from "./Model/Ncc";
+import { BangGia } from "./Model/BangGia";
 
 class App {
     public page: string;
@@ -12,6 +13,7 @@ class App {
     public hoaDon: HoaDon;
     public donVi: DonVi;
     public ncc: Ncc;
+    public bangGia: BangGia;
 
     public constructor() {
         this.switchToPage(this.getPageFromUrl());
@@ -23,6 +25,7 @@ class App {
         this.thuoc = new Thuoc();
         this.donVi = new DonVi();
         this.ncc = new Ncc();
+        this.bangGia = new BangGia();
     }
 
     public getUsername() {

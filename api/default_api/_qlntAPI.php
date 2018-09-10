@@ -162,24 +162,45 @@ class QLNT
     public function getDonVi(): array
     {
         $res = $this->dbconn->table("don_vi")->find([])->execute();
-        return $res->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->dbconn->toArray();
     }
 
     public function getNhaCungCap($name): array
     {
         $res = $this->dbconn->query("SELECT * FROM ncc WHERE ten = '$name';")->execute();
-        return $res->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->dbconn->toArray();
     }
 
     public function searchNhaCungCap($name): array
     {
         $res = $this->dbconn->query("SELECT * FROM ncc WHERE ten LIKE '$name%';")->execute();
-        return $res->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->dbconn->toArray();
     }
 
     public function themNhaCungCap($name, $info = ""): int
     {
-        $res = $this->dbconn->table("ncc")->insert(["ten"=>$name, "thong_tin"=>$info])->execute();
+        $res = $this->dbconn->table("ncc")->insert(["ten"=>$name, "info"=>$info])->execute();
         return $res->lastInsertId();
+    }
+
+    public function getBangGia(string $ma_thuoc): array
+    {
+        $res = $this->dbconn->table("bang_gia")->find(["ma_thuoc"=>$ma_thuoc])->execute();
+        return $this->dbconn->toArray();
+    }
+
+    public function themChinhGia($ma_thuoc, $gia_moi, $username)
+    {
+        $res = $this->dbconn->table("thuoc")->find(["ma"=>$ma_thuoc])->execute();
+        if ($res->rowCount() === 0) {
+            throw new \Exception("Ma thuoc '$ma_thuoc' khong ton tai");
+        }
+
+        $res = $this->dbconn->table("bang_gia")->insert([
+            "ma_thuoc"=>$ma_thuoc,
+            "price"=>$gia_moi,
+            "username"=>$username,
+            "thoi_gian"=>"".date("Y:m:d H:i:s")
+        ])->execute();
     }
 }
