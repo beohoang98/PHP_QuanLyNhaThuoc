@@ -46,7 +46,7 @@ CREATE TABLE user (
 );
 
 CREATE TABLE hoa_don (
-    id INT PRIMARY KEY,
+    id BIGINT PRIMARY KEY,
     time DATETIME,
     username VARCHAR(10),
     so_luong INT,
@@ -56,7 +56,7 @@ CREATE TABLE hoa_don (
 
 CREATE TABLE ct_hoa_don (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    id_hoa_don INT,
+    id_hoa_don BIGINT,
     ma_thuoc VARCHAR(10),
     so_luong INT
 );
@@ -90,6 +90,16 @@ alter table ct_hoa_don
 alter table hoa_don
 	add constraint FK_hd_user foreign key (username) references user (username);
 
+
+CREATE TRIGGER genHoaDonId BEFORE INSERT ON hoa_don FOR EACH ROW
+BEGIN
+    DECLARE MAX_ID INT;
+    SELECT MAX(id) INTO MAX_ID FROM hoa_don;
+    IF (MAX_ID IS NULL) THEN
+        SET MAX_ID = CAST(CONCAT(YEAR(NEW.time), MONTH(NEW.time), DAY(NEW.time), '000') AS BIGINT);
+    END IF;
+    SET NEW.id = MAX_ID + 1;
+END
 
 -- add initial data
 INSERT into ncc (ten) values (N'Dược Hậu Giang'), (N'Dược Cần Thơ'), (N'Dược Hà Nội');

@@ -2,7 +2,11 @@
 namespace Api;
 
 require_once "connectdb.php";
+require_once $_SERVER["DOCUMENT_ROOT"]."/src/connect_app/index.php";
 
+/**
+ * Quan Ly Nha Thuoc API to Database
+ */
 class QLNT
 {
     private $dbconn;
@@ -202,5 +206,30 @@ class QLNT
             "username"=>$username,
             "thoi_gian"=>"".date("Y:m:d H:i:s")
         ])->execute();
+    }
+
+    
+    // ----------- HOA DON -----------------
+    public function themHoaDon(\App\HoaDon $hoadon)
+    {
+        $res = $this->dbconn->table("hoa_don")->insert([
+            "time"=>$hoadon->getTime(),
+            "username"=>$hoadon->getUsername(),
+            "so_luong"=>$hoadon->getSoLuong(),
+            "kieu_ban"=>$hoadon->getLoai(),
+            "tong_gia"=>$hoadon->getTongGia()
+        ])->execute();
+
+        $idHoaDon = $res->lastInsertId();
+
+        foreach ($hoadon->getListCTHD() as $cthd) {
+            $this->dbconn->table("ct_hoa_don")->insert([
+                "id_hoa_don"=>$idHoaDon,
+                "ma_thuoc"=>$cthd->getMaThuoc(),
+                "so_luong"=>$cthd->getSoLuong()
+            ])->execute();
+        }
+
+        return $idHoaDon;
     }
 }
