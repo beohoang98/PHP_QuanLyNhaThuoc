@@ -24,7 +24,7 @@
         <!-- gia thuoc -->
         <div class="form-group m-1">
             <label for="nhap_hoa_don--gia">Gia</label>
-            <input class='form-control' id='nhap_hoa_don--gia' name='gia' readonly type="text">
+            <input class='form-control' id='nhap_hoa_don--gia' name='don_gia' readonly type="text">
         </div>
 
         <!-- button -->
@@ -51,7 +51,7 @@
                 <!-- don_vi -->
                 <div class="form-group m-1">
                     <label for="nhap_hoa_don--sl">So Luong</label>
-                    <input class='form-control' id='nhap_hoa_don--sl' name='sl' required type=number value=1>
+                    <input class='form-control' id='nhap_hoa_don--sl' name='so_luong' required type=number value=1>
                 </div>
 
             </div>

@@ -28,7 +28,7 @@ class EditThuocModal {
         const maThuocDeUpdate = form.attr("id_value");
 
         try {
-            const res = await this.app.thuoc.update(maThuocDeUpdate, data);
+            const res = await this.app.model.thuoc.update(maThuocDeUpdate, data);
 
             alert("Success: " + res + " record(s)");
             window.location.reload();
@@ -38,7 +38,7 @@ class EditThuocModal {
     }
 
     public handleNccInput(target: JQuery<HTMLElement>) {
-        const autocomplete = new AutoComplete(target, this.app.ncc);
+        const autocomplete = new AutoComplete(target, this.app.model.ncc);
         autocomplete.setLookup(["ten"]);
         autocomplete.onChoose((data) => {
             target.val(data.ten);
@@ -48,7 +48,7 @@ class EditThuocModal {
 
     public handleDonViSelect(target: JQuery<HTMLElement>) {
         target.html("");
-        this.app.donVi.renderSelectInput(target);
+        this.app.model.donVi.renderSelectInput(target);
     }
 
     public show(data) {

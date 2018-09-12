@@ -25,7 +25,7 @@ class AddThuocModal {
         };
 
         try {
-            const res = await this.app.thuoc.add(data.ma, data.so_luong, data.tong_gia);
+            const res = await this.app.model.thuoc.add(data.ma, data.so_luong, data.tong_gia);
 
             alert("success: " + res.ma + "=>" + res.so_luong_moi);
             window.location.reload();

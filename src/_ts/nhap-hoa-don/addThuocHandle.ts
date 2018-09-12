@@ -1,13 +1,15 @@
 import { App } from "../App";
 import { AutoComplete } from "../AutoComplete";
+import { getFormValue } from "../formVal";
 
 function init(app: App) {
     handleTenThuocInput(app);
     handleDonViSelectInput(app);
+    handleForm(app);
 }
 
 function handleTenThuocInput(app: App) {
-    const autocomplete = new AutoComplete("nhap_hoa_don--ten_thuoc", app.thuoc);
+    const autocomplete = new AutoComplete("nhap_hoa_don--ten_thuoc", app.model.thuoc);
     autocomplete.setLookup(["ma", "ten", "ncc", "don_vi", "don_gia"]);
     autocomplete.listen();
     autocomplete.onChoose((data) => {
@@ -20,7 +22,16 @@ function handleTenThuocInput(app: App) {
 }
 
 function handleDonViSelectInput(app: App) {
-    app.donVi.renderSelectInput($("#nhap_hoa_don--don_vi"));
+    app.model.donVi.renderSelectInput($("#nhap_hoa_don--don_vi"));
+}
+
+function handleForm(app: App) {
+    $("#nhap_hoa_don--them_thuoc").on("submit", (e) => {
+        const form = $(e.target) as JQuery<HTMLElement>;
+        const data = getFormValue(form);
+        app.view.hoaDon.addCTHD(data);
+        app.view.hoaDon.render();
+    });
 }
 
 export {init as addThuocHandle};

@@ -7,7 +7,7 @@ class ThuocTable extends ViewTable {
     protected funcCtxEdit: () => any;
     protected funcCtxEditPrice: () => any;
 
-    public constructor() {
+    public constructor(thuocModel: Thuoc) {
         super();
         this.element = $("<table/>").addClass("table table-striped table-view");
         this.element.html(`
@@ -20,7 +20,7 @@ class ThuocTable extends ViewTable {
         <tbody></tbody>
         `);
 
-        this.model = new Thuoc();
+        this.model = thuocModel;
     }
 
     public onContextAdd(func) {
@@ -54,7 +54,7 @@ class ThuocTable extends ViewTable {
             icon: "fa fa-dollar-sign",
             click: (e) => {
                 this.funcCtxEditPrice();
-            }
+            },
         });
     }
 }

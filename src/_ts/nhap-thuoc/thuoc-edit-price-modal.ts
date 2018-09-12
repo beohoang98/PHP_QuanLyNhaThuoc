@@ -24,7 +24,7 @@ class EditPriceThuocModal {
         const price = +form.find("[name=price]").val();
 
         try {
-            const res = await this.app.bangGia.add(ma, price);
+            const res = await this.app.model.bangGia.add(ma, price);
             alert("Success");
             window.location.reload();
         } catch (err) {
