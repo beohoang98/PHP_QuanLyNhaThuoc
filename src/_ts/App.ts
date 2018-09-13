@@ -2,15 +2,20 @@ import { KeyEvent } from "./KeyEvent";
 import { Thuoc } from "./Model/Thuoc";
 import { HoaDon } from "./Model/HoaDon";
 import { DonVi } from "./Model/DonVi";
+import { Ncc } from "./Model/Ncc";
+import { BangGia } from "./Model/BangGia";
+import { ThuocTable } from "./View/ThuocTable";
+import { HoaDonNhap } from "./View/HoaDonNhap";
 
 class App {
     public page: string;
     public keyevent: KeyEvent;
 
-    public thuoc: Thuoc;
-    public hoaDon: HoaDon;
-    public donVi: DonVi;
-    // public ncc:
+    public model: {thuoc, donVi, ncc, bangGia, hoaDon};
+    public view: {
+        thuoc: ThuocTable,
+        hoaDon: HoaDonNhap,
+    };
 
     public constructor() {
         this.switchToPage(this.getPageFromUrl());
@@ -19,8 +24,18 @@ class App {
         this.handleSetting();
         this.handleModal();
 
-        this.thuoc = new Thuoc();
-        this.donVi = new DonVi();
+        this.model = {
+            thuoc: new Thuoc(),
+            ncc: new Ncc(),
+            donVi: new DonVi(),
+            hoaDon: new HoaDon(),
+            bangGia: new BangGia(),
+        };
+
+        this.view = {
+            thuoc: new ThuocTable(this.model.thuoc),
+            hoaDon: null,
+        };
     }
 
     public getUsername() {

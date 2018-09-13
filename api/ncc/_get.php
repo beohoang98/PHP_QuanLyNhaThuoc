@@ -1,9 +1,7 @@
 <?php
-$db = new \Api\ConnectDatabase();
-$res = $db->table("ncc")->find([])->execute();
+$qlnt = new \Api\QLNT();
 
-if ($res->ok) {
-    \Api\returnSuccess($res->data);
-} else {
-    \Api\returnError($res->errMsg);
-}
+$search = isset($_GET["q"]) ? $_GET["q"] : "";
+
+$data = $qlnt->searchNhaCungCap($search);
+\Api\returnSuccess($data);

@@ -84,7 +84,7 @@ class ConnectDatabase
         $whereStr = join(
             " AND ",
             array_map(function ($key, $val) {
-                return "$key = $val";
+                return "$key = ".$this->renderValue($val);
             }, array_keys($fieldsMatch), $fieldsMatch)
         );
 
@@ -98,8 +98,12 @@ class ConnectDatabase
 
     public function insert($fieldAndValue)
     {
+        $valueArr = array_map(function ($val) {
+            return $this->renderValue($val);
+        }, array_values($fieldAndValue));
+
         $fieldStr = join(", ", array_keys($fieldAndValue));
-        $valueStr = join(", ", array_values($fieldAndValue));
+        $valueStr = join(", ", $valueArr);
         $this->query = "INSERT INTO $this->table ($fieldStr) VALUES ($valueStr)";
         return $this;
     }
@@ -114,13 +118,13 @@ class ConnectDatabase
         $setStr = join(
             ", ",
             array_map(function ($key, $value) {
-                return "$key = $value";
+                return "$key = ".$this->renderValue($value);
             }, array_keys($fieldsUpdate), $fieldsUpdate)
         );
         $whereStr = join(
             " AND ",
             array_map(function ($key, $value) {
-                return "$key = $value";
+                return "$key = ".$this->renderValue($value);
             }, array_keys($fieldsMatch), $fieldsMatch)
         );
 
@@ -132,5 +136,24 @@ class ConnectDatabase
     public function lastInsertId()
     {
         return $this->mSQL->lastInsertId();
+    }
+
+    public function toArray(): array
+    {
+        return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * convert number 1 to "1"
+     * convert string xyz to "'xyz'"
+     */
+    private function renderValue($value): string
+    {
+        if (ctype_digit("$value")) {
+            return "$value";
+        } else {
+            $value = str_replace("'", "", $value);
+            return "'$value'";
+        }
     }
 }

@@ -2,7 +2,11 @@
 namespace Api;
 
 require_once "connectdb.php";
+require_once $_SERVER["DOCUMENT_ROOT"]."/src/connect_app/index.php";
 
+/**
+ * Quan Ly Nha Thuoc API to Database
+ */
 class QLNT
 {
     private $dbconn;
@@ -27,7 +31,8 @@ class QLNT
         $res = $this->dbconn
                     ->query("SELECT thuoc.ma as ma, thuoc.ten as ten, ncc.ten as 'ten_ncc', "
                             ."IFNULL(bang_gia.price,'chua_cap_nhat') as 'don_gia', "
-                            ."IFNULL(kho_thuoc.so_luong, 0) as 'so_luong' "
+                            ."IFNULL(kho_thuoc.so_luong, 0) as 'so_luong', "
+                            ."thuoc.id_don_vi as 'id_don_vi' "
                             ."FROM thuoc "
                             ."LEFT JOIN ncc ON thuoc.id_ncc = ncc.id "
                             ."LEFT JOIN kho_thuoc ON thuoc.ma = kho_thuoc.ma_thuoc "
@@ -118,6 +123,18 @@ class QLNT
      */
     public function suaThongTinThuoc(string $ma, array $editInfo)
     {
+        if (isset($editInfo["ncc"])) {
+            $ncc = $editInfo["ncc"];
+            unset($editInfo["ncc"]);
+
+            $res = $this->getNhaCungCap($ncc);
+            if (count($res) === 0) {
+                $res = $this->themNhaCungCap($ncc, "");
+                $editInfo["id_ncc"] = $res;
+            } else {
+                $editInfo["id_ncc"] = $res[0]["id"];
+            }
+        }
         $res = $this->dbconn->table("thuoc")->update(["ma"=>"'$ma'"], $editInfo)->execute();
         return $res->rowCount();
     }
@@ -150,6 +167,70 @@ class QLNT
     public function getDonVi(): array
     {
         $res = $this->dbconn->table("don_vi")->find([])->execute();
-        return $res->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->dbconn->toArray();
+    }
+
+    public function getNhaCungCap($name): array
+    {
+        $res = $this->dbconn->query("SELECT * FROM ncc WHERE ten = '$name';")->execute();
+        return $this->dbconn->toArray();
+    }
+
+    public function searchNhaCungCap($name): array
+    {
+        $res = $this->dbconn->query("SELECT * FROM ncc WHERE ten LIKE '$name%';")->execute();
+        return $this->dbconn->toArray();
+    }
+
+    public function themNhaCungCap($name, $info = ""): int
+    {
+        $res = $this->dbconn->table("ncc")->insert(["ten"=>$name, "info"=>$info])->execute();
+        return $res->lastInsertId();
+    }
+
+    public function getBangGia(string $ma_thuoc): array
+    {
+        $res = $this->dbconn->table("bang_gia")->find(["ma_thuoc"=>$ma_thuoc])->execute();
+        return $this->dbconn->toArray();
+    }
+
+    public function themChinhGia($ma_thuoc, $gia_moi, $username)
+    {
+        $res = $this->dbconn->table("thuoc")->find(["ma"=>$ma_thuoc])->execute();
+        if ($res->rowCount() === 0) {
+            throw new \Exception("Ma thuoc '$ma_thuoc' khong ton tai");
+        }
+
+        $res = $this->dbconn->table("bang_gia")->insert([
+            "ma_thuoc"=>$ma_thuoc,
+            "price"=>$gia_moi,
+            "username"=>$username,
+            "thoi_gian"=>"".date("Y:m:d H:i:s")
+        ])->execute();
+    }
+
+    
+    // ----------- HOA DON -----------------
+    public function themHoaDon(\App\HoaDon $hoadon)
+    {
+        $res = $this->dbconn->table("hoa_don")->insert([
+            "time"=>$hoadon->getTime(),
+            "username"=>$hoadon->getUsername(),
+            "so_luong"=>$hoadon->getSoLuong(),
+            "kieu_ban"=>$hoadon->getLoai(),
+            "tong_gia"=>$hoadon->getTongGia()
+        ])->execute();
+
+        $idHoaDon = $res->lastInsertId();
+
+        foreach ($hoadon->getListCTHD() as $cthd) {
+            $this->dbconn->table("ct_hoa_don")->insert([
+                "id_hoa_don"=>$idHoaDon,
+                "ma_thuoc"=>$cthd->getMaThuoc(),
+                "so_luong"=>$cthd->getSoLuong()
+            ])->execute();
+        }
+
+        return $idHoaDon;
     }
 }
