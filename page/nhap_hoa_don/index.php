@@ -30,7 +30,7 @@
         <!-- button -->
         <div class="form-group m-1">
             <label for="">&nbsp;</label>
-            <input class='form-control btn btn-dark' type="submit" value="Them">
+            <button class='form-control btn btn-dark' type="submit">Thêm</button>
         </div>
 
         <!-- button to show advance -->
@@ -113,7 +113,7 @@
         <div class="form-group">
             <div class='p-1'>
                 <label class='p-1' for="ban-lieu">BAN THEO LIEU</label>
-                <input id="ban-lieu" type="radio" class="form-control float-left" name='kieu-ban' value='lieu'>
+                <input id="ban-lieu" type="radio" class="form-control float-left" name='kieu-ban' value='lieu' checked>
             </div>
             <div class='p-1'>
                 <label class='p-1' for="ban-le">BAN LE</label>
@@ -124,13 +124,13 @@
         <!-- GIA 1 LIEU -->
         <div class="form-group ml-4">
             <label for="">GIA MOT LIEU</label>
-            <input class='form-control' type="text">
+            <input id="nhap_hoa_don--custom_gia" class='form-control' type="text" value="8000">
         </div>
 
         <!-- TONG GIA -->
         <div class="form-group ml-4">
             <label for="">TONG GIA</label>
-            <input class='form-control' type="text">
+            <input id="nhap_hoa_don--tong_gia" class='form-control' type="text">
         </div>
 
         <!-- SO LUONG LIEU -->
@@ -139,6 +139,6 @@
             <input class='form-control' type="number" value=1>
         </div>
 
-        <button class="btn btn-primary m-4 flex-grow-1">NHAP</button>
+        <button id="nhap_hoa_don--submit" class="btn btn-primary m-4 flex-grow-1">NHAP</button>
     </div>
 </div>

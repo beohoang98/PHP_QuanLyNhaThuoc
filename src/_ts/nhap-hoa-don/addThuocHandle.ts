@@ -1,6 +1,7 @@
 import { App } from "../App";
 import { AutoComplete } from "../AutoComplete";
 import { getFormValue } from "../formVal";
+import { HoaDonNhap } from "../View/HoaDonNhap";
 
 function init(app: App) {
     handleTenThuocInput(app);
@@ -17,7 +18,7 @@ function handleTenThuocInput(app: App) {
         $("#nhap_hoa_don--ten_thuoc").val(data.ten);
         $("#nhap_hoa_don--ncc").val(data.ncc);
         $("#nhap_hoa_don--gia").val(data.don_gia);
-        $("#nhap_hoa_don--don_vi").val(data.don_vi);
+        $("#nhap_hoa_don--don_vi").val(data.id_don_vi);
     });
 }
 
@@ -26,11 +27,28 @@ function handleDonViSelectInput(app: App) {
 }
 
 function handleForm(app: App) {
+    app.view.hoaDon = new HoaDonNhap("nhap_hoa_don--table");
+    app.view.hoaDon.onUpdateTongGia((gia) => {
+        $("#nhap_hoa_don--tong_gia").val(gia);
+    });
     $("#nhap_hoa_don--them_thuoc").on("submit", (e) => {
+        e.preventDefault();
         const form = $(e.target) as JQuery<HTMLElement>;
         const data = getFormValue(form);
-        app.view.hoaDon.addCTHD(data);
-        app.view.hoaDon.render();
+        form.find("input[type=text]").val("");
+        form.find("input[name=ten_thuoc]").focus();
+        app.view.hoaDon.addHoaDon({
+            ma_thuoc: data.ma_thuoc,
+            ten_thuoc: data.ten_thuoc,
+            so_luong: data.so_luong,
+            don_gia: data.don_gia,
+            thanh_tien: data.don_gia * data.so_luong,
+        });
+    });
+
+    $("input[name='kieu-ban']").on("change", function() {
+        const kieu = "" + $(this).val();
+        app.view.hoaDon.setKieu(kieu);
     });
 }
 

@@ -31,7 +31,8 @@ class QLNT
         $res = $this->dbconn
                     ->query("SELECT thuoc.ma as ma, thuoc.ten as ten, ncc.ten as 'ten_ncc', "
                             ."IFNULL(bang_gia.price,'chua_cap_nhat') as 'don_gia', "
-                            ."IFNULL(kho_thuoc.so_luong, 0) as 'so_luong' "
+                            ."IFNULL(kho_thuoc.so_luong, 0) as 'so_luong', "
+                            ."thuoc.id_don_vi as 'id_don_vi' "
                             ."FROM thuoc "
                             ."LEFT JOIN ncc ON thuoc.id_ncc = ncc.id "
                             ."LEFT JOIN kho_thuoc ON thuoc.ma = kho_thuoc.ma_thuoc "

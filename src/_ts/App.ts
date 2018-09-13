@@ -5,14 +5,17 @@ import { DonVi } from "./Model/DonVi";
 import { Ncc } from "./Model/Ncc";
 import { BangGia } from "./Model/BangGia";
 import { ThuocTable } from "./View/ThuocTable";
-import { CTHoaDonList } from "./View/CTHoaDonList";
+import { HoaDonNhap } from "./View/HoaDonNhap";
 
 class App {
     public page: string;
     public keyevent: KeyEvent;
 
     public model: {thuoc, donVi, ncc, bangGia, hoaDon};
-    public view: {thuoc, hoaDon};
+    public view: {
+        thuoc: ThuocTable,
+        hoaDon: HoaDonNhap,
+    };
 
     public constructor() {
         this.switchToPage(this.getPageFromUrl());
@@ -31,7 +34,7 @@ class App {
 
         this.view = {
             thuoc: new ThuocTable(this.model.thuoc),
-            hoaDon: new CTHoaDonList(this.model.hoaDon),
+            hoaDon: null,
         };
     }
 
