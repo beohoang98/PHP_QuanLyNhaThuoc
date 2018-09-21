@@ -233,4 +233,9 @@ class QLNT
 
         return $idHoaDon;
     }
+
+    public function getHoaDonList($search, $offset, $limit): array
+    {
+        //
+    }
 }

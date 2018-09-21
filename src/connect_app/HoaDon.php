@@ -12,22 +12,20 @@ class HoaDon
     const BAN_DEFAULT = HoaDon::BAN_LIEU;
 
     // member
-    private $listCTHD;
-    private $loai;
-    private $tongGia;
+    private $id;
+    private $listCTHD = [];
+    private $loai = HoaDon::BAN_DEFAULT;
+    private $tongGia = 0;
     private $customGia;
 
-    public function __contruct($giaCustom = 8000)
+    public function __construct($giaCustom = 8000)
     {
-        $this->listCTHD = [];
-        $this->loai = BAN_DEFAULT;
-        $this->tongGia = 0;
         $this->customGia = $giaCustom;
     }
 
     public function getListCTHD()
     {
-        return $this->lishCTHD;
+        return $this->listCTHD;
     }
 
     public function getLoai()
@@ -46,10 +44,25 @@ class HoaDon
         $this->updateTongGia();
     }
 
-    public function setLoai(string $loai)
+    public function setLoai(int $loai)
     {
         $this->loai = $loai;
         $this->updateTongGia();
+    }
+
+    public function toArray(): array
+    {
+        $cthdArr = array_map(function ($val) {
+            return $val->toArray();
+        }, $this->listCTHD);
+
+        return [
+            // "id"=>$this->id,
+            "loai"=>$this->loai,
+            "tongGia"=>$this->tongGia,
+            "customGia"=>$this->customGia,
+            "cthd"=>$cthdArr
+        ];
     }
 
     private function updateTongGia()

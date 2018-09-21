@@ -6,6 +6,7 @@ require_once "checkSessionForApi.php";
 require_once "connectdb.php";
 require_once "_returnJSON.php";
 require_once "_qlntAPI.php";
+require_once __DIR__."/../../src/connect_app/index.php";
 
 function checkSessionAndConnect()
 {
